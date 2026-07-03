@@ -64,8 +64,12 @@ main { flex: 1; }
 .meta-label { color: #687286; font: .65rem 'DM Mono',monospace; letter-spacing: .12em; }
 .chip-row,.large-chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
 .chip { padding: 5px 9px; border: 1px solid #30394a; border-radius: 5px; color: #aeb6c5; font-size: .68rem; }
-.text-link { display: flex; justify-content: space-between; padding-top: 19px; margin-top: auto; border-top: 1px solid var(--line); font-size: .8rem; font-weight: 600; }
+.card-footer { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.text-link { display: flex; justify-content: space-between; padding-top: 19px; border-top: 1px solid var(--line); font-size: .8rem; font-weight: 600; }
 .text-link span { color: var(--accent); }
+.deploy-link { display: flex; justify-content: space-between; font-size: .78rem; font-weight: 600; color: #aeb6c5; }
+.deploy-link:hover { color: var(--accent); }
+.deploy-link span { color: var(--accent); }
 .center-action { margin-top: 40px; text-align: center; }
 .compact-cta { padding-block: 68px; }
 .cta-box { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 50px; border-radius: 16px; background: #756cff; color: #0a0e19; }
