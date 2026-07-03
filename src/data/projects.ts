@@ -83,7 +83,7 @@ export const projects: Project[] = [
       { title: '실시간 알림의 신뢰성 확보', situation: '탐지된 모든 객체를 알림으로 보내면 관리자가 정작 중요한 위험 신호를 놓칠 위험이 있었습니다.', solution: 'Flask-SocketIO 기반으로 위험·긴급 단계로 분류된 이벤트만 필터링해 관리자 화면에 실시간 전송하도록 구성했습니다.', result: '불필요한 알림을 줄이고 실제 대응이 필요한 상황에 집중할 수 있게 되었습니다.' },
       { title: '관리자 권한 구조 설계', situation: '일반 회원과 관리자 권한을 구분하고 신청·승인하는 흐름이 없어 접근 통제가 불명확했습니다.', solution: '회원 권한 신청 구조를 설계하고, 신청 리스트 확인과 상태 변경이 가능한 관리자 페이지를 구현했습니다.', result: '권한별 접근을 명확히 통제하고 관리자 승인 프로세스를 갖출 수 있었습니다.' },
     ],
-    screenshots: [{ src: '/images/404rnf-placeholder.svg', alt: '404RNF 관제 화면 placeholder', caption: '탐지 현황 및 관리자 화면 · 실제 캡처로 교체 예정' }],
+    screenshots: [{ src: '/images/404rnf-01.png', alt: '404RNF 메인 화면', caption: '메인 화면 · 실시간 낙하물 탐지 소개' }],
     documents: [{ label: '시연 영상', url: 'https://youtu.be/Iet2QiSkU5s' }, { label: '발표자료', placeholder: true }, { label: '코드리뷰', placeholder: true }],
     deploy: { label: '배포 사이트', url: 'https://404-rnf.ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/lms-mini-project/AI-accident-detection' },
     retrospective: 'AI 탐지부터 실시간 알림, 지도 기반 위험 분석까지 이어지는 전체 파이프라인을 팀과 함께 설계하고 구현했습니다. 모델 성능뿐 아니라 실시간성, 권한 관리, 데이터 흐름을 함께 고려해야 실제로 동작하는 안전 서비스가 된다는 것을 배웠습니다.', accent: '#ffbe70',
