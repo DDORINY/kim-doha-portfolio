@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import ProjectCard from '../components/ProjectCard'
 import SectionHeading from '../components/SectionHeading'
+import SideProjectCard from '../components/SideProjectCard'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
+import { sideProjects } from '../data/sideProjects'
 
 export default function Home() {
   return (
@@ -42,6 +44,14 @@ export default function Home() {
           <div className="center-action"><Link className="button secondary" to="/projects">전체 프로젝트 보기 →</Link></div>
         </div>
       </section>
+      {sideProjects.length > 0 && (
+        <section className="section side-projects">
+          <div className="container">
+            <SectionHeading eyebrow="SIDE & MINI BUILDS" title="기타 프로젝트" description="짧게 만들어보고 배포까지 이어본 개인 프로젝트입니다." />
+            <div className="side-project-grid">{sideProjects.map((project) => <SideProjectCard project={project} key={project.name} />)}</div>
+          </div>
+        </section>
+      )}
       <section className="section compact-cta">
         <div className="container cta-box"><div><span className="eyebrow">LEARNING LOG</span><h2>AI 개발자로 성장하는 과정을 기록합니다.</h2></div><Link className="button light" to="/ai-learning">AI Learning</Link></div>
       </section>
