@@ -1,6 +1,7 @@
 import { type ReactNode, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { profile } from '../data/profile'
+import ThemeSwitcher from './ThemeSwitcher'
 
 const navItems = [
   { to: '/', label: 'Home', end: true },
@@ -22,16 +23,19 @@ export default function Layout({ children }: { children: ReactNode }) {
             <span className="brand-mark">D.</span>
             <span>DOHA KIM</span>
           </Link>
-          <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="메뉴 열기">
-            <span /><span />
-          </button>
-          <nav className={open ? 'nav open' : 'nav'} aria-label="주요 메뉴">
-            {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
+          <div className="header-actions">
+            <nav className={open ? 'nav open' : 'nav'} aria-label="주요 메뉴">
+              {navItems.map((item) => (
+                <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
+            <ThemeSwitcher />
+            <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="메뉴 열기">
+              <span /><span />
+            </button>
+          </div>
         </div>
       </header>
       <main key={location.pathname}>{children}</main>
