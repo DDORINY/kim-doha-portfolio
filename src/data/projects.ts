@@ -1,8 +1,4 @@
-export type ProjectLink = {
-  label: string
-  url?: string
-  placeholder?: boolean
-}
+export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
 
 export type Project = {
   slug: 'staccato' | 'erp' | '404rnf'
@@ -15,6 +11,7 @@ export type Project = {
   role: string[]
   features: string[]
   techStack: string[]
+  systemFlow: { label: string; description: string }[]
   troubleshooting: { title: string; situation: string; solution: string; result: string }[]
   screenshots: { src: string; alt: string; caption: string }[]
   documents: ProjectLink[]
@@ -26,76 +23,58 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'staccato',
-    name: 'STACCATO',
-    type: '파이널 팀 프로젝트',
-    period: '기간 입력 예정',
-    tagline: '사용자의 일상을 차곡차곡 기록하는 서비스',
-    summary: '팀 프로젝트로 기획부터 UI 구현, 협업까지 경험한 대표 프로젝트입니다. 실제 세부 내용과 수치는 자료 확정 후 교체할 수 있습니다.',
-    background: '흩어지는 일상의 순간을 간편하게 남기고 다시 발견할 수 있는 경험을 만들기 위해 시작했습니다.',
-    role: ['프론트엔드 화면 설계 및 구현', '재사용 가능한 UI 컴포넌트 구성', 'API 연동 및 상태 처리', '팀 협업과 이슈 관리'],
-    features: ['기록 생성 및 조회', '사용자별 콘텐츠 관리', '검색과 필터', '반응형 주요 화면'],
-    techStack: ['React', 'TypeScript', 'Vite', 'CSS', 'REST API'],
-    troubleshooting: [{
-      title: '비동기 화면의 상태 일관성',
-      situation: '데이터 요청 시 로딩·성공·오류 상태가 화면마다 다르게 처리되는 문제가 있었습니다.',
-      solution: '요청 상태와 UI 표현 규칙을 정리하고 공통 컴포넌트로 분리했습니다.',
-      result: '중복 코드를 줄이고 사용자가 현재 상태를 명확히 이해할 수 있도록 개선했습니다.',
-    }],
-    screenshots: [{ src: '/images/staccato-placeholder.svg', alt: 'STACCATO 화면 placeholder', caption: '대표 화면 · 실제 캡처로 교체 예정' }],
-    documents: [{ label: '프로젝트 발표 자료', placeholder: true }, { label: '기능 명세서', placeholder: true }],
-    deploy: { label: '배포 사이트', placeholder: true },
+    slug: 'staccato', name: 'STACCATO', type: 'AI 관제 시스템 · Final Project', period: 'Final Project',
+    tagline: 'AI 기반 고속도로 갓길 정차 탐지 관제 시스템',
+    summary: 'CCTV 영상에서 차량을 탐지하고 ROI 안의 정차 여부를 판단해 관리자가 이벤트를 확인할 수 있도록 연결한 AI 관제 서비스입니다. AI 추론 결과를 웹, API, 데이터베이스, VM 인프라와 이어 실제 운영 가능한 흐름으로 정리했습니다.',
+    background: '고속도로 갓길 정차 차량을 빠르게 인지하고 대응할 수 있도록, 차량 탐지부터 관리자 확인까지 일관된 관제 흐름을 만들기 위해 시작했습니다.',
+    role: ['프론트엔드 MVP 기능과 화면 흐름 정리', 'Flask API 연동 상태 및 응답 흐름 점검', 'AI VM / Flask VM / Frontend VM / DB VM 구조 문서화', '보안로그 미리보기 및 다운로드 흐름 점검', '운영 점검 체크리스트 작성', '결과보고서와 발표자료 문서화'],
+    features: ['CCTV 영상 기반 차량 객체 탐지', 'ROI 기반 갓길 진입 및 정차 판단', '탐지 이벤트 관리자 대시보드', '보안로그 미리보기와 다운로드', '이벤트 데이터 조회', '서비스별 VM 분리 운영'],
+    techStack: ['Next.js', 'Flask', 'FastAPI', 'MySQL', 'YOLO', 'Computer Vision', 'VM Infra'],
+    systemFlow: [
+      { label: 'CCTV Stream', description: '도로 영상을 추론 입력으로 전달' },
+      { label: 'AI VM', description: 'YOLO 탐지와 ROI 정차 판단' },
+      { label: 'Flask VM', description: '추론 결과를 API로 연결' },
+      { label: 'DB VM', description: '탐지·운영 데이터 저장' },
+      { label: 'Frontend VM', description: '관리자 관제 화면 제공' },
+    ],
+    troubleshooting: [
+      { title: '분리된 서비스의 연동 흐름 가시화', situation: 'AI 추론, API, 프론트엔드, DB가 서로 다른 VM에서 동작해 장애 지점을 파악하기 어려웠습니다.', solution: '서비스를 역할별 VM으로 구분하고 요청·응답과 데이터 저장 흐름을 다이어그램 및 체크리스트로 정리했습니다.', result: '시연 전 검증 순서와 문제 추적 경로가 명확해졌습니다.' },
+      { title: '보안로그 확인 경험 개선', situation: '운영자가 내용을 확인하려면 로그 파일을 먼저 내려받아야 했습니다.', solution: '웹에서 로그를 미리 본 뒤 필요한 경우 다운로드하는 흐름과 예외 상태를 점검했습니다.', result: '불필요한 다운로드를 줄이고 로그 확인 동선을 단순화했습니다.' },
+    ],
+    screenshots: [{ src: '/images/staccato-placeholder.svg', alt: 'STACCATO 관리자 대시보드 placeholder', caption: '관리자 관제 화면 · 실제 캡처로 교체 예정' }],
+    documents: [{ label: '결과보고서', placeholder: true }, { label: '발표자료', placeholder: true }, { label: '운영 점검 체크리스트', placeholder: true }],
+    deploy: { label: 'STACCATO Live Demo', url: 'https://mbc-sw.iptime.org:3221/' },
     github: { label: 'GitHub 저장소', placeholder: true },
-    retrospective: '팀 단위로 하나의 제품을 완성하며 명확한 인터페이스 정의와 작은 단위의 공유가 개발 속도와 품질 모두에 중요하다는 점을 배웠습니다.',
-    accent: '#6c63ff',
+    retrospective: '모델 정확도만으로 AI 서비스가 완성되지는 않습니다. 추론 결과가 API와 DB를 거쳐 사용자의 판단으로 이어지고, 운영자가 문제를 점검할 수 있어야 실제로 사용할 수 있는 서비스가 된다는 점을 배웠습니다.', accent: '#70e1f5',
   },
   {
-    slug: 'erp',
-    name: 'CommerceOps ERP',
-    type: 'ERP 프로그램',
-    period: '기간 입력 예정',
-    tagline: '커머스 운영 업무를 한 화면에서 관리하는 ERP',
-    summary: '상품, 주문, 재고 등 커머스 운영 데이터를 효율적으로 확인하고 관리하기 위한 관리자용 프로그램입니다.',
-    background: '반복적인 운영 업무와 분산된 데이터를 일관된 인터페이스로 통합해 실무자의 작업 효율을 높이는 것을 목표로 했습니다.',
-    role: ['관리자 대시보드 UI 구현', '데이터 테이블 및 필터 설계', '폼 유효성 검사와 사용자 피드백 처리', '공통 레이아웃 및 컴포넌트 개발'],
-    features: ['운영 현황 대시보드', '상품 및 재고 관리', '주문 상태 관리', '검색·필터·페이지네이션'],
-    techStack: ['React', 'TypeScript', 'Vite', 'CSS Modules', 'REST API'],
-    troubleshooting: [{
-      title: '복잡한 테이블의 사용성 개선',
-      situation: '정보가 많은 테이블에서 중요한 상태를 빠르게 파악하기 어려웠습니다.',
-      solution: '정보 우선순위를 재정의하고 상태 배지, 고정 액션, 필터 구조를 적용했습니다.',
-      result: '핵심 데이터 탐색 단계가 단순해지고 업무 흐름이 선명해졌습니다.',
-    }],
-    screenshots: [{ src: '/images/erp-placeholder.svg', alt: 'CommerceOps ERP 화면 placeholder', caption: '대시보드 화면 · 실제 캡처로 교체 예정' }],
-    documents: [{ label: '화면 설계서', placeholder: true }, { label: '프로젝트 문서', placeholder: true }],
-    deploy: { label: '데모 사이트', placeholder: true },
-    github: { label: 'GitHub 저장소', placeholder: true },
-    retrospective: '관리자 도구는 시각적 장식보다 정보 구조와 피드백 속도가 중요했습니다. 사용자의 다음 행동을 예측하는 UI 설계를 연습할 수 있었습니다.',
-    accent: '#25c2a0',
+    slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · ERP Program', period: 'Team Project',
+    tagline: '쇼핑몰 운영 데이터를 하나의 흐름으로 연결한 실무형 ERP',
+    summary: '상품 등록부터 주문, 결제, 재고, 관리자 확인까지 쇼핑몰 운영 데이터 흐름을 구현했습니다. AI 기능이 의존할 백엔드 API, 데이터베이스, 인증, 관리자 시스템의 기반 역량을 보여주는 프로젝트입니다.',
+    background: '상품, 주문, 결제, 재고를 분리된 기능이 아닌 하나의 서비스 흐름으로 이해하고 안정적인 관리자 경험을 구현하기 위해 진행했습니다.',
+    role: ['상품·카테고리 관리 화면 구현', '장바구니와 주문·결제 흐름 구현', '재고 데이터 상태 처리', '관리자 대시보드 UI 구성', 'Spring Boot API 연동', 'JWT 인증 흐름 적용'],
+    features: ['상품 및 카테고리 관리', '장바구니와 주문 생성', '결제 상태 관리', '재고 수량 관리', '관리자 대시보드', 'JWT 사용자 인증'],
+    techStack: ['Next.js', 'Spring Boot', 'MySQL', 'JWT', 'REST API'],
+    systemFlow: [{ label: 'Customer / Admin', description: '사용자와 관리자의 요청' }, { label: 'Next.js', description: '스토어·관리자 UI 제공' }, { label: 'Spring Boot API', description: '도메인 로직과 인증 처리' }, { label: 'MySQL', description: '운영 데이터 저장' }],
+    troubleshooting: [{ title: '주문과 재고 상태의 일관성', situation: '주문·결제·재고가 연속 변경되어 상태 누락 시 화면과 데이터가 달라질 수 있었습니다.', solution: '도메인별 상태 변화와 API 요청 순서를 명시하고 요청 중·성공·실패 UI를 분리했습니다.', result: '데이터 흐름을 추적하기 쉬워지고 현재 상태를 명확히 전달할 수 있었습니다.' }],
+    screenshots: [{ src: '/images/erp-placeholder.svg', alt: 'CommerceOps ERP 대시보드 placeholder', caption: 'ERP 관리자 화면 · 실제 캡처로 교체 예정' }],
+    documents: [{ label: '기능 명세서', placeholder: true }, { label: 'ERD 및 API 문서', placeholder: true }],
+    deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', placeholder: true },
+    retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요합니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다졌습니다.', accent: '#8b80ff',
   },
   {
-    slug: '404rnf',
-    name: '404rnf',
-    type: '미니프로젝트',
-    period: '기간 입력 예정',
-    tagline: '짧고 선명한 아이디어를 빠르게 구현한 미니프로젝트',
-    summary: '제한된 기간 안에 핵심 사용자 흐름을 정의하고 완성도 있는 프론트엔드 결과물을 만든 프로젝트입니다.',
-    background: '작은 범위의 아이디어를 빠르게 검증하며 기획, 구현, 배포의 전체 사이클을 경험하기 위해 진행했습니다.',
-    role: ['핵심 사용자 흐름 기획', '페이지 UI와 인터랙션 구현', '반응형 레이아웃 적용', '정적 배포 환경 구성'],
-    features: ['핵심 콘텐츠 탐색', '상세 정보 확인', '사용자 액션 피드백', '모바일 최적화'],
-    techStack: ['React', 'JavaScript', 'Vite', 'CSS', 'GitHub Pages'],
-    troubleshooting: [{
-      title: '제한된 일정에서의 범위 관리',
-      situation: '짧은 개발 기간에 부가 기능까지 구현하면 핵심 흐름의 완성도가 낮아질 위험이 있었습니다.',
-      solution: 'Must/Should/Could 기준으로 기능을 분류하고 핵심 흐름을 먼저 완성했습니다.',
-      result: '일정 안에 배포 가능한 결과물을 확보하고 이후 개선 지점도 명확히 남겼습니다.',
-    }],
-    screenshots: [{ src: '/images/404rnf-placeholder.svg', alt: '404rnf 화면 placeholder', caption: '프로젝트 화면 · 실제 캡처로 교체 예정' }],
-    documents: [{ label: '프로젝트 회고', placeholder: true }],
-    deploy: { label: '배포 사이트', placeholder: true },
-    github: { label: 'GitHub 저장소', placeholder: true },
-    retrospective: '완성도를 높이기 위해서는 기능을 많이 넣는 것보다 가장 중요한 사용자 경험을 먼저 끝까지 연결하는 것이 중요하다는 점을 체감했습니다.',
-    accent: '#ffb45c',
+    slug: '404rnf', name: '404rnf', type: 'Web Service · Mini Project', period: 'Mini Project',
+    tagline: '짧은 기간 안에 기획부터 배포까지 완주한 팀 웹 서비스',
+    summary: '팀 협업을 바탕으로 기획, 기능 구현, Git 협업, 배포의 전체 사이클을 경험했습니다. 기본 웹 서비스 구현 능력과 빠르게 합의하고 결과물을 만드는 과정을 보여줍니다.',
+    background: '제한된 일정 안에 핵심 사용자 흐름을 정의하고 팀원들과 코드를 합쳐 실제 동작하는 웹 서비스를 배포하는 것을 목표로 했습니다.',
+    role: ['핵심 사용자 흐름 기획 참여', '담당 화면과 기능 구현', 'Git 브랜치 기반 협업', '통합 테스트 및 배포 경험'],
+    features: ['핵심 콘텐츠 탐색', '상세 정보 확인', '사용자 액션 피드백', '반응형 웹 화면'],
+    techStack: ['Web Frontend', 'REST API', 'Git', 'GitHub', 'Team Collaboration'],
+    systemFlow: [{ label: 'User', description: '콘텐츠 탐색과 기능 사용' }, { label: 'Frontend', description: '화면과 인터랙션 처리' }, { label: 'API', description: '서비스 데이터 연결' }, { label: 'Deploy', description: '통합 결과물 배포' }],
+    troubleshooting: [{ title: '짧은 일정에서의 협업 범위 관리', situation: '모든 아이디어를 구현하면 핵심 흐름을 완성하지 못할 위험이 있었습니다.', solution: '필수 기능의 우선순위와 담당 브랜치를 나누고 통합 시점을 관리했습니다.', result: '정해진 기간 안에 핵심 기능을 연결하고 배포까지 완료했습니다.' }],
+    screenshots: [{ src: '/images/404rnf-placeholder.svg', alt: '404rnf 프로젝트 화면 placeholder', caption: '미니프로젝트 화면 · 실제 캡처로 교체 예정' }],
+    documents: [{ label: '프로젝트 회고', placeholder: true }], deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', placeholder: true },
+    retrospective: '작은 프로젝트일수록 빠른 합의와 명확한 역할 분담이 완성도를 좌우했습니다. Git 협업과 배포 흐름을 짧은 주기로 경험했습니다.', accent: '#ffbe70',
   },
 ]
 

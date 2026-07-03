@@ -5,6 +5,7 @@ import { profile } from '../data/profile'
 const navItems = [
   { to: '/', label: 'Home', end: true },
   { to: '/projects', label: 'Projects' },
+  { to: '/ai-learning', label: 'AI Learning' },
   { to: '/resume', label: 'Resume' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -36,7 +37,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <main key={location.pathname}>{children}</main>
       <footer className="site-footer">
         <div className="container footer-inner">
-          <p>© {new Date().getFullYear()} {profile.name}. Built with React & TypeScript.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. AI Service Developer Portfolio.</p>
           <Link to="/contact">함께 이야기하기 →</Link>
         </div>
       </footer>
