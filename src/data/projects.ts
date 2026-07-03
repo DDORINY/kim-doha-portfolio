@@ -73,7 +73,7 @@ export const projects: Project[] = [
     systemFlow: [{ label: 'User', description: '콘텐츠 탐색과 기능 사용' }, { label: 'Frontend', description: '화면과 인터랙션 처리' }, { label: 'API', description: '서비스 데이터 연결' }, { label: 'Deploy', description: '통합 결과물 배포' }],
     troubleshooting: [{ title: '짧은 일정에서의 협업 범위 관리', situation: '모든 아이디어를 구현하면 핵심 흐름을 완성하지 못할 위험이 있었습니다.', solution: '필수 기능의 우선순위와 담당 브랜치를 나누고 통합 시점을 관리했습니다.', result: '정해진 기간 안에 핵심 기능을 연결하고 배포까지 완료했습니다.' }],
     screenshots: [{ src: '/images/404rnf-placeholder.svg', alt: '404rnf 프로젝트 화면 placeholder', caption: '미니프로젝트 화면 · 실제 캡처로 교체 예정' }],
-    documents: [{ label: '프로젝트 회고', placeholder: true }], deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', placeholder: true },
+    documents: [{ label: '프로젝트 회고', placeholder: true }], deploy: { label: '배포 사이트', url: 'https://404-rnf.ddoriny.com/' }, github: { label: 'GitHub 저장소', placeholder: true },
     retrospective: '작은 프로젝트일수록 빠른 합의와 명확한 역할 분담이 완성도를 좌우했습니다. Git 협업과 배포 흐름을 짧은 주기로 경험했습니다.', accent: '#ffbe70',
   },
 ]
