@@ -1,6 +1,7 @@
 export const profile = {
   name: '김도하',
   role: 'AI Service Developer',
+  photo: '/images/KIMDOHA.jpg',
   intro: '온라인 마케팅·운영 직무에서 5년 8개월의 실무 경험을 쌓은 뒤, 데이터 기반 의사결정과 업무 자동화의 필요성을 느껴 AI 서비스 개발자로 전환을 준비하고 있습니다.',
   email: 'jihun22400669@gmail.com',
   github: 'https://github.com/DDORINY',

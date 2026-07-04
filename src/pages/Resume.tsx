@@ -6,7 +6,13 @@ import { projects } from '../data/projects'
 export default function Resume() {
   return (
     <section className="section page-section"><div className="container resume-page">
-      <div className="resume-header"><SectionHeading eyebrow="RESUME" title={`${profile.name} · ${profile.role}`} description={profile.intro} /><button className="button secondary disabled-button" disabled title="public/docs에 PDF를 추가한 뒤 링크를 연결해 주세요">PDF 이력서 준비 중</button></div>
+      <div className="resume-header">
+        <SectionHeading eyebrow="RESUME" title={`${profile.name} · ${profile.role}`} description={profile.intro} />
+        <div className="resume-photo-card">
+          <img src={profile.photo} alt={`${profile.name} 증명사진`} />
+          <button className="button primary" onClick={() => window.print()} title="브라우저 인쇄 대화상자에서 PDF로 저장할 수 있습니다">이력서 다운로드</button>
+        </div>
+      </div>
       <div className="resume-grid">
         <section className="resume-block full"><span className="section-number">01 / CAREER SUMMARY</span><h2>경력 요약</h2><dl className="summary-table">{profile.careerSummary.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl></section>
         <section className="resume-block full"><span className="section-number">02 / ABOUT</span><h2>자기소개</h2><div className="about-text">{profile.about.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div></section>
