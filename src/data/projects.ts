@@ -6,6 +6,7 @@ export type Project = {
   type: string
   period: string
   tagline: string
+  teamNote?: string
   summary: string
   background: string
   role: string[]
@@ -25,9 +26,10 @@ export const projects: Project[] = [
   {
     slug: 'staccato', name: 'STACCATO', type: 'AI 관제 시스템 · Final Project', period: 'Final Project',
     tagline: 'AI 기반 고속도로 갓길 정차 탐지 관제 시스템',
+    teamNote: '팀 프로젝트 · 개인 기여도 약 50%',
     summary: '고속도로 CCTV 영상에서 차량 객체(car·truck·bus)를 탐지하고 정차·이상 상황을 판단해, 신고 접수부터 분석 상태 관리, 관제 대시보드까지 이어지는 AI 관제 서비스입니다. YOLO 기반 탐지 실험과 Flask API, MySQL, 프론트엔드 연동을 통해 실제 운영 가능한 흐름으로 구현했습니다.',
     background: '고속도로 갓길 정차 및 이상 상황을 빠르게 인지하고 대응할 수 있도록, 차량 탐지부터 신고 접수, 관리자 확인까지 일관된 관제 흐름을 만들기 위해 시작했습니다.',
-    role: ['YOLO 기반 차량 객체 탐지 실험', 'car·truck·bus 클래스 대상 객체 탐지 성능 비교', 'Flask API와 AI 분석 서버 연동 흐름 구현', 'MySQL 기반 탐지 결과 및 이벤트 데이터 관리', '프론트엔드 관제 화면과 API 응답 데이터 구조 연결', 'AI VM·Flask VM·Frontend VM·DB VM 분리 환경 연동 문제 해결', 'pytest 기반 API 테스트 및 응답 계약 검증', 'SSH 기반 원격 서버 접속 및 방화벽 포트 설정', 'GPU 드라이버 설치 및 AI 모델 실행 환경 구성'],
+    role: ['YOLO 기반 차량 객체 탐지 실험', 'car·truck·bus 클래스 대상 객체 탐지 성능 비교', 'Flask API와 AI 분석 서버 연동 흐름 구현', 'MySQL 기반 탐지 결과 및 이벤트 데이터 관리', '프론트엔드 관제 화면과 API 응답 데이터 구조 연결', 'AI VM·Flask VM·Frontend VM·DB VM 분리 환경 연동 문제 해결', 'pytest 기반 API 테스트 및 응답 계약 검증', 'SSH 기반 원격 서버 접속 및 방화벽 포트 설정', 'GPU 드라이버 설치 및 AI 모델 실행 환경 구성', '정기 시스템 점검(VM 상태·API 응답·DB 연동) 및 보안 점검 참여'],
     features: ['CCTV 영상 기반 차량 객체 탐지 (car·truck·bus)', '정차 및 이상 상황 탐지 흐름', '신고 접수 및 분석 요청 API', '분석 상태 관리 (QUEUED·RUNNING·COMPLETED·FAILED)', 'bbox 좌표 기반 관제 화면 시각화', '탐지 이벤트 데이터베이스 저장 및 조회', '관리자 대시보드(신고·CCTV·이벤트·시스템 상태)', 'pytest 기반 API 응답 계약 테스트'],
     techStack: ['Python', 'Flask', 'MySQL', 'SQLAlchemy', 'YOLO', 'OpenCV', 'TensorFlow', 'Keras', 'Next.js', 'TypeScript', 'Linux', 'Ubuntu', 'VMware', 'SSH', 'Git', 'GitHub'],
     systemFlow: [
@@ -41,6 +43,8 @@ export const projects: Project[] = [
       { title: '분리된 서비스의 연동 흐름 가시화', situation: 'AI 추론, API, 프론트엔드, DB가 서로 다른 VM(AI VM·Flask VM·Frontend VM·DB VM)에서 동작해 장애 지점을 파악하기 어려웠습니다.', solution: '서비스를 역할별 VM으로 구분하고 요청·응답과 데이터 저장 흐름을 다이어그램 및 체크리스트로 정리했습니다.', result: '시연 전 검증 순서와 문제 추적 경로가 명확해졌습니다.' },
       { title: '차량 클래스별 탐지 성능 비교', situation: 'car, truck, bus 등 차량 유형에 따라 탐지 정확도가 달라져 오탐·미탐 원인을 파악하기 어려웠습니다.', solution: '클래스별 탐지 성능을 비교 실험하고 결과를 정리해 정차·이상 상황 판단 기준에 반영했습니다.', result: '차량 유형에 따른 탐지 신뢰도 차이를 파악하고 판단 로직을 개선했습니다.' },
       { title: 'API 응답 계약 검증', situation: 'Flask API와 프론트엔드·DB 간 데이터 구조가 어긋나면 관제 화면이 깨질 위험이 있었습니다.', solution: 'pytest 기반으로 API 응답 스키마와 분석 상태(QUEUED·RUNNING·COMPLETED·FAILED) 전이를 검증하는 테스트를 작성했습니다.', result: '연동 안정성을 높이고 배포 전 문제를 조기에 발견할 수 있었습니다.' },
+      { title: '정기 점검을 통한 서비스 안정성 관리', situation: '여러 VM과 API가 연동된 상태에서 배포 이후에도 서비스가 계속 정상 동작하는지 지속적으로 확인할 필요가 있었습니다.', solution: 'VM 상태, API 응답, DB 연동을 주기적으로 점검하는 정기 점검 프로세스를 운영하며 응답 지연·리소스 사용량 증가 같은 이상 징후를 조기에 발견했습니다.', result: '배포 이후에도 서비스 상태를 지속적으로 관리하고 문제를 빠르게 파악할 수 있는 운영 체계를 갖췄습니다.' },
+      { title: '서비스 보안 점검 참여', situation: '여러 VM으로 분리된 구조에서 서비스 간 접근 제어와 인증 체계가 의도대로 지켜지고 있는지 확인할 필요가 있었습니다.', solution: '팀 내 보안 점검에 참여해 서비스 간 접근 권한과 인증 검증 항목을 점검하고 개선이 필요한 부분을 정리했습니다.', result: '운영 환경에서 지켜야 할 접근 제어 원칙을 팀과 함께 명확히 하고 개선 방향에 반영했습니다.' },
       { title: '보안로그 확인 경험 개선', situation: '운영자가 내용을 확인하려면 로그 파일을 먼저 내려받아야 했습니다.', solution: '웹에서 로그를 미리 본 뒤 필요한 경우 다운로드하는 흐름과 예외 상태를 점검했습니다.', result: '불필요한 다운로드를 줄이고 로그 확인 동선을 단순화했습니다.' },
       { title: 'GPU 실행 환경 구성과 인프라 연결 점검', situation: 'AI VM에서 객체탐지 모델을 실행하려면 GPU 드라이버와 실행 환경이 서버 조건에 맞게 구성돼야 했고, VM 간 방화벽·DB 연결 상태도 확인이 필요했습니다.', solution: 'SSH로 각 VM에 접속해 방화벽 포트를 열고 MySQL 연결을 설정했으며, GPU 드라이버와 관련 실행 환경을 구성해 모델이 서버에서 정상 동작하도록 조정했습니다.', result: '로컬 개발 환경과 서버 환경의 차이로 인한 실행 문제를 해결하고 안정적으로 서비스를 구동할 수 있었습니다.' },
     ],
@@ -61,10 +65,11 @@ export const projects: Project[] = [
     retrospective: '모델 정확도만으로 AI 서비스가 완성되지는 않습니다. 추론 결과가 API와 DB를 거쳐 사용자의 판단으로 이어지고, 운영자가 문제를 점검할 수 있어야 실제로 사용할 수 있는 서비스가 된다는 점을 배웠습니다.', accent: '#70e1f5',
   },
   {
-    slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · ERP Program', period: 'Team Project',
-    tagline: '쇼핑몰 운영 데이터를 하나의 흐름으로 연결한 실무형 ERP',
-    summary: '상품 등록부터 주문, 결제, 재고, 관리자 확인까지 쇼핑몰 운영 데이터 흐름을 구현했습니다. AI 기능이 의존할 백엔드 API, 데이터베이스, 인증, 관리자 시스템의 기반 역량을 보여주는 프로젝트입니다.',
-    background: '상품, 주문, 결제, 재고를 분리된 기능이 아닌 하나의 서비스 흐름으로 이해하고 안정적인 관리자 경험을 구현하기 위해 진행했습니다.',
+    slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: '개인 프로젝트 · 진행 중',
+    tagline: '쇼핑몰 운영 데이터를 하나의 흐름으로 연결하는 실무형 ERP (개발 중)',
+    teamNote: '개인 프로젝트 · 현재 개발 진행 중',
+    summary: '개인 프로젝트로 진행하고 있는 쇼핑몰 운영 ERP입니다. 상품 등록부터 주문, 결제, 재고, 관리자 확인까지 쇼핑몰 운영 데이터 흐름을 구현하고 있으며, AI 기능이 의존할 백엔드 API, 데이터베이스, 인증, 관리자 시스템의 기반 역량을 쌓기 위해 진행 중입니다.',
+    background: '상품, 주문, 결제, 재고를 분리된 기능이 아닌 하나의 서비스 흐름으로 이해하고 안정적인 관리자 경험을 구현하기 위해 개인적으로 시작했습니다.',
     role: ['상품·카테고리 관리 화면 구현', '장바구니와 주문·결제 흐름 구현', '재고 데이터 상태 처리', '관리자 대시보드 UI 구성', 'Spring Boot API 연동', 'JWT 인증 흐름 적용'],
     features: ['상품 및 카테고리 관리', '장바구니와 주문 생성', '결제 상태 관리', '재고 수량 관리', '관리자 대시보드', 'JWT 사용자 인증'],
     techStack: ['Next.js', 'Spring Boot', 'MySQL', 'JWT', 'REST API'],
@@ -73,11 +78,12 @@ export const projects: Project[] = [
     screenshots: [{ src: '/images/erp-placeholder.svg', alt: 'CommerceOps ERP 대시보드 placeholder', caption: 'ERP 관리자 화면 · 실제 캡처로 교체 예정' }],
     documents: [{ label: '기능 명세서', placeholder: true }, { label: 'ERD 및 API 문서', placeholder: true }],
     deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', placeholder: true },
-    retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요합니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다졌습니다.', accent: '#8b80ff',
+    retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요하다는 것을 이 프로젝트를 진행하며 체감하고 있습니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다지는 중입니다.', accent: '#8b80ff',
   },
   {
     slug: '404rnf', name: '404RNF', type: 'AI 낙하물 탐지 · Mini Project', period: 'Mini Project',
     tagline: 'AI 기반 낙하물 탐지와 실시간 알림으로 만든 안전 주행 통합 플랫폼',
+    teamNote: '팀 프로젝트 · 개인 기여도 약 80% 이상',
     summary: '도로 위 낙하물을 AI로 탐지하고 위험도를 판단해 실시간 알림을 제공하며, 지도 기반 위험 시각화와 경로 기반 위험 분석까지 연결한 안전 주행 서비스입니다. YOLOv8, YOLOv8-p2, RT-DETR 세 모델을 비교분석하고 LLM으로 신고 작성을 보조하는 AI 파이프라인을 구축했습니다.',
     background: '도로 위 낙하물을 빠르게 인지하고, 지도와 경로 기반으로 위험을 사전에 알릴 수 있는 안전 주행 플랫폼을 팀 프로젝트로 구현하기 위해 시작했습니다.',
     role: ['DB 테이블 설계 및 전체 데이터 구조 정의', 'Flask 앱 초기화와 공통 프레임워크 구성', '회원 CRUD 및 관리자 권한 신청 구조 설계', '관리자 대시보드(통계, 신고 리스트·상태 변경) 구현', 'AI 객체 탐지 모델 개발 및 학습', 'YOLOv8 · YOLOv8-p2 · RT-DETR 3개 모델 비교분석 기능 설계', '프로젝트 전체 구조 설계 및 팀 통합 총괄'],

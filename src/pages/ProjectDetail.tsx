@@ -16,7 +16,7 @@ export default function ProjectDetail() {
       <div className="container detail-layout">
         <aside className="detail-nav"><span>CONTENTS</span>{['overview','background','role','features','stack','flow','trouble','screens','docs','retrospect'].map((id, i) => <button type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} aria-label={`${id} 섹션으로 이동`} key={id}>{String(i + 1).padStart(2, '0')}</button>)}</aside>
         <div className="detail-content">
-          <section id="overview" className="detail-section"><span className="section-number">01 / OVERVIEW</span><h2>프로젝트 개요</h2><p className="lead-copy">{project.summary}</p></section>
+          <section id="overview" className="detail-section"><span className="section-number">01 / OVERVIEW</span><h2>프로젝트 개요</h2>{project.teamNote && <span className="team-note">{project.teamNote}</span>}<p className="lead-copy">{project.summary}</p></section>
           <section id="background" className="detail-section"><span className="section-number">02 / BACKGROUND</span><h2>개발 배경</h2><p>{project.background}</p></section>
           <section id="role" className="detail-section"><span className="section-number">03 / MY ROLE</span><h2>담당 역할</h2><ul className="check-list">{project.role.map((item) => <li key={item}>{item}</li>)}</ul></section>
           <section id="features" className="detail-section"><span className="section-number">04 / FEATURES</span><h2>주요 기능</h2><div className="feature-grid">{project.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}</div></section>
