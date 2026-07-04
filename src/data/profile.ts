@@ -18,6 +18,17 @@ export const profile = {
     '이전 직무에서 쌓은 운영 관점과 커뮤니케이션 경험을 바탕으로 사용자의 문제를 파악하고, Python·Flask·Computer Vision 기술을 활용해 실제 서비스로 연결하는 AI 객체탐지 서비스 개발자로 성장하고자 합니다.',
   ],
   desiredRoles: ['AI 서비스 개발자', 'AI 객체탐지 서비스 개발자', 'Computer Vision 개발자', 'Python / Flask 기반 AI 백엔드 개발자', 'AI 모델 연동 서비스 개발자'],
+  infra: {
+    summary: 'AI 모델 개발뿐만 아니라 WSL, Linux, SSH 기반 서버 관리, 방화벽 설정, DB 설치, GPU 드라이버 설치 등 서비스 실행을 위한 인프라 환경 구축을 경험했습니다. 또한 Vercel과 AWS를 활용한 배포를 진행하며, 개발한 서비스가 실제 운영 환경에서 동작하기 위해 필요한 서버 구성, 포트 관리, 환경 변수 설정, 배포 흐름을 학습했습니다.',
+    highlights: [
+      'WSL / Linux 기반 개발 및 서버 실행 환경 구성',
+      'SSH 접속을 통한 원격 서버 관리 경험',
+      '방화벽 포트 개방, DB 설치, 서버 연결 설정 경험',
+      'GPU 드라이버 설치 및 AI 모델 실행 환경 구성 경험',
+      'Vercel 및 AWS 기반 배포 경험',
+      'Frontend / Backend / AI / DB 서버 분리 구조에서 서비스 연동 경험',
+    ],
+  },
   education: [
     { title: '학점은행제 컴퓨터공학 전공', period: '2020.06 ~ 2026.07 · 학사 학위 취득 예정', description: '자료구조, 알고리즘, 운영체제, 데이터베이스, Python 프로그래밍, 데이터 처리, 머신러닝 이론 및 모델 구현을 학습했습니다.' },
     { title: 'AI/데이터 분석 부트캠프 · MBC 아카데미 · 대보정보통신', period: '2025.12.31 ~ 2026.07.07', description: 'Python 기반 머신러닝·딥러닝 모델 구현, OpenCV 영상 처리, CNN 이미지 분류, 교차검증·하이퍼파라미터 튜닝, Flask API 개발, Database 연동, Git/GitHub 협업, Linux 개발 환경을 학습했습니다.' },

@@ -27,9 +27,9 @@ export const projects: Project[] = [
     tagline: 'AI 기반 고속도로 갓길 정차 탐지 관제 시스템',
     summary: '고속도로 CCTV 영상에서 차량 객체(car·truck·bus)를 탐지하고 정차·이상 상황을 판단해, 신고 접수부터 분석 상태 관리, 관제 대시보드까지 이어지는 AI 관제 서비스입니다. YOLO 기반 탐지 실험과 Flask API, MySQL, 프론트엔드 연동을 통해 실제 운영 가능한 흐름으로 구현했습니다.',
     background: '고속도로 갓길 정차 및 이상 상황을 빠르게 인지하고 대응할 수 있도록, 차량 탐지부터 신고 접수, 관리자 확인까지 일관된 관제 흐름을 만들기 위해 시작했습니다.',
-    role: ['YOLO 기반 차량 객체 탐지 실험', 'car·truck·bus 클래스 대상 객체 탐지 성능 비교', 'Flask API와 AI 분석 서버 연동 흐름 구현', 'MySQL 기반 탐지 결과 및 이벤트 데이터 관리', '프론트엔드 관제 화면과 API 응답 데이터 구조 연결', 'AI VM·Flask VM·Frontend VM·DB VM 분리 환경 연동 문제 해결', 'pytest 기반 API 테스트 및 응답 계약 검증'],
+    role: ['YOLO 기반 차량 객체 탐지 실험', 'car·truck·bus 클래스 대상 객체 탐지 성능 비교', 'Flask API와 AI 분석 서버 연동 흐름 구현', 'MySQL 기반 탐지 결과 및 이벤트 데이터 관리', '프론트엔드 관제 화면과 API 응답 데이터 구조 연결', 'AI VM·Flask VM·Frontend VM·DB VM 분리 환경 연동 문제 해결', 'pytest 기반 API 테스트 및 응답 계약 검증', 'SSH 기반 원격 서버 접속 및 방화벽 포트 설정', 'GPU 드라이버 설치 및 AI 모델 실행 환경 구성'],
     features: ['CCTV 영상 기반 차량 객체 탐지 (car·truck·bus)', '정차 및 이상 상황 탐지 흐름', '신고 접수 및 분석 요청 API', '분석 상태 관리 (QUEUED·RUNNING·COMPLETED·FAILED)', 'bbox 좌표 기반 관제 화면 시각화', '탐지 이벤트 데이터베이스 저장 및 조회', '관리자 대시보드(신고·CCTV·이벤트·시스템 상태)', 'pytest 기반 API 응답 계약 테스트'],
-    techStack: ['Python', 'Flask', 'MySQL', 'SQLAlchemy', 'YOLO', 'OpenCV', 'TensorFlow', 'Keras', 'Next.js', 'TypeScript', 'Linux', 'Ubuntu', 'VMware', 'Git', 'GitHub'],
+    techStack: ['Python', 'Flask', 'MySQL', 'SQLAlchemy', 'YOLO', 'OpenCV', 'TensorFlow', 'Keras', 'Next.js', 'TypeScript', 'Linux', 'Ubuntu', 'VMware', 'SSH', 'Git', 'GitHub'],
     systemFlow: [
       { label: 'CCTV Stream', description: '도로 영상을 추론 입력으로 전달' },
       { label: 'AI VM', description: 'YOLO 기반 차량(car·truck·bus) 탐지와 정차 판단' },
@@ -42,6 +42,7 @@ export const projects: Project[] = [
       { title: '차량 클래스별 탐지 성능 비교', situation: 'car, truck, bus 등 차량 유형에 따라 탐지 정확도가 달라져 오탐·미탐 원인을 파악하기 어려웠습니다.', solution: '클래스별 탐지 성능을 비교 실험하고 결과를 정리해 정차·이상 상황 판단 기준에 반영했습니다.', result: '차량 유형에 따른 탐지 신뢰도 차이를 파악하고 판단 로직을 개선했습니다.' },
       { title: 'API 응답 계약 검증', situation: 'Flask API와 프론트엔드·DB 간 데이터 구조가 어긋나면 관제 화면이 깨질 위험이 있었습니다.', solution: 'pytest 기반으로 API 응답 스키마와 분석 상태(QUEUED·RUNNING·COMPLETED·FAILED) 전이를 검증하는 테스트를 작성했습니다.', result: '연동 안정성을 높이고 배포 전 문제를 조기에 발견할 수 있었습니다.' },
       { title: '보안로그 확인 경험 개선', situation: '운영자가 내용을 확인하려면 로그 파일을 먼저 내려받아야 했습니다.', solution: '웹에서 로그를 미리 본 뒤 필요한 경우 다운로드하는 흐름과 예외 상태를 점검했습니다.', result: '불필요한 다운로드를 줄이고 로그 확인 동선을 단순화했습니다.' },
+      { title: 'GPU 실행 환경 구성과 인프라 연결 점검', situation: 'AI VM에서 객체탐지 모델을 실행하려면 GPU 드라이버와 실행 환경이 서버 조건에 맞게 구성돼야 했고, VM 간 방화벽·DB 연결 상태도 확인이 필요했습니다.', solution: 'SSH로 각 VM에 접속해 방화벽 포트를 열고 MySQL 연결을 설정했으며, GPU 드라이버와 관련 실행 환경을 구성해 모델이 서버에서 정상 동작하도록 조정했습니다.', result: '로컬 개발 환경과 서버 환경의 차이로 인한 실행 문제를 해결하고 안정적으로 서비스를 구동할 수 있었습니다.' },
     ],
     screenshots: [
       { src: '/images/staccato-01.png', alt: 'STACCATO 메인 화면', caption: '메인 화면 · AI 기반 고속도로 정차 탐지 소개' },
