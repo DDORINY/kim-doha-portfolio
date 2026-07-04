@@ -1,6 +1,7 @@
 import { type ReactNode, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { profile } from '../data/profile'
+import ScrollTopButton from './ScrollTopButton'
 import ThemeSwitcher from './ThemeSwitcher'
 
 const navItems = [
@@ -45,6 +46,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Link to="/contact">함께 이야기하기 →</Link>
         </div>
       </footer>
+      <ScrollTopButton />
     </div>
   )
 }
