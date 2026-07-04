@@ -55,7 +55,7 @@ export const projects: Project[] = [
       { src: '/images/staccato-08.png', alt: 'STACCATO 운영 환경 정보 화면', caption: '운영 환경 정보 · VM별 인프라 구성 현황' },
       { src: '/images/staccato-09.png', alt: 'STACCATO 버그리포트 화면', caption: '버그리포트 · 점검 및 이슈 처리 이력' },
     ],
-    documents: [{ label: '시연 영상', url: 'https://youtu.be/l2xOOqAfufo' }, { label: '결과보고서', placeholder: true }, { label: '발표자료', placeholder: true }, { label: '운영 점검 체크리스트', placeholder: true }],
+    documents: [{ label: '시연 영상', url: 'https://youtu.be/l2xOOqAfufo' }, { label: '결과보고서', placeholder: true }, { label: '발표자료', url: '/docs/STACCATO-presentation.pdf' }, { label: '운영 점검 체크리스트', placeholder: true }],
     deploy: { label: 'STACCATO Live Demo', url: 'https://mbc-sw.iptime.org:3221/' },
     github: { label: 'GitHub 저장소', url: 'https://github.com/staccato-ai-highway-control/staccato-ai-highway-control' },
     retrospective: '모델 정확도만으로 AI 서비스가 완성되지는 않습니다. 추론 결과가 API와 DB를 거쳐 사용자의 판단으로 이어지고, 운영자가 문제를 점검할 수 있어야 실제로 사용할 수 있는 서비스가 된다는 점을 배웠습니다.', accent: '#70e1f5',
