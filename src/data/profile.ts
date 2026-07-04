@@ -2,7 +2,7 @@ export const profile = {
   name: '김도하',
   role: 'AI Service Developer',
   intro: 'AI 모델을 웹 서비스, API, 데이터베이스, 배포 환경과 연결해 실제로 사용할 수 있는 제품으로 구현하는 개발자입니다.',
-  email: 'email@example.com',
+  email: 'jihun22400669@gmail.com',
   github: 'https://github.com/DDORINY',
   notion: 'https://app.notion.com/p/doreen1004/0-AI-320bec735c3780c7bfcffcc2425e59f2',
   education: [{ title: 'AI 서비스 개발 교육 과정', period: '교육 기간 입력 예정', description: '웹 기반 개발 역량과 Python, 머신러닝, 딥러닝, 컴퓨터 비전, AI API 연동을 학습했습니다.' }],
