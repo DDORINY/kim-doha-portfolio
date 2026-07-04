@@ -1,17 +1,45 @@
 export const profile = {
   name: '김도하',
   role: 'AI Service Developer',
-  intro: 'AI 모델을 웹 서비스, API, 데이터베이스, 배포 환경과 연결해 실제로 사용할 수 있는 제품으로 구현하는 개발자입니다.',
+  intro: '온라인 마케팅·운영 직무에서 5년 8개월의 실무 경험을 쌓은 뒤, 데이터 기반 의사결정과 업무 자동화의 필요성을 느껴 AI 서비스 개발자로 전환을 준비하고 있습니다.',
   email: 'jihun22400669@gmail.com',
   github: 'https://github.com/DDORINY',
   notion: 'https://app.notion.com/p/doreen1004/0-AI-320bec735c3780c7bfcffcc2425e59f2',
-  education: [{ title: 'AI 서비스 개발 교육 과정', period: '교육 기간 입력 예정', description: '웹 기반 개발 역량과 Python, 머신러닝, 딥러닝, 컴퓨터 비전, AI API 연동을 학습했습니다.' }],
+  careerSummary: [
+    { label: '총 경력', value: '5년 8개월' },
+    { label: '이전 직무', value: '온라인 마케팅, 광고 운영, 쇼핑몰 운영, 콘텐츠 제작, 운영 지원' },
+    { label: '전환 목표', value: 'AI 서비스 개발자, AI 객체탐지 서비스 개발자' },
+    { label: '핵심 강점', value: '운영 경험 기반의 문제 파악 능력, 데이터 기반 사고, 서비스 흐름 이해, AI 모델과 웹 서비스 연동 경험' },
+    { label: '관심 분야', value: 'Computer Vision, Object Detection, Flask API, 데이터베이스 연동, AI 서비스 운영' },
+  ],
+  about: [
+    '온라인 마케팅 및 운영 직무에서 5년 8개월간 실무 경험을 쌓으며 데이터 기반 의사결정과 업무 자동화의 필요성을 체감했습니다. 이후 컴퓨터공학 전공 과정과 AI/데이터 분석 부트캠프를 통해 Python, 머신러닝, 딥러닝, 컴퓨터비전, Flask API, 데이터베이스 연동 역량을 학습했습니다.',
+    '최종 프로젝트 STACCATO에서는 고속도로 CCTV 기반 돌발상황 탐지 시스템을 개발하며 YOLO 기반 객체탐지 실험과 Flask API, MySQL, 프론트엔드 관제 화면 연동을 경험했습니다. AI 모델의 결과를 실제 서비스 화면에서 활용할 수 있도록 API 응답 구조, 분석 상태 관리, bbox metadata, DB 저장 구조를 정리하며 AI 서비스 개발의 전체 흐름을 이해했습니다.',
+    '이전 직무에서 쌓은 운영 관점과 커뮤니케이션 경험을 바탕으로 사용자의 문제를 파악하고, Python·Flask·Computer Vision 기술을 활용해 실제 서비스로 연결하는 AI 객체탐지 서비스 개발자로 성장하고자 합니다.',
+  ],
+  desiredRoles: ['AI 서비스 개발자', 'AI 객체탐지 서비스 개발자', 'Computer Vision 개발자', 'Python / Flask 기반 AI 백엔드 개발자', 'AI 모델 연동 서비스 개발자'],
+  education: [
+    { title: '학점은행제 컴퓨터공학 전공', period: '2020.06 ~ 2026.07 · 학사 학위 취득 예정', description: '자료구조, 알고리즘, 운영체제, 데이터베이스, Python 프로그래밍, 데이터 처리, 머신러닝 이론 및 모델 구현을 학습했습니다.' },
+    { title: 'AI/데이터 분석 부트캠프 · MBC 아카데미 · 대보정보통신', period: '2025.12.31 ~ 2026.07.07', description: 'Python 기반 머신러닝·딥러닝 모델 구현, OpenCV 영상 처리, CNN 이미지 분류, 교차검증·하이퍼파라미터 튜닝, Flask API 개발, Database 연동, Git/GitHub 협업, Linux 개발 환경을 학습했습니다.' },
+  ],
+  workExperience: [
+    {
+      company: '대성종합통신', role: '온라인 마케팅 팀장', period: '2018.05 ~ 2022.04',
+      description: 'KT 강남본부 소속 유무선 대리점에서 온라인 마케팅과 영업 지원 업무를 수행했습니다.',
+      tasks: ['온라인 마케팅 운영', '현장 영업 마케팅 지원', '전산 교육', 'KT 정책 교육 진행', '매월 정책 변경사항 교육 및 실무 적용 지원'],
+      takeaway: '마케팅 운영과 현장 지원 업무를 수행하며 반복적인 운영 업무, 정책 변경 대응, 데이터 관리의 중요성을 경험했습니다. 이를 통해 업무 자동화와 데이터 기반 의사결정의 필요성을 인식하게 되었습니다.',
+    },
+    {
+      company: '주식회사 씨에스에프씨', role: '광고마케팅 / 대리', period: '2024.03 ~ 2025.10',
+      description: '배달 프랜차이즈 본사 경영지원팀에서 온라인 마케팅, 쇼핑몰 운영, 콘텐츠 제작, 광고 운영 업무를 수행했습니다.',
+      tasks: ['신입 교육', '온라인 마케팅 업무 지원', '온라인 쇼핑몰 오픈 초기 세팅', '신메뉴 개발 테스트', '상세페이지 제작', '상품 촬영 및 편집', '영상 편집', '단가 측정', '네이버 광고 운영'],
+      takeaway: '상품 데이터 관리, 상세페이지 제작, 광고 운영, 콘텐츠 제작을 수행하며 운영 과정에서 발생하는 반복 업무와 데이터 기반 판단의 필요성을 체감했습니다. 이 경험을 바탕으로 AI와 자동화 기술을 활용해 실제 업무 문제를 해결하는 개발자로 전환을 준비하게 되었습니다.',
+    },
+  ],
   skills: {
-    'AI / Data': ['Python', 'Machine Learning', 'Deep Learning', 'Computer Vision', 'YOLO'],
-    Frontend: ['Next.js', 'React', 'TypeScript', 'JavaScript', 'HTML', 'CSS'],
-    Backend: ['Flask', 'FastAPI', 'Spring Boot', 'REST API', 'JWT'],
-    'Database / Infra': ['MySQL', 'VM Infra', 'GitHub Pages'],
-    Tools: ['Git', 'GitHub', 'Figma', 'Notion'],
+    'AI / Computer Vision': ['Python', 'NumPy', 'Pandas', 'Matplotlib', 'TensorFlow', 'Keras', 'KerasCV', 'OpenCV', 'CNN', 'YOLO', 'Object Detection', 'Computer Vision'],
+    'Backend / Database': ['Flask', 'REST API', 'SQLAlchemy', 'MySQL', 'MySQL Workbench', 'Pytest'],
+    'Frontend / Collaboration / Infra': ['Next.js', 'TypeScript', 'Git', 'GitHub', 'Linux', 'Ubuntu', 'VMware'],
   },
 }
 
