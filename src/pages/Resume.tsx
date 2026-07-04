@@ -14,8 +14,8 @@ export default function Resume() {
         <section className="resume-block"><span className="section-number">04 / DESIRED ROLES</span><h2>희망 직무</h2><div className="large-chip-row">{profile.desiredRoles.map((role) => <span key={role}>{role}</span>)}</div></section>
         <section className="resume-block full"><span className="section-number">05 / SKILLS</span><h2>기술 스택</h2><div className="skills-grid">{Object.entries(profile.skills).map(([group, skills]) => <div key={group}><h3>{group}</h3><div className="large-chip-row">{skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div>)}</div></section>
         <section className="resume-block full"><span className="section-number">06 / WORK EXPERIENCE</span><h2>경력 사항</h2><div className="work-list">{profile.workExperience.map((job) => (
-          <div className="work-item" key={job.company}>
-            <div className="work-item-head"><span>{job.period}</span><div><h3>{job.company} · {job.role}</h3><p>{job.description}</p></div></div>
+          <div className="work-item" key={job.role}>
+            <div className="work-item-head"><span>{job.period}</span><div><h3>{job.role}</h3><p>{job.description}</p></div></div>
             <ul className="check-list work-tasks">{job.tasks.map((task) => <li key={task}>{task}</li>)}</ul>
             <p className="work-takeaway">{job.takeaway}</p>
           </div>
