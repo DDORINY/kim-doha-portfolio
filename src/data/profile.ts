@@ -67,8 +67,44 @@ export const profile = {
 export const learningTracks = [
   { key: '01', title: 'Python', description: 'AI 개발의 기반 문법과 데이터 처리, 모듈 활용을 학습합니다.', topics: ['Fundamentals', 'Data Handling', 'Automation'] },
   { key: '02', title: 'Machine Learning', description: '전처리부터 모델 학습과 평가까지 머신러닝 흐름을 익힙니다.', topics: ['Preprocessing', 'Training', 'Evaluation'] },
-  { key: '03', title: 'Deep Learning', description: '신경망의 구조와 학습 원리를 이해하고 모델을 실험합니다.', topics: ['Neural Networks', 'Training Loop', 'Experiments'] },
-  { key: '04', title: 'Computer Vision', description: '이미지와 영상을 데이터로 다루고 시각 문제를 해결합니다.', topics: ['Image Processing', 'OpenCV', 'Video Pipeline'] },
-  { key: '05', title: 'YOLO / Object Detection', description: '객체 탐지 모델과 ROI 기반 이벤트 판단을 실습합니다.', topics: ['YOLO', 'Object Detection', 'ROI Logic'] },
-  { key: '06', title: 'AI API Integration', description: 'Flask와 FastAPI로 추론 결과를 웹 서비스에 연결합니다.', topics: ['Flask', 'FastAPI', 'API Design'] },
+  { key: '03', title: 'Deep Learning', description: 'TensorFlow/Keras로 CNN 모델을 구성해 이미지 데이터를 학습하고, loss·accuracy·validation 결과로 예측 성능을 해석하는 흐름을 실습합니다.', topics: ['Keras / TensorFlow', 'CNN', 'Training Loop'] },
+  { key: '04', title: 'Computer Vision', description: 'OpenCV로 이미지·영상 데이터를 처리하며, CCTV 기반 프로젝트에 필요한 frame, bbox, ROI 개념을 정리합니다.', topics: ['OpenCV', 'Frame / BBOX', 'ROI'] },
+  { key: '05', title: 'YOLO / Object Detection', description: 'YOLO 기반 객체 탐지와 ROI 판단 로직을 학습하고, STACCATO 정차 차량 탐지와 404RNF 낙하물 탐지에 적용했습니다.', topics: ['YOLO', 'Object Detection', 'ROI Logic'] },
+  { key: '06', title: 'AI API Integration', description: 'Flask/FastAPI로 AI VM의 탐지 결과를 API 응답으로 전달하고, DB 저장과 Frontend 화면 표시까지 연결하는 흐름을 학습합니다.', topics: ['Flask', 'FastAPI', 'API Design'] },
+  { key: '07', title: 'Deployment / Operation', description: 'Linux, VM, Vercel, AWS, DNS 설정과 health check를 통해 AI 서비스 운영 흐름을 학습합니다.', topics: ['Linux', 'VM', 'Vercel', 'AWS', 'DNS', 'Health Check'] },
+]
+
+export const aiLearningOverview = 'Python 기초부터 머신러닝, Keras 기반 딥러닝 실험, OpenCV 영상 처리, YOLO 객체 탐지, Flask/FastAPI 연동까지 학습하며 AI 모델 결과를 실제 웹 서비스에서 활용하는 흐름을 정리했습니다.'
+
+export const learningNotes = [
+  'Python 데이터 처리',
+  '머신러닝 전처리와 평가',
+  'TensorFlow/Keras 딥러닝 실험',
+  'CNN 이미지 분류',
+  'OpenCV 이미지·영상 처리',
+  'YOLO 객체 탐지',
+  'Flask/FastAPI API 연동',
+  'Linux/배포/운영 점검',
+]
+
+export const learningExperiments = [
+  {
+    title: 'Keras / TensorFlow Experiment',
+    description: 'TensorFlow/Keras로 이미지 데이터 전처리, CNN 모델 구성, 학습, 예측 결과 확인 과정을 실습했습니다. 데이터가 모델에 입력되고 예측 결과로 이어지는 흐름과, loss·accuracy·validation 결과로 모델 성능을 해석하는 과정을 직접 경험했습니다. 최종 프로젝트에서 YOLO 기반 탐지 결과를 단순히 사용하는 것이 아니라, 모델 입력·출력·confidence가 서비스 로직과 어떻게 연결되는지 이해하는 기반이 되었습니다.',
+    keywords: ['TensorFlow', 'Keras', 'CNN', 'Image Classification', 'Training / Validation', 'Prediction Result'],
+  },
+  {
+    title: 'Computer Vision 학습',
+    description: 'OpenCV로 이미지와 영상 데이터를 다루는 방법을 학습하며, CCTV 영상 기반 프로젝트를 이해하기 위해 frame, bbox, confidence, ROI 개념을 정리했습니다. 영상에서 AI 탐지 결과를 화면에 정확히 표시하려면 원본 프레임 크기와 bbox 좌표 변환이 중요하다는 점을 학습했습니다.',
+    keywords: ['OpenCV', 'Frame Processing', 'BBOX', 'ROI', 'Video Pipeline'],
+  },
+]
+
+export const learningProjectMap = [
+  { title: 'Keras / CNN', learning: '이미지 분류와 딥러닝 학습 흐름 이해', project: 'STACCATO의 Keras 기반 실험 경험과 연결' },
+  { title: 'OpenCV / Computer Vision', learning: 'CCTV 영상과 이미지 처리 흐름 이해', project: 'STACCATO 영상 기반 관제 화면과 연결' },
+  { title: 'YOLO / Object Detection', learning: '객체 탐지 모델과 confidence, bbox 결과 이해', project: 'STACCATO 정차 차량 탐지, 404RNF 낙하물 탐지와 연결' },
+  { title: 'Flask / FastAPI API Integration', learning: 'AI 모델 결과를 API 응답으로 전달하는 구조 학습', project: 'AI VM, Flask VM, Frontend 화면 연동 경험과 연결' },
+  { title: 'Database / Metadata', learning: '탐지 결과, 신고, 이벤트 metadata 저장 구조 이해', project: 'MySQL 기반 프로젝트 저장 구조와 연결' },
+  { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'AI 서비스가 실제 환경에서 동작하기 위한 운영 흐름과 연결' },
 ]
