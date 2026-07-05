@@ -10,16 +10,11 @@ export default function ProjectDetail() {
   const project = getProject(slug)
   if (!project) return <section className="section empty-state"><h1>프로젝트를 찾을 수 없습니다.</h1><Link className="button primary" to="/projects">프로젝트 목록</Link></section>
 
-  const sectionIds = [
-    'overview', 'background', 'role', 'features',
-    ...(project.modelComparison ? ['modelcompare'] : []),
-    'stack',
-    ...(project.architecture ? ['architecture'] : []),
-    'flow', 'trouble',
-    ...(project.achievements ? ['achievements'] : []),
-    'screens', 'docs', 'retrospect',
-  ]
+  const baseIds = ['overview', 'background', 'role', 'features', 'stack', 'flow', 'trouble', 'screens', 'docs', 'retrospect'] as const
+  const extrasAfter = (id: string) => project.extraSections?.filter((s) => s.insertAfter === id) ?? []
+  const sectionIds = baseIds.flatMap((id) => [id, ...extrasAfter(id).map((s) => s.id)])
   const num = (id: string) => String(sectionIds.indexOf(id) + 1).padStart(2, '0')
+  const ExtraSections = ({ after }: { after: string }) => <>{extrasAfter(after).map((s) => <section id={s.id} className="detail-section" key={s.id}><span className="section-number">{num(s.id)} / {s.label}</span><h2>{s.heading}</h2><ul className="check-list">{s.items.map((item) => <li key={item}>{item}</li>)}</ul></section>)}</>
 
   return (
     <article className="detail-page" style={{ '--accent': project.accent } as React.CSSProperties}>
@@ -31,12 +26,13 @@ export default function ProjectDetail() {
           <section id="background" className="detail-section"><span className="section-number">{num('background')} / BACKGROUND</span><h2>개발 배경</h2><p>{project.background}</p></section>
           <section id="role" className="detail-section"><span className="section-number">{num('role')} / MY ROLE</span><h2>담당 역할</h2><ul className="check-list">{project.role.map((item) => <li key={item}>{item}</li>)}</ul></section>
           <section id="features" className="detail-section"><span className="section-number">{num('features')} / FEATURES</span><h2>주요 기능</h2><div className="feature-grid">{project.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}</div></section>
-          {project.modelComparison && <section id="modelcompare" className="detail-section"><span className="section-number">{num('modelcompare')} / MODEL COMPARISON</span><h2>AI 모델 비교분석 기능</h2><ul className="check-list">{project.modelComparison.map((item) => <li key={item}>{item}</li>)}</ul></section>}
+          <ExtraSections after="features" />
           <section id="stack" className="detail-section"><span className="section-number">{num('stack')} / TECH STACK</span><h2>기술 스택</h2><div className="large-chip-row">{project.techStack.map((tech) => <span key={tech}>{tech}</span>)}</div></section>
-          {project.architecture && <section id="architecture" className="detail-section"><span className="section-number">{num('architecture')} / ARCHITECTURE</span><h2>아키텍처</h2><ul className="check-list">{project.architecture.map((item) => <li key={item}>{item}</li>)}</ul></section>}
+          <ExtraSections after="stack" />
           <section id="flow" className="detail-section"><span className="section-number">{num('flow')} / SYSTEM FLOW</span><h2>시스템 구조와 서비스 흐름</h2><div className="system-flow">{project.systemFlow.map((step, index) => <div className="flow-step" key={step.label}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{step.label}</h3><p>{step.description}</p></div></div>)}</div>{project.slug === 'staccato' && <p className="security-note">보안을 위해 실제 인프라 IP와 내부 접속 정보는 공개하지 않습니다.</p>}</section>
+          <ExtraSections after="flow" />
           <section id="trouble" className="detail-section"><span className="section-number">{num('trouble')} / PROBLEM SOLVING</span><h2>문제 해결 경험</h2><div className="trouble-list">{project.troubleshooting.map((item) => <div className="trouble-card" key={item.title}><h3>{item.title}</h3><dl><div><dt>Situation</dt><dd>{item.situation}</dd></div><div><dt>Solution</dt><dd>{item.solution}</dd></div><div><dt>Result</dt><dd>{item.result}</dd></div></dl></div>)}</div></section>
-          {project.achievements && <section id="achievements" className="detail-section"><span className="section-number">{num('achievements')} / ACHIEVEMENTS</span><h2>성과</h2><ul className="check-list">{project.achievements.map((item) => <li key={item}>{item}</li>)}</ul></section>}
+          <ExtraSections after="trouble" />
           <section id="screens" className="detail-section"><span className="section-number">{num('screens')} / SCREENS</span><h2>화면 캡처</h2><div className="screenshots">{project.screenshots.map((image) => <figure key={image.src}><img src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`} alt={image.alt} /><figcaption>{image.caption}</figcaption></figure>)}</div></section>
           <section id="docs" className="detail-section"><span className="section-number">{num('docs')} / RESOURCES</span><h2>문서와 링크</h2><div className="resource-grid">{project.documents.map((doc) => <ResourceLink key={doc.label} {...doc} />)}<ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></section>
           <section id="retrospect" className="detail-section"><span className="section-number">{num('retrospect')} / RETROSPECTIVE</span><h2>회고</h2><blockquote>{project.retrospective}</blockquote></section>
