@@ -44,6 +44,7 @@ export const projects: Project[] = [
       'SSH 기반 원격 서버 접속, 방화벽 포트 및 환경변수 설정',
       '보안 로그, 서버 상태, API health check, DB 연결 상태 등 운영 점검 문서화',
       'VM별 역할 분리, 배포 기준, 점검 체크리스트 정리 및 최종 발표·시연 준비',
+      '프론트엔드 MVP 정리와 Flask API 연동 점검 외에도, Keras 기반 AI 모델 실험을 직접 수행하며 데이터 전처리, 모델 학습, 예측 결과 확인 과정을 경험했습니다. 이를 통해 최종 YOLO 기반 AI VM의 탐지 결과를 단순히 화면에 표시하는 수준이 아니라, 모델 입력·출력·confidence·bbox metadata가 서비스 구조와 어떻게 연결되는지 이해하고 점검했습니다.',
     ],
     features: [
       'YOLOv11 기반 차량 탐지',
@@ -96,6 +97,13 @@ export const projects: Project[] = [
         '차량별 track history 기준으로 프레임 간 이동량과 주변 차량 흐름을 비교해 정차 후보 판단',
         '일정 시간 이상 정차 상태 유지 및 cooldown 조건을 통과할 때 이벤트 생성',
         '동일 차량·동일 카메라/ROI에서 이벤트가 반복 발생하지 않도록 중복 방지 로직 적용',
+      ] },
+      { id: 'ai-experiment', insertAfter: 'flow', label: 'AI EXPERIMENT', heading: 'AI 모델 실험 및 Keras 기반 검증', items: [
+        '최종 MVP에서는 YOLOv11 기반 차량 탐지 모델을 사용했지만, AI 모델 동작 원리를 이해하기 위해 Keras 기반 실험을 직접 진행',
+        '차량·도로 위험 상황 탐지 문제를 이해하기 위해 데이터 전처리, 모델 학습, 예측 결과 확인 과정을 수행',
+        'Keras 실험을 통해 이미지 데이터가 모델에 입력되고 학습 결과가 분류·판단 결과로 이어지는 과정을 확인',
+        '최종 AI VM의 YOLO 탐지 결과를 단순히 사용하는 것이 아니라, 모델 입력·출력·성능 확인 관점에서 이해하고 점검',
+        '이 경험을 바탕으로 AI 탐지 결과·confidence·bbox·이벤트 판단 흐름을 서비스 화면과 DB 구조에 연결하는 과정을 더 잘 이해',
       ] },
       { id: 'frontend-notes', insertAfter: 'flow', label: 'CONTROL UI', heading: '관제 화면 구현 포인트', items: [
         'CCTV 목록 조회 시 모든 스트림을 즉시 probing하지 않고, 선택된 CCTV 기준으로 stream·BBOX 조회',
