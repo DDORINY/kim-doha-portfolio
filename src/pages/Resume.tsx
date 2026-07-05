@@ -29,7 +29,12 @@ export default function Resume() {
             </div>
           )
         })}</div></section>
-        <section className="resume-block full"><span className="section-number">07 / INFRASTRUCTURE</span><h2>인프라 구축 및 배포 환경</h2><p>{profile.infra.summary}</p><ul className="check-list">{profile.infra.highlights.map((item) => <li key={item}>{item}</li>)}</ul></section>
+        <section className="resume-block full"><span className="section-number">07 / INFRASTRUCTURE</span><h2>배포 및 인프라 경험</h2><p>{profile.infra.summary}</p><div className="cert-list">{profile.infra.categories.map((category) => (
+          <div className="cert-item" key={category.title}>
+            <h3>{category.title}</h3>
+            <ul className="check-list" style={{ gridTemplateColumns: '1fr', gap: 8, marginTop: 12 }}>{category.items.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+        ))}</div></section>
         <section className="resume-block full"><span className="section-number">08 / WORK EXPERIENCE</span><h2>경력 사항</h2><div className="work-list">{profile.workExperience.map((job) => (
           <div className="work-item" key={job.role}>
             <div className="work-item-head"><span>{job.period}</span><div><h3>{job.role}</h3><p>{job.description}</p></div></div>

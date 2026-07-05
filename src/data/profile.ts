@@ -21,14 +21,12 @@ export const profile = {
   ],
   desiredRoles: ['AI 서비스 개발자', 'AI 객체탐지 서비스 개발자', 'Computer Vision 개발자', 'Python / Flask 기반 AI 백엔드 개발자', 'AI 모델 연동 서비스 개발자'],
   infra: {
-    summary: 'AI 모델 개발뿐만 아니라 WSL, Linux, SSH 기반 서버 관리, 방화벽 설정, DB 설치, GPU 드라이버 설치 등 서비스 실행을 위한 인프라 환경 구축을 경험했습니다. 또한 Vercel과 AWS를 활용한 배포를 진행하며, 개발한 서비스가 실제 운영 환경에서 동작하기 위해 필요한 서버 구성, 포트 관리, 환경 변수 설정, 배포 흐름을 학습했습니다.',
-    highlights: [
-      'WSL / Linux 기반 개발 및 서버 실행 환경 구성',
-      'SSH 접속을 통한 원격 서버 관리 경험',
-      '방화벽 포트 개방, DB 설치, 서버 연결 설정 경험',
-      'GPU 드라이버 설치 및 AI 모델 실행 환경 구성 경험',
-      'Vercel 및 AWS 기반 배포 경험',
-      'Frontend / Backend / AI / DB 서버 분리 구조에서 서비스 연동 경험',
+    summary: '프로젝트를 단순 구현에 그치지 않고, Linux/VMware/AWS/Vercel 환경에서 직접 배포하며 서버 실행, 포트 설정, SSH 접속, DNS 도메인 연결, DB 연동, HTTPS 및 프록시 설정까지 경험했습니다. 이를 통해 프론트엔드·백엔드·DB·AI 서버가 실제 운영 환경에서 연결되는 전체 흐름을 이해하고 점검할 수 있습니다.',
+    categories: [
+      { title: 'Linux / VM', items: ['Linux 서버 환경 구성', 'SSH 접속 및 서버 관리', 'VMware 기반 VM 분리 운영', '방화벽 및 포트 설정'] },
+      { title: 'Cloud / Hosting', items: ['AWS 배포 경험', 'Vercel 프론트엔드 배포', '운영 환경 변수 관리', '배포 후 서비스 상태 점검'] },
+      { title: 'Domain / DNS', items: ['직접 도메인 연결', 'DNS 레코드 설정', 'GitHub Pages 또는 Vercel 도메인 연결 경험', 'HTTPS 접속 확인'] },
+      { title: 'Operation Check', items: ['API health check', 'DB 연결 확인', '프론트엔드/백엔드 연동 점검', '브라우저 기준 QA 및 오류 확인'] },
     ],
   },
   certifications: [
