@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { profile } from '../data/profile'
 import ScrollTopButton from './ScrollTopButton'
@@ -15,6 +15,10 @@ const navItems = [
 export default function Layout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
   const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   return (
     <div className="site-shell">
