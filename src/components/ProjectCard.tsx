@@ -7,6 +7,11 @@ export default function ProjectCard({ project, index }: { project: Project; inde
       <div className="card-topline"><span>0{index + 1}</span><span>{project.type}</span></div>
       <h3>{project.name}</h3>
       <p className="tagline">{project.tagline}</p>
+      {project.highlights?.length ? (
+        <div className="highlight-row">
+          {project.highlights.slice(0, 6).map((item) => <span className="highlight-chip" key={item}>{item}</span>)}
+        </div>
+      ) : null}
       <div className="card-meta">
         <div><span className="meta-label">ROLE</span><p>{project.role.slice(0, 2).join(' · ')}</p></div>
         <div><span className="meta-label">STACK</span><div className="chip-row">{project.techStack.slice(0, 4).map((tech) => <span className="chip" key={tech}>{tech}</span>)}</div></div>

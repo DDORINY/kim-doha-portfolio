@@ -9,6 +9,11 @@ export default function SideProjectCard({ project }: { project: SideProject }) {
         {project.status === 'in-progress' && <span className="status-badge">개발 중</span>}
       </div>
       <p>{project.description}</p>
+      {project.tags?.length ? (
+        <div className="side-project-tags">
+          {project.tags.map((tag) => <span className="side-project-tag" key={tag}>{tag}</span>)}
+        </div>
+      ) : null}
       <span className="side-project-link">{linkLabel} ↗</span>
     </a>
   )

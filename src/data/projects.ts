@@ -3,6 +3,8 @@ export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
 export type ExtraSectionAnchor = 'overview' | 'background' | 'role' | 'features' | 'stack' | 'flow' | 'trouble' | 'screens' | 'docs'
 export type ExtraSection = { id: string; insertAfter: ExtraSectionAnchor; label: string; heading: string; items: string[] }
 
+export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment'
+
 export type Project = {
   slug: 'staccato' | 'erp' | '404rnf'
   name: string
@@ -10,6 +12,8 @@ export type Project = {
   period: string
   tagline: string
   teamNote?: string
+  categories?: ProjectCategory[]
+  highlights?: string[]
   summary: string
   background: string
   role: string[]
@@ -31,6 +35,8 @@ export const projects: Project[] = [
     slug: 'staccato', name: 'STACCATO AI Highway Control', type: 'AI 관제 시스템 · Final Project', period: 'Final Project',
     tagline: 'YOLOv11 기반 CCTV 영상 분석으로 고속도로 정차 차량과 갓길 정차 이벤트를 탐지하고, 관제자가 실시간으로 확인할 수 있도록 구축한 AI 관제 MVP 시스템',
     teamNote: '팀 프로젝트 · 개인 기여도 약 50%',
+    categories: ['AI / Computer Vision', 'Infra / Deployment'],
+    highlights: ['YOLOv11', 'Keras 실험', 'BBOX Overlay', 'VM 분리 운영', 'Socket.IO', 'AI Media Proxy'],
     summary: '단순 웹 서비스가 아니라 Frontend VM · Flask VM · AI VM · DB VM을 분리해 운영한 AI 서비스 통합 프로젝트입니다. CCTV 영상에서 YOLOv11로 차량을 탐지하고 ROI·이동량 기준으로 정차·갓길 정차 이벤트를 판단해, Flask API Gateway를 거쳐 MySQL에 저장하고 Socket.IO로 관제 화면에 실시간 전달합니다. 이벤트 목록·상세·스냅샷·MP4 replay까지 이어지는 흐름을 실제 운영 가능한 MVP로 구현했습니다.',
     background: '고속도로에서 정차 차량이나 갓길 정차는 2차 사고로 이어질 수 있어 빠른 탐지와 관제 대응이 중요합니다. CCTV 영상은 실시간으로 확인해야 하지만 사람이 모든 화면을 지속적으로 감시하기는 어렵기 때문에 AI 기반 이상 상황 탐지가 필요하다고 판단했습니다. AI가 탐지한 결과를 화면에 표시하는 데서 끝내지 않고, DB 저장, 실시간 알림, 이벤트 상세 확인, 스냅샷·영상 replay까지 하나의 흐름으로 연결하는 것을 목표로 삼았습니다.',
     role: [
@@ -168,6 +174,8 @@ export const projects: Project[] = [
     slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: '개인 프로젝트 · 진행 중',
     tagline: '쇼핑몰 운영 데이터를 하나의 흐름으로 연결하는 실무형 ERP (개발 중)',
     teamNote: '개인 프로젝트 · 현재 개발 진행 중',
+    categories: ['Full-stack'],
+    highlights: ['Spring Boot', 'Next.js', 'MySQL', 'JWT 인증', '주문·재고 흐름', '관리자 API'],
     summary: '개인 프로젝트로 진행하고 있는 쇼핑몰 운영 ERP입니다. 상품 등록부터 주문, 결제, 재고, 관리자 확인까지 쇼핑몰 운영 데이터 흐름을 구현하고 있으며, AI 기능이 의존할 백엔드 API, 데이터베이스, 인증, 관리자 시스템의 기반 역량을 쌓기 위해 진행 중입니다.',
     background: '상품, 주문, 결제, 재고를 분리된 기능이 아닌 하나의 서비스 흐름으로 이해하고 안정적인 관리자 경험을 구현하기 위해 개인적으로 시작했습니다.',
     role: ['상품·카테고리 관리 화면 구현', '장바구니와 주문·결제 흐름 구현', '재고 데이터 상태 처리', '관리자 대시보드 UI 구성', 'Spring Boot API 연동', 'JWT 인증 흐름 적용'],
@@ -184,6 +192,8 @@ export const projects: Project[] = [
     slug: '404rnf', name: '404 R·N·F AI', type: 'AI 낙하물 탐지 · Mini Project', period: 'Mini Project',
     tagline: 'AI 객체 탐지와 실시간 알림을 결합해 도로 위 낙하물 위험을 탐지·분석·관리하는 안전 주행 플랫폼',
     teamNote: '팀 프로젝트(팀장) · 개인 기여도 약 80% 이상',
+    categories: ['AI / Computer Vision'],
+    highlights: ['YOLOv8', 'RT-DETR', 'AI 모델 비교', 'Flask-SocketIO', 'DB 설계', '팀장'],
     summary: '단순 신고 접수 서비스가 아니라, AI 탐지 → 위험도 분석 → 알림 생성 → 관리자 확인 → 지도 기반 모니터링으로 이어지는 하나의 흐름을 완성하는 데 집중한 프로젝트입니다. 도로 위 낙하물 이미지·영상을 YOLOv8 · RT-DETR 기반으로 탐지해 위험도를 주의·위험·긴급 단계로 분류하고, 위험 신호는 Flask-SocketIO로 관리자 화면에 즉시 전달합니다. 지도 기반 위험 시각화와 경로 위험 분석까지 연결해 실제 운영 가능한 안전 주행 플랫폼 형태로 구현했습니다.',
     background: '도로 위 낙하물은 운전자에게 즉각적인 위험이 되지만, 발견과 공유가 늦어지면 2차 사고로 이어질 수 있습니다. 사용자가 직접 신고한 이미지·영상을 기반으로 AI가 위험 객체를 분석하고 관리자가 빠르게 확인할 수 있는 구조가 필요하다고 판단했고, 신고 → AI 분석 → 실시간 알림 → 관리자 처리까지의 과정을 하나의 서비스 흐름으로 연결하는 것을 목표로 팀 프로젝트를 시작했습니다.',
     role: [
