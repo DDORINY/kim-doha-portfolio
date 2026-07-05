@@ -1,8 +1,30 @@
+import { Link } from 'react-router-dom'
 import SectionHeading from '../components/SectionHeading'
-import { profile } from '../data/profile'
+import { contactKeywords, contactSummary, contactTopics, profile } from '../data/profile'
 
 export default function Contact() {
   return (
-    <section className="section page-section"><div className="container contact-page"><SectionHeading eyebrow="CONTACT" title="AI와 서비스에 대해 이야기해요." description="새로운 기회, 프로젝트, 기술 이야기를 언제든 환영합니다." /><div className="contact-grid"><a href={profile.github} target="_blank" rel="noreferrer"><span>01 / GITHUB</span><h2>코드와 작업 기록</h2><p>{profile.github}</p><strong>↗</strong></a><a href={`mailto:${profile.email}`}><span>02 / EMAIL</span><h2>메일 보내기</h2><p>{profile.email}</p><strong>↗</strong></a><a href={profile.notion} target="_blank" rel="noreferrer"><span>03 / AI LEARNING NOTION</span><h2>AI 학습 기록</h2><p>Python부터 AI API 연동까지</p><strong>↗</strong></a><div className="contact-placeholder"><span>04 / MORE LINKS</span><h2>추가 포트폴리오</h2><p>링크 준비 중</p></div></div></div></section>
+    <section className="section page-section">
+      <div className="container contact-page">
+        <SectionHeading eyebrow="CONTACT" title="AI 서비스 개발자로의 기회를 기다립니다." description="Computer Vision, Flask/FastAPI 연동, DB 저장, 프론트엔드 통합, 배포·운영 점검 경험을 바탕으로 실제 서비스에 연결되는 AI 개발을 지향합니다." />
+        <div className="contact-summary">
+          <span className="eyebrow">SUMMARY</span>
+          <p>{contactSummary}</p>
+          <div className="contact-keywords">{contactKeywords.map((keyword) => <span className="chip" key={keyword}>{keyword}</span>)}</div>
+        </div>
+        <div className="contact-grid">
+          <a href={`mailto:${profile.email}`}><span>01 / EMAIL</span><h2>메일로 연락하기</h2><p>{profile.email}</p><strong>↗</strong></a>
+          <a href={profile.github} target="_blank" rel="noreferrer"><span>02 / GITHUB</span><h2>코드와 작업 기록</h2><p>{profile.github}</p><strong>↗</strong></a>
+          <Link to="/projects"><span>03 / PROJECTS</span><h2>주요 프로젝트 보기</h2><p>STACCATO, 404RNF, CommerceOps ERP</p><strong>↗</strong></Link>
+          <Link to="/resume"><span>04 / RESUME</span><h2>이력서 확인</h2><p>경력, 기술 스택, 프로젝트 역할 정리</p><strong>↗</strong></Link>
+          <a href={profile.notion} target="_blank" rel="noreferrer"><span>05 / AI LEARNING NOTION</span><h2>AI 학습 기록</h2><p>Python, Keras, Computer Vision, AI API 연동</p><strong>↗</strong></a>
+          <Link to="/resume"><span>06 / DEPLOYMENT</span><h2>배포·인프라 경험</h2><p>Linux, VMware, AWS, Vercel, DNS, HTTPS 설정 경험</p><strong>↗</strong></Link>
+        </div>
+        <div className="contact-topics">
+          <SectionHeading eyebrow="CONTACT TOPICS" title="연락 가능한 주제" />
+          <div className="contact-topic-list">{contactTopics.map((topic) => <span className="contact-topic-chip" key={topic}>{topic}</span>)}</div>
+        </div>
+      </div>
+    </section>
   )
 }

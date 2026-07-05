@@ -108,3 +108,16 @@ export const learningProjectMap = [
   { title: 'Database / Metadata', learning: '탐지 결과, 신고, 이벤트 metadata 저장 구조 이해', project: 'MySQL 기반 프로젝트 저장 구조와 연결' },
   { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'AI 서비스가 실제 환경에서 동작하기 위한 운영 흐름과 연결' },
 ]
+
+export const contactSummary = 'AI 객체탐지 서비스 개발자를 목표로, 모델 실험부터 API 연동, DB 저장, 프론트엔드 화면 반영, Linux/VM 기반 배포 점검까지 경험했습니다.'
+
+export const contactKeywords = ['AI Service Developer', 'Computer Vision', 'Object Detection', 'Flask / FastAPI', 'MySQL', 'Linux / VM', 'Deployment']
+
+export const contactTopics = [
+  'AI 서비스 개발자 포지션',
+  'Computer Vision / Object Detection 프로젝트',
+  'Flask/FastAPI 기반 AI API 연동',
+  '프론트엔드와 AI 결과 시각화 연동',
+  'Linux/VM 기반 배포 및 운영 점검',
+  '포트폴리오 및 프로젝트 관련 문의',
+]
