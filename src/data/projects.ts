@@ -14,6 +14,9 @@ export type Project = {
   techStack: string[]
   systemFlow: { label: string; description: string }[]
   troubleshooting: { title: string; situation: string; solution: string; result: string }[]
+  modelComparison?: string[]
+  architecture?: string[]
+  achievements?: string[]
   screenshots: { src: string; alt: string; caption: string }[]
   documents: ProjectLink[]
   deploy: ProjectLink
@@ -81,31 +84,76 @@ export const projects: Project[] = [
     retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요하다는 것을 이 프로젝트를 진행하며 체감하고 있습니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다지는 중입니다.', accent: '#8b80ff',
   },
   {
-    slug: '404rnf', name: '404RNF', type: 'AI 낙하물 탐지 · Mini Project', period: 'Mini Project',
-    tagline: 'AI 기반 낙하물 탐지와 실시간 알림으로 만든 안전 주행 통합 플랫폼',
-    teamNote: '팀 프로젝트 · 개인 기여도 약 80% 이상',
-    summary: '도로 위 낙하물을 AI로 탐지하고 위험도를 판단해 실시간 알림을 제공하며, 지도 기반 위험 시각화와 경로 기반 위험 분석까지 연결한 안전 주행 서비스입니다. YOLOv8, YOLOv8-p2, RT-DETR 세 모델을 비교분석하고 LLM으로 신고 작성을 보조하는 AI 파이프라인을 구축했습니다.',
-    background: '도로 위 낙하물을 빠르게 인지하고, 지도와 경로 기반으로 위험을 사전에 알릴 수 있는 안전 주행 플랫폼을 팀 프로젝트로 구현하기 위해 시작했습니다.',
-    role: ['DB 테이블 설계 및 전체 데이터 구조 정의', 'Flask 앱 초기화와 공통 프레임워크 구성', '회원 CRUD 및 관리자 권한 신청 구조 설계', '관리자 대시보드(통계, 신고 리스트·상태 변경) 구현', 'AI 객체 탐지 모델 개발 및 학습', 'YOLOv8 · YOLOv8-p2 · RT-DETR 3개 모델 비교분석 기능 설계', '프로젝트 전체 구조 설계 및 팀 통합 총괄'],
-    features: ['YOLO · RT-DETR 기반 낙하물 객체 탐지', '위험도(주의·위험·긴급) 자동 분류', 'Flask-SocketIO 실시간 위험 알림', '지도 기반 위험 위치 시각화', '경로(출발지·도착지) 기반 위험 분석', '신고 등록 및 AI 분석 연계', '관리자 대시보드 및 신고 상태 처리', 'LLM 기반 신고 제목·내용 자동 생성', '동일 데이터 기준 3개 AI 모델 비교분석'],
-    techStack: ['Flask', 'SQLAlchemy', 'Flask-Migrate', 'Flask-SocketIO', 'YOLOv8', 'RT-DETR', 'LLM', 'MySQL', 'Google Maps API', 'Kakao Navigation API'],
+    slug: '404rnf', name: '404 R·N·F AI', type: 'AI 낙하물 탐지 · Mini Project', period: 'Mini Project',
+    tagline: 'AI 객체 탐지와 실시간 알림을 결합해 도로 위 낙하물 위험을 탐지·분석·관리하는 안전 주행 플랫폼',
+    teamNote: '팀 프로젝트(팀장) · 개인 기여도 약 80% 이상',
+    summary: '단순 신고 접수 서비스가 아니라, AI 탐지 → 위험도 분석 → 알림 생성 → 관리자 확인 → 지도 기반 모니터링으로 이어지는 하나의 흐름을 완성하는 데 집중한 프로젝트입니다. 도로 위 낙하물 이미지·영상을 YOLOv8 · RT-DETR 기반으로 탐지해 위험도를 주의·위험·긴급 단계로 분류하고, 위험 신호는 Flask-SocketIO로 관리자 화면에 즉시 전달합니다. 지도 기반 위험 시각화와 경로 위험 분석까지 연결해 실제 운영 가능한 안전 주행 플랫폼 형태로 구현했습니다.',
+    background: '도로 위 낙하물은 운전자에게 즉각적인 위험이 되지만, 발견과 공유가 늦어지면 2차 사고로 이어질 수 있습니다. 사용자가 직접 신고한 이미지·영상을 기반으로 AI가 위험 객체를 분석하고 관리자가 빠르게 확인할 수 있는 구조가 필요하다고 판단했고, 신고 → AI 분석 → 실시간 알림 → 관리자 처리까지의 과정을 하나의 서비스 흐름으로 연결하는 것을 목표로 팀 프로젝트를 시작했습니다.',
+    role: [
+      '팀장으로서 전체 기능 구조와 개발 방향 수립',
+      'Flask 기반 백엔드 프레임워크 구조 설계 및 초기화',
+      'DB 테이블 설계 및 SQLAlchemy 모델 구조 정리',
+      '회원가입·로그인 및 관리자 권한 신청·승인 구조 설계·구현',
+      '관리자 대시보드(신고 통계·상태 처리·권한 신청 관리) 구현',
+      'AI 탐지 결과를 관리자 화면에서 확인할 수 있도록 서비스·리포지토리 계층 구조 설계',
+      '동일 신고 데이터 기준 YOLOv8 · RT-DETR · YOLOv8-p2 비교분석 기능 구현',
+      '프로젝트 전반의 기능 통합, 오류 점검, 문서화 총괄',
+    ],
+    features: [
+      'AI 낙하물 탐지 — 이미지·영상 업로드 시 YOLO 기반 객체 탐지 수행',
+      '위험도 분석 — 탐지 결과를 주의·위험·긴급 단계로 자동 분류',
+      '실시간 알림 — 위험·긴급 데이터 발생 시 Flask-SocketIO로 관리자 알림 전송',
+      '지도 기반 모니터링 — 위험 위치 지도 표시 및 최신 탐지 리스트 제공',
+      '경로 위험 분석 — 출발지·도착지 기준 경로 내 위험 요소 분석',
+      '관리자 기능 — 신고 관리, 상태 처리, 위험 통계, AI 탐지 로그 관리',
+      'AI 모델 비교분석 — 동일 신고 데이터 기준 YOLOv8 · RT-DETR · YOLOv8-p2 결과 비교',
+      '회원 권한 신청 및 승인 관리',
+      'LLM 기반 신고 제목·내용 자동 생성',
+    ],
+    techStack: ['Flask', 'SQLAlchemy', 'Flask-Migrate', 'Flask-SocketIO', 'HTML', 'CSS', 'JavaScript', 'Jinja2', 'MySQL', 'YOLOv8', 'YOLOv8-p2', 'RT-DETR', 'LLM', 'Google Maps API', 'Kakao Navigation API'],
     systemFlow: [
-      { label: '사용자 업로드', description: '이미지·영상 업로드' },
-      { label: 'AI 객체 탐지', description: 'YOLOv8 · RT-DETR로 낙하물 탐지' },
-      { label: '위험도 분석', description: '주의·위험·긴급 단계로 분류' },
-      { label: 'Alert 생성', description: '위험·긴급 단계에서 알림 생성' },
-      { label: '실시간 전송', description: 'WebSocket으로 관리자 화면에 전송' },
-      { label: '지도 반영', description: '탐지 현황 및 경로 위험 분석에 반영' },
+      { label: '신고 업로드', description: '사용자가 도로 위 낙하물 이미지 또는 영상을 신고로 업로드' },
+      { label: 'AI 객체 탐지', description: 'YOLOv8 · RT-DETR 모델이 낙하물 객체 탐지 수행' },
+      { label: '탐지 결과 저장', description: '탐지 객체, 신뢰도, 위치 정보를 DB에 저장' },
+      { label: '위험도 분석', description: '탐지 결과를 기준으로 주의·위험·긴급 단계로 분류' },
+      { label: 'Alert 생성', description: '위험·긴급 상황이면 Alert 데이터 생성' },
+      { label: '실시간 전송', description: 'Flask-SocketIO로 관리자 화면에 실시간 전송' },
+      { label: '대시보드 반영', description: '관리자 대시보드와 지도 기반 모니터링 화면에 즉시 반영' },
+      { label: '신고 처리', description: '관리자가 신고 상태를 확인하고 처리' },
     ],
     troubleshooting: [
-      { title: '3개 AI 모델 중 최적 모델 선정', situation: '낙하물 탐지에 YOLOv8, YOLOv8-p2, RT-DETR 중 어떤 모델이 적합한지 판단할 기준이 없었습니다.', solution: '동일한 데이터셋으로 세 모델을 각각 학습·추론하고 결과를 나란히 비교할 수 있는 AI 분석비교 기능을 관리자 페이지에 구현했습니다.', result: '모델별 탐지 결과를 객관적으로 비교하고 상황에 맞는 모델을 선택할 근거를 마련했습니다.' },
-      { title: '실시간 알림의 신뢰성 확보', situation: '탐지된 모든 객체를 알림으로 보내면 관리자가 정작 중요한 위험 신호를 놓칠 위험이 있었습니다.', solution: 'Flask-SocketIO 기반으로 위험·긴급 단계로 분류된 이벤트만 필터링해 관리자 화면에 실시간 전송하도록 구성했습니다.', result: '불필요한 알림을 줄이고 실제 대응이 필요한 상황에 집중할 수 있게 되었습니다.' },
+      { title: '3개 AI 모델 중 최적 모델 선정', situation: '낙하물 탐지에 YOLOv8, YOLOv8-p2, RT-DETR 중 어떤 모델이 적합한지 판단할 기준이 없었습니다.', solution: '동일한 신고 데이터로 세 모델을 각각 추론하고, 탐지 수·신뢰도·처리 시간 등 복합 지표로 결과를 나란히 비교할 수 있는 AI 분석비교 기능을 관리자 페이지에 구현했습니다.', result: '단일 기준이 아닌 복합 지표로 모델을 판단하는 경험을 쌓았고, 상황에 맞는 모델을 선택할 근거를 마련했습니다.' },
+      { title: '이미지·영상 처리 구조 분리', situation: '이미지와 영상은 분석 방식(단일 프레임 vs 다중 프레임)이 달라 동일한 처리 로직을 적용하기 어려웠습니다.', solution: '파일 타입을 판별해 이미지는 즉시 추론하고, 영상은 샘플 FPS 기준으로 프레임을 추출한 뒤 순차 추론하도록 분석 모드를 분리했습니다.', result: '파일 형식과 관계없이 안정적으로 탐지 결과를 생성할 수 있었습니다.' },
+      { title: '실시간 알림의 신뢰성 확보', situation: '탐지된 모든 객체를 알림으로 보내면 관리자가 정작 중요한 위험 신호를 놓칠 위험이 있었고, 서버 이벤트와 관리자 UI 상태가 어긋날 위험도 있었습니다.', solution: 'Flask-SocketIO 기반으로 위험·긴급 단계로 분류된 이벤트만 필터링해 전송하도록 하고, Socket 이벤트를 별도 모듈로 분리해 관리했습니다.', result: '불필요한 알림을 줄이고 실제 대응이 필요한 상황에 집중할 수 있는 안정적인 알림 구조를 갖췄습니다.' },
       { title: '관리자 권한 구조 설계', situation: '일반 회원과 관리자 권한을 구분하고 신청·승인하는 흐름이 없어 접근 통제가 불명확했습니다.', solution: '회원 권한 신청 구조를 설계하고, 신청 리스트 확인과 상태 변경이 가능한 관리자 페이지를 구현했습니다.', result: '권한별 접근을 명확히 통제하고 관리자 승인 프로세스를 갖출 수 있었습니다.' },
+      { title: 'Service·Repository 계층 분리 필요성 체감', situation: '기능이 늘어나면서 라우트 코드에 비즈니스 로직과 DB 접근 로직이 뒤섞여 유지보수가 어려워졌습니다.', solution: 'Service 계층에서 비즈니스 로직을, Repository 계층에서 DB 접근을 전담하도록 구조를 재정리했습니다.', result: '기능 추가·수정 시 영향 범위를 예측하기 쉬워지고 코드 가독성이 개선되었습니다.' },
+    ],
+    modelComparison: [
+      'YOLOv8 · RT-DETR · YOLOv8-p2 세 모델을 동일한 신고 데이터 기준으로 비교분석',
+      '모델별 탐지 수, 평균 신뢰도, 최대 신뢰도, 처리 시간, 베스트 프레임 정보를 결과로 저장',
+      '이미지와 영상을 모두 분석할 수 있도록 비교 모드를 분리해 설계',
+      '영상은 샘플 FPS 기준으로 프레임을 추출한 뒤 분석 수행',
+      '분석 실행 상태를 대기·진행중·완료·부분완료·실패로 관리해 진행 상황 추적',
+      '관리자 화면에서 모델별 결과를 비교해 상황에 맞는 모델을 선택할 수 있도록 설계',
+    ],
+    architecture: [
+      'Flask 앱을 중심으로 API · Service · Repository · Model 계층을 분리해 구성',
+      '비즈니스 로직과 DB 접근 로직을 분리해 유지보수성과 확장성을 확보',
+      '관리자·신고·AI 분석·실시간 알림·지도 모니터링 기능을 Blueprint 단위로 분리',
+      'Socket 이벤트를 별도 모듈로 분리해 실시간 알림 기능을 독립적으로 관리',
+      'Flask-Migrate(Alembic) 기반 마이그레이션으로 DB 스키마 변경 이력을 관리',
+    ],
+    achievements: [
+      'AI 탐지 · 신고 · 관리자 처리 · 실시간 알림을 하나의 서비스 흐름으로 통합',
+      '관리자 기준 AI 분석 대시보드와 탐지 로그 관리 기능 구현',
+      '동일 데이터 기반 모델 비교분석 기능으로 AI 모델 선택 근거 마련',
+      'DB · 백엔드 · AI 분석 · 관리자 화면을 연결한 풀스택 프로젝트 경험 확보',
+      '팀 프로젝트에서 기능 설계부터 구현, 통합, 문서화까지 주도',
     ],
     screenshots: [{ src: '/images/404rnf-01.png', alt: '404RNF 메인 화면', caption: '메인 화면 · 실시간 낙하물 탐지 소개' }],
     documents: [{ label: '시연 영상', url: 'https://youtu.be/Iet2QiSkU5s' }, { label: '발표자료', url: '/docs/404rnf-presentation.pdf' }, { label: '코드리뷰', url: '/docs/404rnf-code-review.pdf' }],
     deploy: { label: '배포 사이트', url: 'https://404-rnf.ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/lms-mini-project/AI-accident-detection' },
-    retrospective: 'AI 탐지부터 실시간 알림, 지도 기반 위험 분석까지 이어지는 전체 파이프라인을 팀과 함께 설계하고 구현했습니다. 모델 성능뿐 아니라 실시간성, 권한 관리, 데이터 흐름을 함께 고려해야 실제로 동작하는 안전 서비스가 된다는 것을 배웠습니다.', accent: '#ffbe70',
+    retrospective: 'AI 탐지 결과를 화면에 출력하는 수준을 넘어, DB에 저장하고 관리자 통계·로그로 연결하는 구조가 중요하다는 것을 배웠습니다. 여러 AI 모델을 비교하며 탐지 수·신뢰도·처리 시간 등 복합 지표로 판단하는 경험을 쌓았고, 프로젝트 규모가 커질수록 Service·Repository 계층 분리가 왜 필요한지 체감했습니다. 모델 성능뿐 아니라 실시간성, 권한 관리, 데이터 흐름을 함께 고려해야 실제로 동작하는 안전 서비스가 된다는 것을 팀과 함께 배운 프로젝트였습니다.', accent: '#ffbe70',
   },
 ]
 
