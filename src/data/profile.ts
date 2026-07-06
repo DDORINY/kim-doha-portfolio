@@ -5,14 +5,25 @@ export const profile = {
   intro: '온라인 마케팅·운영 직무에서 5년 8개월의 실무 경험을 쌓은 뒤, 데이터 기반 의사결정과 업무 자동화의 필요성을 느껴 AI 서비스 개발자로 전환을 준비하고 있습니다.',
   email: 'jihun22400669@gmail.com',
   github: 'https://github.com/DDORINY',
+  portfolio: 'https://ddoriny.com',
   notion: 'https://app.notion.com/p/doreen1004/0-AI-320bec735c3780c7bfcffcc2425e59f2',
+  positioning: {
+    position: 'AI 서비스 개발자 / Python·Flask 기반 AI 백엔드 개발자',
+    statement: 'AI 모델 결과를 API, DB, 프론트엔드 화면과 연결해 실제 사용 가능한 서비스로 구현하는 개발자',
+  },
+  coreCompetencies: [
+    'YOLO 기반 객체탐지 결과를 Flask API, MySQL, 프론트엔드 관제 화면으로 연결한 경험',
+    'AI VM · Flask VM · Frontend VM · DB VM 분리 구조에서 서버 연동 및 운영 점검 경험',
+    '온라인 마케팅·운영 5년 8개월 경험을 바탕으로 서비스 흐름과 사용자 문제를 이해하는 개발자',
+    'Python, Flask, MySQL, React/Next.js 기반 AI 서비스 MVP 구현 경험',
+  ],
   careerSummary: [
     { label: '총 경력', value: '5년 8개월' },
     { label: '이전 직무', value: '온라인 마케팅, 광고 운영, 쇼핑몰 운영, 콘텐츠 제작, 운영 지원' },
     { label: '전환 목표', value: 'AI 서비스 개발자, AI 객체탐지 서비스 개발자' },
     { label: '핵심 강점', value: '운영 경험 기반의 문제 파악 능력, 데이터 기반 사고, 서비스 흐름 이해, AI 모델과 웹 서비스 연동 경험' },
     { label: '관심 분야', value: 'Computer Vision, Object Detection, Flask API, 데이터베이스 연동, AI 서비스 운영' },
-    { label: '입사 가능일', value: '2026.07.09 ~ 09.09 심화반 교육 예정이나, 협의 시 교육 기간 중에도 즉시 입사 가능' },
+    { label: '입사 가능일', value: '협의 가능 (2026.07.09 ~ 09.09 AI 심화반 교육 예정이나 근무 조건 협의 시 교육 기간 중에도 즉시 입사 가능)' },
   ],
   about: [
     '온라인 마케팅 및 운영 직무에서 5년 8개월간 실무 경험을 쌓으며 데이터 기반 의사결정과 업무 자동화의 필요성을 체감했습니다. 이후 컴퓨터공학 전공 과정과 AI/데이터 분석 부트캠프를 통해 Python, 머신러닝, 딥러닝, 컴퓨터비전, Flask API, 데이터베이스 연동 역량을 학습했습니다.',
@@ -34,8 +45,8 @@ export const profile = {
   ],
   education: [
     { title: '학점은행제 컴퓨터공학 전공', period: '2020.06 ~ 2026.07 · 학사 학위 취득 예정', description: '자료구조, 알고리즘, 운영체제, 데이터베이스, Python 프로그래밍, 데이터 처리, 머신러닝 이론 및 모델 구현을 학습했습니다.' },
-    { title: 'AI/데이터 분석 부트캠프 · MBC 아카데미 · 대보정보통신', period: '2025.12.31 ~ 2026.07.07', description: 'Python 기반 머신러닝·딥러닝 모델 구현, OpenCV 영상 처리, CNN 이미지 분류, 교차검증·하이퍼파라미터 튜닝, Flask API 개발, Database 연동, Git/GitHub 협업, Linux 개발 환경을 학습했습니다.' },
-    { title: 'AI 심화반 · Roboflow 기반 부유물 탐지 시스템 구축 과정', period: '2026.07.09 ~ 2026.09.09', description: 'Roboflow를 활용한 데이터셋 구축과 모델 학습으로 부유물(하천·해양 등) 탐지 시스템을 구축하는 과정을 심화 학습합니다.' },
+    { title: 'AI/데이터 분석 부트캠프 · MBC 아카데미 · 대보정보통신', period: '2025.12.31 ~ 2026.07.07 · 수료 예정', description: 'Python 기반 머신러닝·딥러닝 모델 구현, OpenCV 영상 처리, CNN 이미지 분류, 교차검증·하이퍼파라미터 튜닝, Flask API 개발, Database 연동, Git/GitHub 협업, Linux 개발 환경을 학습했습니다.' },
+    { title: 'AI 심화반 · Roboflow 기반 부유물 탐지 시스템 구축 과정', period: '2026.07.09 ~ 2026.09.09 · 진행 예정', description: 'Roboflow를 활용한 데이터셋 구축과 모델 학습으로 부유물(하천·해양 등) 탐지 시스템을 구축하는 과정을 심화 학습합니다.' },
   ],
   workExperience: [
     {
@@ -61,6 +72,23 @@ export const profile = {
     'AI / Computer Vision': ['Python', 'NumPy', 'Pandas', 'Matplotlib', 'TensorFlow', 'Keras', 'KerasCV', 'OpenCV', 'CNN', 'YOLO', 'Object Detection', 'Computer Vision'],
     'Backend / Database': ['Flask', 'REST API', 'SQLAlchemy', 'MySQL', 'MySQL Workbench', 'Pytest'],
     'Frontend / Collaboration / Infra': ['Next.js', 'TypeScript', 'Git', 'GitHub', 'Linux', 'Ubuntu', 'VMware'],
+  },
+  skillUsage: {
+    'AI / Computer Vision': [
+      { skill: 'YOLO', usage: 'STACCATO 차량 탐지, 404 R·N·F 낙하물 탐지 모델 비교' },
+      { skill: 'OpenCV', usage: '영상 프레임 처리 및 bbox 좌표 변환' },
+      { skill: 'Keras / TensorFlow', usage: 'CNN 기반 이미지 분류 실험' },
+    ],
+    'Backend / Database': [
+      { skill: 'Flask', usage: 'AI 분석 요청, 인증, 신고·이벤트 API 구현' },
+      { skill: 'MySQL', usage: '사용자·신고·탐지 로그·알림 데이터 저장' },
+      { skill: 'SQLAlchemy', usage: '모델·Repository 계층 구성' },
+    ],
+    'Frontend / Collaboration / Infra': [
+      { skill: 'Next.js', usage: 'STACCATO 관제 화면, CommerceOps ERP 운영 화면 구현' },
+      { skill: 'Linux / VMware', usage: 'VM 분리 운영 및 서버 실행·점검' },
+      { skill: 'Git / GitHub', usage: '팀 프로젝트 협업 및 버전 관리' },
+    ],
   },
 }
 
