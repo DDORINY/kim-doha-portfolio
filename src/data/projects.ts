@@ -3,7 +3,7 @@ export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
 export type ExtraSectionAnchor = 'overview' | 'background' | 'role' | 'features' | 'stack' | 'flow' | 'trouble' | 'screens' | 'docs'
 export type ExtraSection = { id: string; insertAfter: ExtraSectionAnchor; label: string; heading: string; items: string[] }
 
-export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment'
+export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment' | 'Meta / Portfolio'
 
 export type Project = {
   slug: 'staccato' | 'erp' | '404rnf' | 'portfolio-hub'
@@ -13,6 +13,7 @@ export type Project = {
   tagline: string
   teamNote?: string
   categories?: ProjectCategory[]
+  badge?: string
   highlights?: string[]
   resumeHighlight?: { role: string; contribution: string; achievement: string }
   summary: string
@@ -283,8 +284,9 @@ export const projects: Project[] = [
   {
     slug: 'portfolio-hub', name: 'AI Developer Portfolio Hub', type: 'Frontend · Personal Project', period: '개인 프로젝트 · 지속 업데이트',
     tagline: '프로젝트·이력서·학습 기록을 하나의 데이터 기반 구조로 통합한 AI 서비스 개발자 포트폴리오 허브',
-    teamNote: '개인 프로젝트 · 기여도 100%',
-    categories: ['Infra / Deployment'],
+    teamNote: '개인 프로젝트 · 기여도 100% · 지금 보고 계신 이 사이트 자체입니다',
+    categories: ['Meta / Portfolio'],
+    badge: 'META',
     highlights: ['React 19', 'TypeScript', 'Vite', 'React Router', 'GitHub Pages', 'Data-driven UI'],
     resumeHighlight: {
       role: '기획·설계·구현·배포 전체 담당, 데이터 구조 설계, 컴포넌트 분리, 반응형·다크모드 UI, 스크롤 애니메이션 구현',

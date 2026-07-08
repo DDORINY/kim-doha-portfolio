@@ -19,7 +19,7 @@ export default function ProjectDetail() {
 
   return (
     <article className="detail-page" style={{ '--accent': project.accent } as React.CSSProperties}>
-      <header className="detail-hero section"><div className="container"><Link className="back-link" to="/projects">← Projects</Link><div className="detail-title"><div><span className="eyebrow">{project.type}{project.period && !project.type.includes(project.period) ? ` · ${project.period}` : ''}</span><h1>{project.name}</h1><p>{project.tagline}</p></div><div className="detail-actions"><ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></div></div></header>
+      <header className="detail-hero section"><div className="container"><Link className="back-link" to="/projects">← Projects</Link><div className="detail-title"><div><span className="eyebrow">{project.type}{project.period && !project.type.includes(project.period) ? ` · ${project.period}` : ''}</span><h1>{project.name}{project.badge && <span className="project-badge">{project.badge}</span>}</h1><p>{project.tagline}</p></div><div className="detail-actions"><ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></div></div></header>
       <div className="container detail-layout">
         <aside className="detail-nav"><span>CONTENTS</span>{sectionIds.map((id, i) => <button type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} aria-label={`${id} 섹션으로 이동`} key={id}>{String(i + 1).padStart(2, '0')}</button>)}</aside>
         <div className="detail-content">

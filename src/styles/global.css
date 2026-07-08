@@ -118,6 +118,7 @@ main { flex: 1; animation: page-fade-in .55s cubic-bezier(.16,.84,.44,1) both; }
 .card-topline { display: flex; justify-content: space-between; color: var(--muted-soft); font: .68rem 'DM Mono',monospace; letter-spacing: .08em; }
 .card-topline span:first-child { color: var(--accent); }
 .project-card h3 { margin: 52px 0 10px; font-size: 2rem; letter-spacing: -.04em; }
+.project-badge { display: inline-block; vertical-align: middle; margin-left: 12px; padding: 4px 10px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--muted-soft); font: 700 .62rem 'DM Mono',monospace; letter-spacing: .1em; }
 .tagline { min-height: 54px; margin-bottom: 38px; font-size: .9rem; }
 .highlight-row { display: flex; flex-wrap: wrap; gap: 6px; margin: -20px 0 24px; }
 .highlight-chip { padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); font-size: .68rem; font-weight: 700; }

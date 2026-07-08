@@ -6,7 +6,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
   return (
     <Reveal as="article" className="project-card" style={{ '--accent': project.accent } as React.CSSProperties}>
       <div className="card-topline"><span>0{index + 1}</span><span>{project.type}</span></div>
-      <h3>{project.name}</h3>
+      <h3>{project.name}{project.badge && <span className="project-badge">{project.badge}</span>}</h3>
       <p className="tagline">{project.tagline}</p>
       {project.highlights?.length ? (
         <div className="highlight-row">
