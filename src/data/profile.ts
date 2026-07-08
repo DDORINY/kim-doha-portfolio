@@ -1,3 +1,5 @@
+type Certification = { title: string; issuer: string; date: string; image?: string }
+
 export const profile = {
   name: '김도하',
   role: 'AI Service Developer',
@@ -49,10 +51,12 @@ export const profile = {
   },
   certifications: [
     { title: '데이터분석준전문가(ADsP)', issuer: '한국데이터베이스진흥원', date: '2025.11 합격' },
-  ],
+    { title: 'AI/데이터 분석 부트캠프 수료증', issuer: 'MBC 아카데미 · 대보정보통신', date: '2025.12.31 ~ 2026.07.07 수료', image: '/images/mbc-academy-certificate.jpg' },
+    { title: '개인평가 우수상 (1위)', issuer: 'MBC 아카데미 · 대보정보통신', date: '2026.07 수상', image: '/images/mbc-academy-award.jpg' },
+  ] as Certification[],
   education: [
     { title: '학점은행제 컴퓨터공학 전공', period: '2020.06 ~ 2026.07 · 학사 학위 취득 예정', description: '자료구조, 알고리즘, 운영체제, 데이터베이스, Python 프로그래밍, 데이터 처리, 머신러닝 이론 및 모델 구현을 학습했습니다.' },
-    { title: 'AI/데이터 분석 부트캠프 · MBC 아카데미 · 대보정보통신', period: '2025.12.31 ~ 2026.07.07 · 수료 예정', description: 'Python 기반 머신러닝·딥러닝 모델 구현, OpenCV 영상 처리, CNN 이미지 분류, 교차검증·하이퍼파라미터 튜닝, Flask API 개발, Database 연동, Git/GitHub 협업, Linux 개발 환경을 학습했습니다.' },
+    { title: 'AI/데이터 분석 부트캠프 · MBC 아카데미 · 대보정보통신', period: '2025.12.31 ~ 2026.07.07 · 수료 (개인평가 우수상 1위)', description: 'Python 기반 머신러닝·딥러닝 모델 구현, OpenCV 영상 처리, CNN 이미지 분류, 교차검증·하이퍼파라미터 튜닝, Flask API 개발, Database 연동, Git/GitHub 협업, Linux 개발 환경을 학습했습니다.' },
     { title: 'AI 심화반 · Roboflow 기반 부유물 탐지 시스템 구축 과정', period: '2026.07.09 ~ 2026.09.09 · 진행 예정', description: 'Roboflow를 활용한 데이터셋 구축과 모델 학습으로 부유물(하천·해양 등) 탐지 시스템을 구축하는 과정을 심화 학습합니다.' },
   ],
   workExperience: [
