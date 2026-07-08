@@ -6,7 +6,7 @@ export type ExtraSection = { id: string; insertAfter: ExtraSectionAnchor; label:
 export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment'
 
 export type Project = {
-  slug: 'staccato' | 'erp' | '404rnf'
+  slug: 'staccato' | 'erp' | '404rnf' | 'portfolio-hub'
   name: string
   type: string
   period: string
@@ -279,6 +279,61 @@ export const projects: Project[] = [
     documents: [{ label: '시연 영상', url: 'https://youtu.be/Iet2QiSkU5s' }, { label: '발표자료', url: '/docs/404rnf-presentation.pdf' }, { label: '코드리뷰', url: '/docs/404rnf-code-review.pdf' }],
     deploy: { label: '배포 사이트', url: 'https://404-rnf.ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/lms-mini-project/AI-accident-detection' },
     retrospective: 'AI 탐지 결과를 화면에 출력하는 수준을 넘어, DB에 저장하고 관리자 통계·로그로 연결하는 구조가 중요하다는 것을 배웠습니다. 여러 AI 모델을 비교하며 탐지 수·신뢰도·처리 시간 등 복합 지표로 판단하는 경험을 쌓았고, 프로젝트 규모가 커질수록 Service·Repository 계층 분리가 왜 필요한지 체감했습니다. 모델 성능뿐 아니라 실시간성, 권한 관리, 데이터 흐름을 함께 고려해야 실제로 동작하는 안전 서비스가 된다는 것을 팀과 함께 배운 프로젝트였습니다.', accent: '#ffbe70',
+  },
+  {
+    slug: 'portfolio-hub', name: 'AI Developer Portfolio Hub', type: 'Frontend · Personal Project', period: '개인 프로젝트 · 지속 업데이트',
+    tagline: '프로젝트·이력서·학습 기록을 하나의 데이터 기반 구조로 통합한 AI 서비스 개발자 포트폴리오 허브',
+    teamNote: '개인 프로젝트 · 기여도 100%',
+    categories: ['Infra / Deployment'],
+    highlights: ['React 19', 'TypeScript', 'Vite', 'React Router', 'GitHub Pages', 'Data-driven UI'],
+    resumeHighlight: {
+      role: '기획·설계·구현·배포 전체 담당, 데이터 구조 설계, 컴포넌트 분리, 반응형·다크모드 UI, 스크롤 애니메이션 구현',
+      contribution: '개인 프로젝트 · 기여도 100%',
+      achievement: 'projects.ts·profile.ts 데이터 파일만 수정하면 카드·상세·이력서 화면에 자동 반영되는 구조 구현, GitHub Pages + 커스텀 도메인 배포 파이프라인 구축',
+    },
+    summary: '지금 보고 계신 이 사이트 자체가 이 프로젝트의 결과물입니다. React + TypeScript + Vite로 구현했고, 프로젝트·프로필 데이터를 별도 파일로 분리해 카드 목록·상세 페이지·이력서 화면이 같은 데이터를 기준으로 자동 렌더링되도록 설계했습니다.',
+    background: '프로젝트를 진행할수록 발표자료·코드·학습 기록이 노션, 깃허브, 개별 PDF로 흩어져 채용 담당자가 한 번에 확인하기 어렵다는 문제를 느꼈습니다. 프로젝트를 추가할 때마다 화면을 새로 만드는 대신, 데이터 파일만 수정하면 프로젝트 목록·상세 페이지·이력서에 동시에 반영되는 구조가 필요하다고 판단해 직접 설계·구현했습니다.',
+    role: [
+      '전체 정보구조 설계 — Home / Projects / ProjectDetail / AI Learning / Resume / Contact 라우팅 설계',
+      '프로젝트·프로필 데이터를 projects.ts, profile.ts로 분리해 카드·상세·이력서 화면이 동일 데이터를 기준으로 렌더링되도록 구조화',
+      'Layout, ProjectCard, SectionHeading, ThemeSwitcher, Reveal, ScrollTopButton 등 재사용 컴포넌트 설계',
+      'IntersectionObserver 기반 스크롤 리빌 애니메이션(Reveal 컴포넌트) 직접 구현',
+      '다크 기본 포함 5종 컬러 테마 전환 기능 구현 (localStorage 저장)',
+      'GitHub Pages + 커스텀 도메인(ddoriny.com) 배포 파이프라인 구성 (gh-pages, HashRouter, relative base path)',
+      '반응형 레이아웃, 이력서 인쇄(PDF 저장), 이미지 리사이즈·압축 등 자산 최적화',
+    ],
+    features: [
+      '데이터 기반 프로젝트 카드·상세 페이지 자동 렌더링',
+      '프로젝트 카테고리 필터 (AI/Computer Vision · Full-stack · Infra/Deployment)',
+      '스크롤 시 순차적으로 나타나는 리빌 애니메이션',
+      '5종 컬러 테마 전환 (다크 기본 + 화이트·핑크·그린·블루)',
+      '이력서 페이지 브라우저 인쇄 → PDF 저장',
+      '반응형 레이아웃 (모바일 햄버거 메뉴 포함)',
+      'GitHub Pages 자동 배포 (gh-pages 브랜치)',
+    ],
+    techStack: ['React 19', 'TypeScript', 'Vite', 'React Router (HashRouter)', 'CSS', 'GitHub Pages', 'gh-pages'],
+    systemFlow: [
+      { label: '데이터 정의', description: 'projects.ts · profile.ts에 프로젝트·프로필 정보를 타입 기반으로 정의' },
+      { label: '컴포넌트 렌더링', description: 'ProjectCard, SectionHeading 등 컴포넌트가 데이터를 받아 카드·섹션을 렌더링' },
+      { label: '라우팅', description: 'HashRouter가 Home/Projects/ProjectDetail/AI Learning/Resume/Contact 경로를 매칭' },
+      { label: '스크롤 인터랙션', description: 'IntersectionObserver 기반 Reveal 컴포넌트가 뷰포트 진입 시 애니메이션 트리거' },
+      { label: '빌드', description: 'tsc로 타입 체크 후 Vite가 정적 자산으로 번들링' },
+      { label: '배포', description: 'gh-pages 패키지가 dist를 gh-pages 브랜치로 푸시, GitHub Pages가 커스텀 도메인(ddoriny.com)으로 서빙' },
+    ],
+    troubleshooting: [
+      { title: 'GitHub Pages에서 새로고침 시 404 발생', situation: 'BrowserRouter로 라우팅을 구성했더니 GitHub Pages에서 /projects 등 하위 경로를 새로고침하거나 직접 접속하면 서버에 해당 경로가 없어 404가 발생했습니다.', solution: 'GitHub Pages는 별도 서버 라우팅 설정이 불가능하다는 점을 고려해 HashRouter로 전환하고, base 경로를 상대 경로(./)로 설정했습니다.', result: '커스텀 도메인·GitHub Pages 어떤 환경에서도 새로고침·직접 접속 시 404 없이 라우팅이 정상 동작하도록 만들었습니다.' },
+      { title: '스크롤 리빌 애니메이션과 카드 hover 효과 충돌', situation: '스크롤 시 나타나는 리빌 애니메이션의 opacity/transform 트랜지션이 카드 hover 시의 lift(translateY) 효과보다 CSS 특이도상 뒤에 위치해, 화면에 나타난 카드에 마우스를 올려도 hover 효과가 적용되지 않는 문제가 있었습니다.', solution: 'CSS 특이도가 동일할 때는 스타일시트에서 나중에 선언된 규칙이 우선 적용된다는 점을 이용해, 리빌 기본 규칙을 카드별 hover 규칙보다 앞쪽(스타일시트 최상단)으로 옮겼습니다.', result: '스크롤로 나타난 카드에서도 hover lift·그림자 효과가 정상적으로 동작하도록 수정했습니다.' },
+      { title: '고해상도 인증서 이미지로 인한 페이지 용량 증가', situation: '수료증·상장 이미지가 각 2~2.5MB의 고해상도 스캔본이라, 이력서 페이지에 그대로 올리면 로딩이 느려지는 문제가 있었습니다.', solution: 'sharp로 이미지를 웹 표시에 적합한 해상도(최대 1100px)로 리사이즈하고 JPEG 품질을 조정해 압축했습니다.', result: '이미지당 용량을 2~2.5MB에서 140~160KB 수준으로 줄이면서도 화질 저하를 거의 느낄 수 없는 수준으로 이력서 페이지에 표시할 수 있었습니다.' },
+      { title: '한글 파일명으로 인한 배포 호환성 우려', situation: '첨부받은 이미지 파일명이 한글과 공백을 포함하고 있어 정적 호스팅 환경에서 URL 인코딩 문제가 발생할 가능성이 있었습니다.', solution: '기존 이미지 자산의 kebab-case 네이밍 규칙에 맞춰 영문 파일명으로 통일했습니다.', result: '배포 환경에 관계없이 안정적으로 이미지가 로드되도록 정리했습니다.' },
+    ],
+    screenshots: [
+      { src: '/images/portfolio-hub-01.png', alt: '포트폴리오 허브 홈 화면', caption: '홈 화면 · 히어로 소개와 대표 프로젝트 카드' },
+      { src: '/images/portfolio-hub-02.png', alt: '포트폴리오 허브 프로젝트 목록 화면', caption: '프로젝트 목록 · 카테고리 필터와 데이터 기반 카드 렌더링' },
+      { src: '/images/portfolio-hub-03.png', alt: '포트폴리오 허브 이력서 화면', caption: '이력서 화면 · 자격증·수료·수상 및 직무별 강점' },
+    ],
+    documents: [],
+    deploy: { label: 'Portfolio Hub Live', url: 'https://ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/kim-doha-portfolio' },
+    retrospective: '포트폴리오를 만들면서 가장 크게 배운 것은 예쁜 화면보다 정보 구조입니다. 프로젝트가 늘어나도 데이터 파일만 수정하면 카드·상세·이력서에 동시에 반영되는 구조를 만들면서 유지보수 가능한 설계가 무엇인지 실제로 체감했습니다. 이 사이트 자체가 AI 서비스 개발자로 전환하는 과정을 보여주는 하나의 프로젝트라고 생각합니다.', accent: '#8effc0',
   },
 ]
 

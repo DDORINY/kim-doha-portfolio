@@ -28,7 +28,13 @@ export default function Resume() {
         <Reveal as="section" className="resume-block full"><span className="section-number">03 / ABOUT</span><h2>자기소개</h2><div className="about-text">{profile.about.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div></Reveal>
         <Reveal as="section" className="resume-block"><span className="section-number">04 / EDUCATION</span><h2>교육</h2>{profile.education.map((item) => <div className="timeline-item" key={item.title}><span>{item.period}</span><div><h3>{item.title}</h3><p>{item.description}</p></div></div>)}</Reveal>
         <Reveal as="section" className="resume-block"><span className="section-number">05 / DESIRED ROLES</span><h2>희망 직무</h2><div className="large-chip-row">{profile.desiredRoles.map((role) => <span key={role}>{role}</span>)}</div></Reveal>
-        <Reveal as="section" className="resume-block full"><span className="section-number">06 / CERTIFICATIONS & AWARDS</span><h2>자격증 · 수료 · 수상</h2><div className="cert-list">{profile.certifications.map((cert) => (
+        <Reveal as="section" className="resume-block full"><span className="section-number">06 / STRENGTHS BY ROLE</span><h2>지원 가능 직무별 강점</h2><div className="role-strength-grid">{profile.roleStrengths.map((item) => (
+          <div className="role-strength-card" key={item.role}>
+            <h3>{item.role}</h3>
+            <ul className="check-list" style={{ gridTemplateColumns: '1fr', gap: 8 }}>{item.points.map((point) => <li key={point}>{point}</li>)}</ul>
+          </div>
+        ))}</div></Reveal>
+        <Reveal as="section" className="resume-block full"><span className="section-number">07 / CERTIFICATIONS & AWARDS</span><h2>자격증 · 수료 · 수상</h2><div className="cert-list">{profile.certifications.map((cert) => (
           <div className={cert.image ? 'cert-item has-image' : 'cert-item'} key={cert.title}>
             {cert.image && (
               <a className="cert-image" href={cert.image} target="_blank" rel="noreferrer" aria-label={`${cert.title} 이미지 크게 보기`}>
@@ -39,7 +45,7 @@ export default function Resume() {
             <p>{cert.issuer} · {cert.date}</p>
           </div>
         ))}</div></Reveal>
-        <Reveal as="section" className="resume-block full"><span className="section-number">07 / SKILLS</span><h2>기술 스택</h2><div className="skills-grid">{Object.entries(profile.skills).map(([group, skills]) => {
+        <Reveal as="section" className="resume-block full"><span className="section-number">08 / SKILLS</span><h2>기술 스택</h2><div className="skills-grid">{Object.entries(profile.skills).map(([group, skills]) => {
           const meta = skillGroupMeta[group] ?? defaultSkillMeta
           const usage = profile.skillUsage[group as keyof typeof profile.skillUsage]
           return (
@@ -50,20 +56,20 @@ export default function Resume() {
             </Reveal>
           )
         })}</div></Reveal>
-        <Reveal as="section" className="resume-block full"><span className="section-number">08 / INFRASTRUCTURE</span><h2>배포 및 인프라 경험</h2><p>{profile.infra.summary}</p><div className="cert-list">{profile.infra.categories.map((category) => (
+        <Reveal as="section" className="resume-block full"><span className="section-number">09 / INFRASTRUCTURE</span><h2>배포 및 인프라 경험</h2><p>{profile.infra.summary}</p><div className="cert-list">{profile.infra.categories.map((category) => (
           <div className="cert-item" key={category.title}>
             <h3>{category.title}</h3>
             <ul className="check-list" style={{ gridTemplateColumns: '1fr', gap: 8, marginTop: 12 }}>{category.items.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
         ))}</div></Reveal>
-        <Reveal as="section" className="resume-block full"><span className="section-number">09 / WORK EXPERIENCE</span><h2>경력 사항</h2><div className="work-list">{profile.workExperience.map((job) => (
+        <Reveal as="section" className="resume-block full"><span className="section-number">10 / WORK EXPERIENCE</span><h2>경력 사항</h2><div className="work-list">{profile.workExperience.map((job) => (
           <div className="work-item" key={job.role}>
             <div className="work-item-head"><span>{job.period}</span><div><h3>{job.role}</h3><p>{job.description}</p></div></div>
             <ul className="check-list work-tasks">{job.tasks.map((task) => <li key={task}>{task}</li>)}</ul>
             <p className="work-takeaway">{job.takeaway}</p>
           </div>
         ))}</div></Reveal>
-        <Reveal as="section" className="resume-block full"><span className="section-number">10 / PROJECTS</span><h2>프로젝트 요약</h2><div className="resume-projects">{projects.map((project) => (
+        <Reveal as="section" className="resume-block full"><span className="section-number">11 / PROJECTS</span><h2>프로젝트 요약</h2><div className="resume-projects">{projects.map((project) => (
           <Reveal as={Link} to={`/projects/${project.slug}`} key={project.slug}>
             <div>
               <span>{project.type}</span><h3>{project.name}</h3><p>{project.tagline}</p>

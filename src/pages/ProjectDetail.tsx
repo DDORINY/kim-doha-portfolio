@@ -19,11 +19,17 @@ export default function ProjectDetail() {
 
   return (
     <article className="detail-page" style={{ '--accent': project.accent } as React.CSSProperties}>
-      <header className="detail-hero section"><div className="container"><Link className="back-link" to="/projects">← Projects</Link><div className="detail-title"><div><span className="eyebrow">{project.type} · {project.period}</span><h1>{project.name}</h1><p>{project.tagline}</p></div><div className="detail-actions"><ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></div></div></header>
+      <header className="detail-hero section"><div className="container"><Link className="back-link" to="/projects">← Projects</Link><div className="detail-title"><div><span className="eyebrow">{project.type}{project.period && !project.type.includes(project.period) ? ` · ${project.period}` : ''}</span><h1>{project.name}</h1><p>{project.tagline}</p></div><div className="detail-actions"><ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></div></div></header>
       <div className="container detail-layout">
         <aside className="detail-nav"><span>CONTENTS</span>{sectionIds.map((id, i) => <button type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} aria-label={`${id} 섹션으로 이동`} key={id}>{String(i + 1).padStart(2, '0')}</button>)}</aside>
         <div className="detail-content">
-          <Reveal as="section" id="overview" className="detail-section"><span className="section-number">{num('overview')} / OVERVIEW</span><h2>프로젝트 개요</h2>{project.teamNote && <span className="team-note">{project.teamNote}</span>}<p className="lead-copy">{project.summary}</p></Reveal>
+          <Reveal as="section" id="overview" className="detail-section"><span className="section-number">{num('overview')} / OVERVIEW</span><h2>프로젝트 개요</h2>{project.teamNote && <span className="team-note">{project.teamNote}</span>}<p className="lead-copy">{project.summary}</p>{project.resumeHighlight && (
+            <div className="role-summary-card">
+              <div><span className="meta-label">ROLE</span><p>{project.resumeHighlight.role}</p></div>
+              <div><span className="meta-label">CONTRIBUTION</span><p>{project.resumeHighlight.contribution}</p></div>
+              <div><span className="meta-label">ACHIEVEMENT</span><p>{project.resumeHighlight.achievement}</p></div>
+            </div>
+          )}</Reveal>
           <Reveal as="section" id="background" className="detail-section"><span className="section-number">{num('background')} / BACKGROUND</span><h2>개발 배경</h2><p>{project.background}</p></Reveal>
           <Reveal as="section" id="role" className="detail-section"><span className="section-number">{num('role')} / MY ROLE</span><h2>담당 역할</h2><ul className="check-list">{project.role.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>
           <Reveal as="section" id="features" className="detail-section"><span className="section-number">{num('features')} / FEATURES</span><h2>주요 기능</h2><div className="feature-grid">{project.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}</div></Reveal>
