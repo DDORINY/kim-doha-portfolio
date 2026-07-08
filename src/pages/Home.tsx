@@ -15,12 +15,15 @@ export default function Home() {
       <section className="hero section">
         <ProjectShowcase />
         <div className="container hero-top">
+          <div className="hero-profile">
+            <img src={profile.photo} alt={`${profile.name} 프로필 사진`} />
+          </div>
           <div className="hero-panel" aria-label="개발자 프로필 요약">
             <div className="code-dots"><span /><span /><span /></div>
             <div className="hero-code">
               <p><span className="code-key">const</span> developer = {'{'}</p>
               <p>&nbsp;&nbsp;name: <span className="code-value">'{profile.name}'</span>,</p>
-              <p>&nbsp;&nbsp;focus: <span className="code-value">'AI Service'</span>,</p>
+              <p>&nbsp;&nbsp;focus: <span className="code-value">'AI Developer'</span>,</p>
               <p>&nbsp;&nbsp;connects: [</p>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-value">'Model'</span>, <span className="code-value">'API'</span>,</p>
               <p>&nbsp;&nbsp;&nbsp;&nbsp;<span className="code-value">'Web'</span>, <span className="code-value">'Database'</span></p>
@@ -32,7 +35,7 @@ export default function Home() {
         <div className="hero-band">
           <div className="container hero-band-inner">
             <div className="hero-band-heading">
-              <p className="eyebrow">AI SERVICE DEVELOPER PORTFOLIO</p>
+              <p className="eyebrow">AI DEVELOPER PORTFOLIO</p>
               <h1>AI를 연결해 <span>사용 가능한 서비스</span>를 만듭니다.</h1>
             </div>
             <p className="hero-description">{profile.intro}</p>

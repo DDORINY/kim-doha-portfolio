@@ -8,7 +8,7 @@ export default function Contact() {
   return (
     <section className="section page-section">
       <div className="container contact-page">
-        <SectionHeading eyebrow="CONTACT" title="AI 서비스 개발자로의 기회를 기다립니다." description="Computer Vision, Flask/FastAPI 연동, DB 저장, 프론트엔드 통합, 배포·운영 점검 경험을 바탕으로 실제 서비스에 연결되는 AI 개발을 지향합니다." />
+        <SectionHeading eyebrow="CONTACT" title="AI 개발자로의 기회를 기다립니다." description="Computer Vision, Flask/FastAPI 연동, DB 저장, 프론트엔드 통합, 배포·운영 점검 경험을 바탕으로 실제 서비스에 연결되는 AI 개발을 지향합니다." />
         <Reveal as="div" className="contact-summary">
           <span className="eyebrow">SUMMARY</span>
           <p>{contactSummary}</p>
