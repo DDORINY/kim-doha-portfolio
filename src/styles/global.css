@@ -208,6 +208,11 @@ main { flex: 1; animation: page-fade-in .55s cubic-bezier(.16,.84,.44,1) both; }
 .feature-grid span { color: var(--accent); font: .7rem 'DM Mono',monospace; }.feature-grid h3{margin:28px 0 0;font-size:1rem}
 .large-chip-row { gap: 10px; }.large-chip-row span{padding:10px 14px;border:1px solid var(--line);border-radius:7px;color:var(--muted-strong);font-size:.8rem;background:var(--surface)}
 .trouble-card { padding: 30px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.experiment-gallery { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 12px; margin-top: 18px; }
+.experiment-gallery figure { margin: 0; }
+.experiment-gallery img { width: 100%; display: block; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: zoom-in; transition: border-color .2s; }
+.experiment-gallery img:hover { border-color: var(--accent, var(--primary)); }
+.experiment-gallery figcaption { margin-top: 7px; font-size: .66rem; color: var(--muted-soft); line-height: 1.5; }
 .trouble-list { display: grid; gap: 14px; }
 .trouble-card h3 { font-size: 1.2rem; }.trouble-card dl{margin:26px 0 0}.trouble-card dl div{display:grid;grid-template-columns:90px 1fr;gap:20px;padding:18px 0;border-top:1px solid var(--line)}
 .trouble-card dt { color: var(--accent); font: .7rem 'DM Mono',monospace; text-transform: uppercase; }.trouble-card dd{margin:0;color:var(--muted);font-size:.87rem;line-height:1.7}
