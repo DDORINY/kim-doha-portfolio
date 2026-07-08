@@ -5,7 +5,7 @@ import SideProjectCard from '../components/SideProjectCard'
 import { projects, type ProjectCategory } from '../data/projects'
 import { sideProjects } from '../data/sideProjects'
 
-const categoryFilters: ProjectCategory[] = ['AI / Computer Vision', 'Full-stack', 'Infra / Deployment', 'Meta / Portfolio']
+const categoryFilters: ProjectCategory[] = ['AI / Computer Vision', 'Full-stack', 'Infra / Deployment']
 
 export default function Projects() {
   const [filter, setFilter] = useState<'All' | ProjectCategory>('All')
