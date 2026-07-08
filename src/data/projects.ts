@@ -1,19 +1,18 @@
-export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
+﻿export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
 
 export type ExtraSectionAnchor = 'overview' | 'background' | 'role' | 'features' | 'stack' | 'flow' | 'trouble' | 'screens' | 'docs'
 export type ExtraSection = { id: string; insertAfter: ExtraSectionAnchor; label: string; heading: string; items: string[] }
 
-export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment' | 'Meta / Portfolio'
+export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment'
 
 export type Project = {
-  slug: 'staccato' | 'erp' | '404rnf' | 'portfolio-hub'
+  slug: 'staccato' | 'erp' | '404rnf'
   name: string
   type: string
   period: string
   tagline: string
   teamNote?: string
   categories?: ProjectCategory[]
-  badge?: string
   highlights?: string[]
   resumeHighlight?: { role: string; contribution: string; achievement: string }
   summary: string
@@ -280,96 +279,6 @@ export const projects: Project[] = [
     documents: [{ label: '시연 영상', url: 'https://youtu.be/Iet2QiSkU5s' }, { label: '발표자료', url: '/docs/404rnf-presentation.pdf' }, { label: '코드리뷰', url: '/docs/404rnf-code-review.pdf' }],
     deploy: { label: '배포 사이트', url: 'https://404-rnf.ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/lms-mini-project/AI-accident-detection' },
     retrospective: 'AI 탐지 결과를 화면에 출력하는 수준을 넘어, DB에 저장하고 관리자 통계·로그로 연결하는 구조가 중요하다는 것을 배웠습니다. 여러 AI 모델을 비교하며 탐지 수·신뢰도·처리 시간 등 복합 지표로 판단하는 경험을 쌓았고, 프로젝트 규모가 커질수록 Service·Repository 계층 분리가 왜 필요한지 체감했습니다. 모델 성능뿐 아니라 실시간성, 권한 관리, 데이터 흐름을 함께 고려해야 실제로 동작하는 안전 서비스가 된다는 것을 팀과 함께 배운 프로젝트였습니다.', accent: '#ffbe70',
-  },
-  {
-    slug: 'portfolio-hub', name: 'AI Developer Portfolio Hub', type: 'Frontend · Personal Project', period: '개인 프로젝트 · 지속 업데이트',
-    tagline: '프로젝트·이력서·학습 기록을 하나의 데이터 기반 구조로 통합한 AI 서비스 개발자 포트폴리오 허브',
-    teamNote: '개인 프로젝트 · 기여도 100% · 지금 보고 계신 이 사이트 자체입니다',
-    categories: ['Meta / Portfolio'],
-    badge: 'META',
-    highlights: ['React 19', 'TypeScript', 'Vite', 'React Router', 'GitHub Pages', 'Data-driven UI'],
-    resumeHighlight: {
-      role: '기획·설계·구현·배포 전체 담당, 데이터 구조 설계, 컴포넌트 분리, 반응형·다크모드 UI, 스크롤 애니메이션 구현',
-      contribution: '개인 프로젝트 · 기여도 100%',
-      achievement: 'projects.ts·profile.ts 데이터 파일만 수정하면 카드·상세·이력서 화면에 자동 반영되는 구조 구현, GitHub Pages + 커스텀 도메인 배포 파이프라인 구축',
-    },
-    summary: '지금 보고 계신 이 사이트 자체가 이 프로젝트의 결과물입니다. React + TypeScript + Vite로 구현했고, 프로젝트·프로필 데이터를 별도 파일로 분리해 카드 목록·상세 페이지·이력서 화면이 같은 데이터를 기준으로 자동 렌더링되도록 설계했습니다.',
-    background: '프로젝트를 진행할수록 발표자료·코드·학습 기록이 노션, 깃허브, 개별 PDF로 흩어져 채용 담당자가 한 번에 확인하기 어렵다는 문제를 느꼈습니다. 프로젝트를 추가할 때마다 화면을 새로 만드는 대신, 데이터 파일만 수정하면 프로젝트 목록·상세 페이지·이력서에 동시에 반영되는 구조가 필요하다고 판단해 직접 설계·구현했습니다.',
-    role: [
-      '전체 정보구조 설계 — Home / Projects / ProjectDetail / AI Learning / Resume / Contact 라우팅 설계',
-      '프로젝트·프로필 데이터를 projects.ts, profile.ts로 분리해 카드·상세·이력서 화면이 동일 데이터를 기준으로 렌더링되도록 구조화',
-      'Layout, ProjectCard, SectionHeading, ThemeSwitcher, Reveal, ScrollTopButton 등 재사용 컴포넌트 설계',
-      'IntersectionObserver 기반 스크롤 리빌 애니메이션(Reveal 컴포넌트) 직접 구현',
-      '다크 기본 포함 5종 컬러 테마 전환 기능 구현 (localStorage 저장)',
-      'GitHub Pages + 커스텀 도메인(ddoriny.com) 배포 파이프라인 구성 (gh-pages, HashRouter, relative base path)',
-      '반응형 레이아웃, 이력서 인쇄(PDF 저장), 이미지 리사이즈·압축 등 자산 최적화',
-    ],
-    features: [
-      '데이터 기반 프로젝트 카드·상세 페이지 자동 렌더링',
-      '프로젝트 카테고리 필터 (AI/Computer Vision · Full-stack · Infra/Deployment)',
-      '스크롤 시 순차적으로 나타나는 리빌 애니메이션',
-      '5종 컬러 테마 전환 (다크 기본 + 화이트·핑크·그린·블루)',
-      '이력서 페이지 브라우저 인쇄 → PDF 저장',
-      '반응형 레이아웃 (모바일 햄버거 메뉴 포함)',
-      'GitHub Pages 자동 배포 (gh-pages 브랜치)',
-    ],
-    extraSections: [
-      { id: 'components', insertAfter: 'features', label: 'COMPONENT STRUCTURE', heading: '컴포넌트 구조', items: [
-        'Layout — 헤더 내비게이션·푸터·라우트 전환 시 스크롤 위치 초기화를 담당하는 전체 페이지 공통 레이아웃',
-        'ProjectCard — 프로젝트 목록의 카드 UI, 인덱스·역할·기술 스택 요약을 데이터로부터 렌더링',
-        'SectionHeading — eyebrow·제목·설명으로 구성된 섹션 헤더를 페이지 전반에서 재사용',
-        'ThemeSwitcher — 다크 기본 포함 5종 컬러 테마를 localStorage에 저장하며 전환',
-        'ScrollTopButton — 스크롤 위치에 따라 나타나는 맨 위로 이동 버튼',
-        'Reveal — IntersectionObserver로 뷰포트 진입을 감지해 스크롤 등장 애니메이션을 적용하는 범용 래퍼 컴포넌트',
-      ] },
-      { id: 'implementation', insertAfter: 'stack', label: 'IMPLEMENTATION DETAIL', heading: '기술 구현 포인트', items: [
-        'Frontend — React 19, Vite, TypeScript 기반 SPA로 구성',
-        'Routing — React Router의 HashRouter를 적용해 GitHub Pages 정적 호스팅 환경에서도 새로고침·직접 접속 시 404 없이 라우팅',
-        'Styling — 컴포넌트별 className 기반 일반 CSS와 --accent 등 CSS 커스텀 프로퍼티로 프로젝트별 테마 컬러 분기',
-        'Deploy — GitHub Pages + gh-pages 브랜치 + 커스텀 도메인(ddoriny.com) 연결, 상대 base 경로(./)로 서브패스 호환성 확보',
-        'Data — 프로젝트·프로필 정보를 projects.ts · profile.ts로 분리해 화면 코드와 콘텐츠를 독립적으로 관리',
-        'UX — 반응형 레이아웃, 다크 기본 포함 컬러 테마, 스크롤 리빌 애니메이션, prefers-reduced-motion 대응',
-        'Maintenance — 프로젝트 추가 시 데이터 파일만 수정하면 카드·상세·이력서 화면에 자동 반영되는 구조',
-      ] },
-      { id: 'performance', insertAfter: 'trouble', label: 'PERFORMANCE', heading: 'Lighthouse 성능·접근성 개선 (Before → After)', items: [
-        '측정 기준: 배포 사이트(ddoriny.com)가 아닌 로컬 프리뷰 빌드(vite preview, 프로덕션 번들 동일) 기준 측정 — 실제 배포 환경은 CDN·네트워크 조건에 따라 수치가 달라질 수 있습니다',
-        'Performance 68 → 96',
-        'Accessibility 98 → 100',
-        'Best Practices 100 → 100',
-        'SEO 91 → 100',
-        'LCP(Largest Contentful Paint) 5.2s → 2.5s',
-        'FCP(First Contentful Paint) 5.0s → 1.4s',
-        '리포트 원본: 문서 링크의 "Lighthouse 성능 리포트" 참고 (raw JSON은 public/docs/lighthouse에 함께 보관)',
-      ] },
-    ],
-    techStack: ['React 19', 'TypeScript', 'Vite', 'React Router (HashRouter)', 'CSS', 'GitHub Pages', 'gh-pages'],
-    systemFlow: [
-      { label: '데이터 정의', description: 'projects.ts · profile.ts에 프로젝트·프로필 정보를 타입 기반으로 정의' },
-      { label: '컴포넌트 렌더링', description: 'ProjectCard, SectionHeading 등 컴포넌트가 데이터를 받아 카드·섹션을 렌더링' },
-      { label: '라우팅', description: 'HashRouter가 Home/Projects/ProjectDetail/AI Learning/Resume/Contact 경로를 매칭' },
-      { label: '스크롤 인터랙션', description: 'IntersectionObserver 기반 Reveal 컴포넌트가 뷰포트 진입 시 애니메이션 트리거' },
-      { label: '빌드', description: 'tsc로 타입 체크 후 Vite가 정적 자산으로 번들링' },
-      { label: '배포', description: 'gh-pages 패키지가 dist를 gh-pages 브랜치로 푸시, GitHub Pages가 커스텀 도메인(ddoriny.com)으로 서빙' },
-    ],
-    troubleshooting: [
-      { title: 'GitHub Pages에서 새로고침 시 404 발생', situation: 'BrowserRouter로 라우팅을 구성했더니 GitHub Pages에서 /projects 등 하위 경로를 새로고침하거나 직접 접속하면 서버에 해당 경로가 없어 404가 발생했습니다.', solution: 'GitHub Pages는 별도 서버 라우팅 설정이 불가능하다는 점을 고려해 HashRouter로 전환하고, base 경로를 상대 경로(./)로 설정했습니다.', result: '커스텀 도메인·GitHub Pages 어떤 환경에서도 새로고침·직접 접속 시 404 없이 라우팅이 정상 동작하도록 만들었습니다.' },
-      { title: '스크롤 리빌 애니메이션과 카드 hover 효과 충돌', situation: '스크롤 시 나타나는 리빌 애니메이션의 opacity/transform 트랜지션이 카드 hover 시의 lift(translateY) 효과보다 CSS 특이도상 뒤에 위치해, 화면에 나타난 카드에 마우스를 올려도 hover 효과가 적용되지 않는 문제가 있었습니다.', solution: 'CSS 특이도가 동일할 때는 스타일시트에서 나중에 선언된 규칙이 우선 적용된다는 점을 이용해, 리빌 기본 규칙을 카드별 hover 규칙보다 앞쪽(스타일시트 최상단)으로 옮겼습니다.', result: '스크롤로 나타난 카드에서도 hover lift·그림자 효과가 정상적으로 동작하도록 수정했습니다.' },
-      { title: '고해상도 인증서 이미지로 인한 페이지 용량 증가', situation: '수료증·상장 이미지가 각 2~2.5MB의 고해상도 스캔본이라, 이력서 페이지에 그대로 올리면 로딩이 느려지는 문제가 있었습니다.', solution: 'sharp로 이미지를 웹 표시에 적합한 해상도(최대 1100px)로 리사이즈하고 JPEG 품질을 조정해 압축했습니다.', result: '이미지당 용량을 2~2.5MB에서 140~160KB 수준으로 줄이면서도 화질 저하를 거의 느낄 수 없는 수준으로 이력서 페이지에 표시할 수 있었습니다.' },
-      { title: '한글 파일명으로 인한 배포 호환성 우려', situation: '첨부받은 이미지 파일명이 한글과 공백을 포함하고 있어 정적 호스팅 환경에서 URL 인코딩 문제가 발생할 가능성이 있었습니다.', solution: '기존 이미지 자산의 kebab-case 네이밍 규칙에 맞춰 영문 파일명으로 통일했습니다.', result: '배포 환경에 관계없이 안정적으로 이미지가 로드되도록 정리했습니다.' },
-      { title: 'Google Fonts로 인한 렌더링 차단(Render-blocking) 문제', situation: '로컬 프리뷰 빌드를 Lighthouse로 측정한 결과 Performance 점수가 68점에 그쳤고, global.css의 Google Fonts @import가 약 3.8초의 렌더링 지연을 유발한다는 진단 결과를 확인했습니다.', solution: 'index.html에 preconnect를 추가하고, 폰트 스타일시트를 media="print" + onload 패턴으로 비동기 로드하도록 바꿔 폰트 요청이 초기 렌더링을 막지 않도록 구조를 변경했습니다. 함께 발견한 heading 순서 오류와 접근 가능한 이름 불일치도 같이 수정했습니다.', result: '로컬 프리뷰 빌드 기준 Lighthouse Performance 68 → 96, Accessibility 98 → 100, SEO 91 → 100으로 개선했고, LCP는 5.2초 → 2.5초, FCP는 5.0초 → 1.4초로 단축했습니다. (배포 사이트 실측치는 CDN·네트워크 조건에 따라 다를 수 있습니다)' },
-      { title: '프로젝트 수 증가에 따른 화면 유지보수 부담', situation: '프로젝트가 하나씩 늘어날 때마다 목록·상세·이력서 화면 컴포넌트를 각각 수정해야 한다면, 프로젝트가 많아질수록 실수와 누락 위험이 커지는 구조였습니다.', solution: '프로젝트·프로필 정보를 컴포넌트 코드에서 완전히 분리해 projects.ts · profile.ts 타입 기반 데이터로 관리하고, 화면은 그 데이터를 순회해 렌더링만 담당하도록 역할을 나눴습니다.', result: '새 프로젝트를 추가할 때 데이터 파일에 항목 하나만 추가하면 카드 목록·상세 페이지·이력서에 동시에 반영되어, 화면 코드를 건드릴 필요가 없습니다.' },
-      { title: '준비되지 않은 문서 링크의 깨진 링크 위험', situation: '결과보고서·매뉴얼처럼 아직 실제 파일이 없는 문서를 다른 문서와 똑같이 링크로 두면, 방문자가 클릭했을 때 깨진 링크(dead link)를 만나게 되는 문제가 있었습니다.', solution: '문서 타입에 placeholder 플래그를 두고, 실제 파일이 없는 항목은 클릭 불가능한 "자료 준비 중" 상태로 렌더링하도록 ResourceLink 컴포넌트를 분기 처리했습니다.', result: '실제 파일이 준비되는 대로 URL만 추가하면 되고, 그 전까지는 깨진 링크 대신 명확한 준비 상태를 보여줄 수 있습니다.' },
-      { title: '커스텀 도메인 HTTPS 인증서 미발급 확인', situation: 'ddoriny.com을 GitHub Pages 커스텀 도메인으로 연결한 뒤에도 HTTPS로 접속하면 도메인 전용 인증서가 아니라 GitHub의 범용 *.github.io 인증서가 응답해 브라우저에 보안 경고가 뜨는 문제를 발견했습니다.', solution: 'GitHub Pages API(`/repos/{owner}/{repo}/pages`)로 설정을 조회해 `https_enforced: false` 상태와 인증서 미발급 상태를 확인했습니다. 커스텀 도메인 재등록으로 Let\'s Encrypt 인증서 재발급을 트리거하는 절차가 필요하다는 점까지 진단했습니다.', result: '원인을 API 레벨에서 정확히 진단했고, 도메인 소유자 확인이 필요한 GitHub 저장소 설정 변경은 별도로 처리 중입니다.' },
-    ],
-    screenshots: [
-      { src: '/images/portfolio-hub-01.png', alt: '포트폴리오 허브 홈 화면', caption: '홈 화면 · 히어로 소개와 대표 프로젝트 카드' },
-      { src: '/images/portfolio-hub-02.png', alt: '포트폴리오 허브 프로젝트 목록 화면', caption: '프로젝트 목록 · 카테고리 필터와 데이터 기반 카드 렌더링' },
-      { src: '/images/portfolio-hub-03.png', alt: '포트폴리오 허브 이력서 화면', caption: '이력서 화면 · 자격증·수료·수상 및 직무별 강점' },
-      { src: '/images/portfolio-hub-lighthouse.png', alt: 'Lighthouse 성능 리포트 캡처', caption: 'Lighthouse 리포트 · 로컬 프리뷰 빌드 기준 Performance 96 · Accessibility 100 · Best Practices 100 · SEO 100' },
-    ],
-    documents: [{ label: 'Lighthouse 성능 리포트', url: '/docs/lighthouse/lighthouse-after.html' }],
-    deploy: { label: 'Portfolio Hub Live', url: 'https://ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/kim-doha-portfolio' },
-    retrospective: '포트폴리오를 만들면서 가장 크게 배운 것은 예쁜 화면보다 정보 구조입니다. 프로젝트가 늘어나도 데이터 파일만 수정하면 카드·상세·이력서에 동시에 반영되는 구조를 만들면서 유지보수 가능한 설계가 무엇인지 실제로 체감했습니다. 이 사이트 자체가 AI 서비스 개발자로 전환하는 과정을 보여주는 하나의 프로젝트라고 생각합니다.', accent: '#8effc0',
   },
 ]
 
