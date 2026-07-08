@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ProjectCard from '../components/ProjectCard'
+import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import SideProjectCard from '../components/SideProjectCard'
 import { profile } from '../data/profile'
@@ -53,7 +54,9 @@ export default function Home() {
         </section>
       )}
       <section className="section compact-cta">
-        <div className="container cta-box"><div><span className="eyebrow">LEARNING LOG</span><h2>AI 개발자로 성장하는 과정을 기록합니다.</h2></div><Link className="button light" to="/ai-learning">AI Learning</Link></div>
+        <div className="container">
+          <Reveal as="div" className="cta-box"><div><span className="eyebrow">LEARNING LOG</span><h2>AI 개발자로 성장하는 과정을 기록합니다.</h2></div><Link className="button light" to="/ai-learning">AI Learning</Link></Reveal>
+        </div>
       </section>
     </>
   )

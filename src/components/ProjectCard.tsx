@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
+import Reveal from './Reveal'
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
-    <article className="project-card" style={{ '--accent': project.accent } as React.CSSProperties}>
+    <Reveal as="article" className="project-card" style={{ '--accent': project.accent } as React.CSSProperties}>
       <div className="card-topline"><span>0{index + 1}</span><span>{project.type}</span></div>
       <h3>{project.name}</h3>
       <p className="tagline">{project.tagline}</p>
@@ -22,6 +23,6 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           <a className="deploy-link" href={project.deploy.url} target="_blank" rel="noreferrer" aria-label={`${project.name} 배포 사이트로 이동`}>배포 사이트 바로가기 <span>↗</span></a>
         )}
       </div>
-    </article>
+    </Reveal>
   )
 }
