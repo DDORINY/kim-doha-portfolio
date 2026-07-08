@@ -15,11 +15,15 @@ export default function Home() {
       <section className="hero section">
         <ProjectShowcase />
         <div className="container hero-top">
-          <div className="hero-profile">
-            <img src={profile.photo} alt={`${profile.name} 프로필 사진`} />
-          </div>
           <div className="hero-panel" aria-label="개발자 프로필 요약">
             <div className="code-dots"><span /><span /><span /></div>
+            <div className="hero-panel-profile">
+              <img src={profile.photo} alt={`${profile.name} 프로필 사진`} />
+              <div>
+                <strong>{profile.name}</strong>
+                <span>{profile.role}</span>
+              </div>
+            </div>
             <div className="hero-code">
               <p><span className="code-key">const</span> developer = {'{'}</p>
               <p>&nbsp;&nbsp;name: <span className="code-value">'{profile.name}'</span>,</p>
