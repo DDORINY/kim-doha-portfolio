@@ -194,7 +194,7 @@ export const projects: Project[] = [
     techStack: ['Next.js', 'Spring Boot', 'MySQL', 'JWT', 'REST API'],
     systemFlow: [{ label: 'Customer / Admin', description: '사용자와 관리자의 요청' }, { label: 'Next.js', description: '스토어·관리자 UI 제공' }, { label: 'Spring Boot API', description: '도메인 로직과 인증 처리' }, { label: 'MySQL', description: '운영 데이터 저장' }],
     troubleshooting: [{ title: '주문과 재고 상태의 일관성', situation: '주문·결제·재고가 연속 변경되어 상태 누락 시 화면과 데이터가 달라질 수 있었습니다.', solution: '도메인별 상태 변화와 API 요청 순서를 명시하고 요청 중·성공·실패 UI를 분리했습니다.', result: '데이터 흐름을 추적하기 쉬워지고 현재 상태를 명확히 전달할 수 있었습니다.' }],
-    screenshots: [{ src: '/images/erp-placeholder.svg', alt: 'CommerceOps ERP 대시보드 placeholder', caption: 'ERP 관리자 화면 · 실제 캡처로 교체 예정' }],
+    screenshots: [{ src: '/images/erp-01.png', alt: 'CommerceOps ERP 대시보드', caption: 'ERP 관리자 화면 · 상품·주문·재고 흐름 대시보드' }],
     documents: [{ label: '기능 명세서', placeholder: true }, { label: 'ERD 및 API 문서', placeholder: true }],
     deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/commerceops-erp' },
     retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요하다는 것을 이 프로젝트를 진행하며 체감하고 있습니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다지는 중입니다.', accent: '#8b80ff',

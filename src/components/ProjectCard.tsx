@@ -5,6 +5,11 @@ import Reveal from './Reveal'
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <Reveal as="article" className="project-card" style={{ '--accent': project.accent } as React.CSSProperties}>
+      {project.screenshots[0] && (
+        <div className="project-card-image">
+          <img src={project.screenshots[0].src} alt={project.screenshots[0].alt} loading="lazy" />
+        </div>
+      )}
       <div className="card-topline"><span>0{index + 1}</span><span>{project.type}</span></div>
       <h3>{project.name}</h3>
       <p className="tagline">{project.tagline}</p>
