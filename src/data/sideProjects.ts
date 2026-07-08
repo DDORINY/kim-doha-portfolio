@@ -85,6 +85,42 @@ export const sideProjects: SideProject[] = [
     tags: ['MapleStory Worlds', 'Lua', 'Game UI', 'Multiplayer'],
     accent: '#ff6b6b',
   },
+  {
+    slug: 'wildfire-pulsemap',
+    name: 'Wildfire PulseMap',
+    description: '산불 위험도와 재난문자를 지도 위에서 함께 보여주는 실시간 펄스맵 서비스',
+    note: '산불 위험 예보와 재난문자를 따로 확인해야 하는 문제를 해결하고 싶어 개인적으로 시작했습니다. 위험도가 높은 지역과 실제로 관련 재난문자가 발송된 지역을 하나의 지도에서 함께 확인할 수 있는 상황 인지 도구를 만드는 데 집중했습니다.',
+    role: [
+      '산불위험예보·긴급재난문자 공공데이터 API 수집기 설계 및 구현',
+      '화재/산불 관련 문자만 선별하는 키워드 필터링 정책 설계',
+      'SQLAlchemy 기반 지역·위험도·재난문자·수집 로그 DB 스키마 설계',
+      'Flask API(/api/risk/latest, /api/messages/latest)와 Leaflet 지도 화면 구현',
+      'APScheduler 기반 자동 수집 스케줄링 및 중복 실행 방지(lock) 처리',
+      'Render 배포 및 SQLite 운영 환경 구성',
+    ],
+    features: [
+      '산불위험예보·긴급재난문자 자동 수집',
+      '화재/산불 관련 문자만 선별 저장하는 키워드 필터링',
+      'Leaflet 기반 실시간 펄스맵 (위험도·재난문자 마커)',
+      '위험도 TOP 지역 및 최근 재난문자 목록',
+      'collector 실행 로그 확인 화면',
+      '자동 수집 스케줄링 (재난문자 10분 · 위험예보 30분 주기)',
+    ],
+    troubleshooting: [
+      {
+        title: '재난문자 오탐 없이 화재 관련 문자만 선별',
+        situation: '재난문자에는 산불과 무관한 호우·태풍·산사태·교통·생활안전 문자가 섞여 있어, 단순 키워드 매칭만으로는 무관한 문자까지 함께 저장되는 문제가 있었습니다.',
+        solution: '대피·연기·통제·입산금지·소각금지처럼 모호한 키워드는 화재/산불 맥락이 함께 확인될 때만 저장하도록 필터링 정책을 설계하고, 정책상 제외(non_keyword)와 실제 오류를 구분해 로그로 남겼습니다.',
+        result: '저장률을 억지로 높이기보다 화재/산불 맥락이 분명한 문자만 정확히 선별해, 위험도 지도의 신뢰도를 높일 수 있었습니다.',
+      },
+    ],
+    retrospective: '위험 예보 데이터와 실제 발송된 재난문자를 하나의 지도에서 연결해보면서, 데이터를 단순히 모으는 것과 신뢰할 수 있는 기준으로 걸러 의미 있게 보여주는 것은 다른 문제라는 걸 배웠습니다. 수집기·필터링·DB·스케줄러·지도 화면까지 하나의 흐름으로 직접 설계하며 백엔드 데이터 파이프라인을 다루는 경험을 쌓았습니다.',
+    image: '/images/wildfire-pulsemap-cover.png',
+    url: 'https://wildfire.ddoriny.com',
+    github: 'https://github.com/DDORINY/wildfire-pulsemap',
+    tags: ['Python', 'Flask', 'SQLAlchemy', 'SQLite', 'APScheduler', 'Leaflet', 'Render'],
+    accent: '#f5a524',
+  },
 ]
 
 export const getSideProject = (slug?: string) => sideProjects.find((project) => project.slug === slug)
