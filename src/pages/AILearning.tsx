@@ -38,13 +38,25 @@ export default function AILearning() {
           ))}
         </div>
         <div className="learning-block">
-          <SectionHeading eyebrow="EXPERIMENTS" title="Keras 실험과 Computer Vision 학습" description="모델 학습 흐름과 영상 데이터 처리를 직접 실험하며 이해했습니다." />
+          <SectionHeading eyebrow="EXPERIMENTS" title="Keras 실험과 모델 비교 기록" description="모델 학습 흐름, 영상 데이터 처리, 옵티마이저·해상도 비교까지 직접 실험한 기록입니다. 그래프는 실제 학습 결과 캡처입니다." />
           <div className="cert-list">
             {learningExperiments.map((exp) => (
               <Reveal as="div" className="trouble-card" key={exp.title}>
                 <h3>{exp.title}</h3>
                 <p>{exp.description}</p>
                 <div className="chip-row">{exp.keywords.map((keyword) => <TechChip label={keyword} key={keyword} />)}</div>
+                {exp.images?.length ? (
+                  <div className="experiment-gallery">
+                    {exp.images.map((img) => (
+                      <figure key={img.src}>
+                        <a href={img.src} target="_blank" rel="noreferrer" aria-label={`${img.caption} 크게 보기`}>
+                          <img src={img.src} alt={img.caption} loading="lazy" />
+                        </a>
+                        <figcaption>{img.caption}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                ) : null}
               </Reveal>
             ))}
           </div>

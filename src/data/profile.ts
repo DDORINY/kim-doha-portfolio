@@ -160,6 +160,8 @@ export const learningNotes = [
   'Linux/배포/운영 점검',
 ]
 
+type LearningExperiment = { title: string; description: string; keywords: string[]; images?: { src: string; caption: string }[] }
+
 export const learningExperiments = [
   {
     title: 'Keras / TensorFlow Experiment',
@@ -171,7 +173,26 @@ export const learningExperiments = [
     description: 'OpenCV로 이미지와 영상 데이터를 다루는 방법을 학습하며, CCTV 영상 기반 프로젝트를 이해하기 위해 frame, bbox, confidence, ROI 개념을 정리했습니다. 영상에서 AI 탐지 결과를 화면에 정확히 표시하려면 원본 프레임 크기와 bbox 좌표 변환이 중요하다는 점을 학습했습니다.',
     keywords: ['OpenCV', 'Frame Processing', 'BBOX', 'ROI', 'Video Pipeline'],
   },
-]
+  {
+    title: 'YOLO 모델 비교 실험 (YOLO11n · RT-DETR-l)',
+    description: '동일하게 3-class로 정리하고 클래스 밸런스를 맞춘 데이터셋으로 YOLO11n과 RT-DETR-l을 각각 학습시켜 학습 곡선(loss·precision·recall·mAP)과 confusion matrix를 직접 비교했습니다. YOLO11n은 100 epoch 학습 후 mAP50 약 0.91, mAP50-95 약 0.74까지 수렴했고, 이 실험을 통해 모델 구조에 따라 수렴 속도와 최종 성능이 어떻게 달라지는지 확인했습니다.',
+    keywords: ['YOLO11n', 'RT-DETR-l', 'mAP', 'Confusion Matrix', 'Training Curve'],
+    images: [
+      { src: '/images/ai-learning/yolo11n-training-results.png', caption: 'YOLO11n 학습 곡선 · loss / precision / recall / mAP (100 epoch)' },
+      { src: '/images/ai-learning/yolo11n-confusion-matrix.png', caption: 'YOLO11n Confusion Matrix · 클래스별 예측 정확도' },
+      { src: '/images/ai-learning/rtdetr-l-training-results.png', caption: 'RT-DETR-l 학습 곡선 · 동일 데이터셋 비교 학습' },
+    ],
+  },
+  {
+    title: '하이퍼파라미터 실험 (Optimizer · 해상도)',
+    description: 'Optimizer(Adam·AdamW·SGD+Nesterov)와 입력 해상도(416·512·640)를 바꿔가며 동일 조건에서 val_loss를 비교했습니다. AdamW(lr2e-4)가 다른 optimizer보다 낮은 val_loss(약 1.20)를 기록했고, 해상도 비교에서는 512가 416·640보다 낮은 val_loss(약 1.17)를 보였습니다. 하이퍼파라미터 하나를 바꿀 때마다 학습 결과가 어떻게 달라지는지 수치로 직접 비교하며 실험했습니다.',
+    keywords: ['Optimizer', 'AdamW', 'Image Resolution', 'Hyperparameter Tuning'],
+    images: [
+      { src: '/images/ai-learning/keras-optimizer-compare-val-loss.png', caption: 'Optimizer 비교 · Adam vs AdamW vs SGD+Nesterov val_loss' },
+      { src: '/images/ai-learning/keras-resolution-compare-val-loss.png', caption: '입력 해상도 비교 · 416 vs 512 vs 640 val_loss' },
+    ],
+  },
+] as LearningExperiment[]
 
 export const learningProjectMap = [
   { title: 'Keras / CNN', learning: '이미지 분류와 딥러닝 학습 흐름 이해', project: 'STACCATO', applied: 'YOLO 탐지 결과를 사용하기 전 Keras로 직접 CNN을 학습시켜 입력 → 출력 → confidence로 이어지는 흐름을 확인' },
