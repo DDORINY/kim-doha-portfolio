@@ -4,6 +4,7 @@ import ProjectShowcase from '../components/ProjectShowcase'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import SideProjectCard from '../components/SideProjectCard'
+import TechIcon from '../components/TechIcon'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { sideProjects } from '../data/sideProjects'
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <section className="hero section">
+        <ProjectShowcase />
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">AI SERVICE DEVELOPER PORTFOLIO</p>
@@ -20,7 +22,7 @@ export default function Home() {
             <div className="button-row">
               <Link className="button primary" to="/projects">Projects 보기</Link>
               <Link className="button secondary" to="/resume">Resume</Link>
-              <a className="button ghost" href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+              <a className="button ghost" href={profile.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub ↗</a>
               <Link className="button ghost" to="/ai-learning">AI Learning →</Link>
             </div>
           </div>
@@ -38,9 +40,6 @@ export default function Home() {
             <div className="availability"><span /> 새로운 기회를 기다리고 있습니다</div>
           </div>
         </div>
-      </section>
-      <section className="section showcase-section">
-        <div className="container"><ProjectShowcase /></div>
       </section>
       <section className="section projects-preview">
         <div className="container">

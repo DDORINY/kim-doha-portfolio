@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { defaultSkillMeta, skillGroupMeta } from '../components/SkillIcons'
+import TechIcon, { TechChip } from '../components/TechIcon'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
 
@@ -17,7 +18,7 @@ export default function Resume() {
       </div>
       <div className="resume-links">
         <a href={`mailto:${profile.email}`}>Email · {profile.email}</a>
-        <a href={profile.github} target="_blank" rel="noreferrer">GitHub · github.com/DDORINY</a>
+        <a href={profile.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub · github.com/DDORINY</a>
         <a href={profile.portfolio} target="_blank" rel="noreferrer">Portfolio · ddoriny.com</a>
         <a href={profile.notion} target="_blank" rel="noreferrer">Notion · 학습 기록</a>
       </div>
@@ -51,7 +52,7 @@ export default function Resume() {
           return (
             <Reveal as="div" className="skill-category" style={{ '--accent': meta.accent } as React.CSSProperties} key={group}>
               <div className="skill-category-head"><span className="skill-icon-badge"><meta.Icon /></span><h3>{group}</h3></div>
-              <div className="skill-chip-grid">{skills.map((skill) => <span className="skill-chip" key={skill}>{skill}</span>)}</div>
+              <div className="skill-chip-grid">{skills.map((skill) => <TechChip label={skill} className="skill-chip" key={skill} />)}</div>
               {usage && <ul className="skill-usage-list">{usage.map((entry) => <li key={entry.skill}><strong>{entry.skill}</strong>{entry.usage}</li>)}</ul>}
             </Reveal>
           )

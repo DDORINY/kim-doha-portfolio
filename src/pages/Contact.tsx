@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
+import TechIcon, { TechChip } from '../components/TechIcon'
 import { contactKeywords, contactSummary, contactTopics, profile } from '../data/profile'
 
 export default function Contact() {
@@ -11,11 +12,11 @@ export default function Contact() {
         <Reveal as="div" className="contact-summary">
           <span className="eyebrow">SUMMARY</span>
           <p>{contactSummary}</p>
-          <div className="contact-keywords">{contactKeywords.map((keyword) => <span className="chip" key={keyword}>{keyword}</span>)}</div>
+          <div className="contact-keywords">{contactKeywords.map((keyword) => <TechChip label={keyword} key={keyword} />)}</div>
         </Reveal>
         <div className="contact-grid">
           <Reveal as="a" href={`mailto:${profile.email}`}><span>01 / EMAIL</span><h2>메일로 연락하기</h2><p>{profile.email}</p><strong>↗</strong></Reveal>
-          <Reveal as="a" href={profile.github} target="_blank" rel="noreferrer"><span>02 / GITHUB</span><h2>코드와 작업 기록</h2><p>{profile.github}</p><strong>↗</strong></Reveal>
+          <Reveal as="a" href={profile.github} target="_blank" rel="noreferrer"><span>02 / GITHUB</span><h2><TechIcon name="GitHub" />코드와 작업 기록</h2><p>{profile.github}</p><strong>↗</strong></Reveal>
           <Reveal as={Link} to="/projects"><span>03 / PROJECTS</span><h2>주요 프로젝트 보기</h2><p>STACCATO, 404RNF, CommerceOps ERP</p><strong>↗</strong></Reveal>
           <Reveal as={Link} to="/resume"><span>04 / RESUME</span><h2>이력서 확인</h2><p>경력, 기술 스택, 프로젝트 역할 정리</p><strong>↗</strong></Reveal>
           <Reveal as="a" href={profile.notion} target="_blank" rel="noreferrer"><span>05 / AI LEARNING NOTION</span><h2>AI 학습 기록</h2><p>Python, Keras, Computer Vision, AI API 연동</p><strong>↗</strong></Reveal>

@@ -1,5 +1,6 @@
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
+import { TechChip } from '../components/TechIcon'
 import { aiLearningOverview, learningExperiments, learningNotes, learningProjectMap, learningTracks, profile } from '../data/profile'
 
 export default function AILearning() {
@@ -21,7 +22,7 @@ export default function AILearning() {
               <span className="learning-number">{track.key}</span>
               <h2>{track.title}</h2>
               <p>{track.description}</p>
-              <div className="chip-row">{track.topics.map((topic) => <span className="chip" key={topic}>{topic}</span>)}</div>
+              <div className="chip-row">{track.topics.map((topic) => <TechChip label={topic} key={topic} />)}</div>
             </Reveal>
           ))}
         </div>
@@ -32,7 +33,7 @@ export default function AILearning() {
               <Reveal as="div" className="trouble-card" key={exp.title}>
                 <h3>{exp.title}</h3>
                 <p>{exp.description}</p>
-                <div className="chip-row">{exp.keywords.map((keyword) => <span className="chip" key={keyword}>{keyword}</span>)}</div>
+                <div className="chip-row">{exp.keywords.map((keyword) => <TechChip label={keyword} key={keyword} />)}</div>
               </Reveal>
             ))}
           </div>

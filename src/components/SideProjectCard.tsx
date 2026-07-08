@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { SideProject } from '../data/sideProjects'
 import Reveal from './Reveal'
+import { TechChip } from './TechIcon'
 
 export default function SideProjectCard({ project }: { project: SideProject }) {
   return (
@@ -17,7 +18,7 @@ export default function SideProjectCard({ project }: { project: SideProject }) {
       <p>{project.description}</p>
       {project.tags?.length ? (
         <div className="side-project-tags">
-          {project.tags.map((tag) => <span className="side-project-tag" key={tag}>{tag}</span>)}
+          {project.tags.map((tag) => <TechChip label={tag} className="side-project-tag" key={tag} />)}
         </div>
       ) : null}
       <span className="side-project-link">상세 보기 →</span>

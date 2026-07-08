@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 
 export default function ProjectShowcase() {
@@ -19,21 +18,17 @@ export default function ProjectShowcase() {
   if (slides.length === 0) return null
 
   return (
-    <div className="showcase" onMouseEnter={() => (pausedRef.current = true)} onMouseLeave={() => (pausedRef.current = false)}>
-      <div className="showcase-track" style={{ transform: `translateX(-${index * 100}%)` }}>
+    <div className="hero-backdrop" onMouseEnter={() => (pausedRef.current = true)} onMouseLeave={() => (pausedRef.current = false)}>
+      <div className="hero-backdrop-track" style={{ transform: `translateX(-${index * 100}%)` }}>
         {slides.map((project) => (
-          <Link className="showcase-slide" to={`/projects/${project.slug}`} style={{ '--accent': project.accent } as React.CSSProperties} key={project.slug}>
-            <img src={project.screenshots[0].src} alt={project.screenshots[0].alt} loading="lazy" />
-            <div className="showcase-caption">
-              <span>{project.type}</span>
-              <h3>{project.name}</h3>
-              <p>{project.tagline}</p>
-            </div>
-          </Link>
+          <div className="hero-backdrop-slide" key={project.slug}>
+            <img src={project.screenshots[0].src} alt="" loading="lazy" />
+          </div>
         ))}
       </div>
+      <div className="hero-backdrop-scrim" />
       {slides.length > 1 && (
-        <div className="showcase-dots">
+        <div className="hero-backdrop-dots">
           {slides.map((project, i) => (
             <button
               type="button"

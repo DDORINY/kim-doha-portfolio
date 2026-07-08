@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import Reveal from '../components/Reveal'
+import TechIcon, { TechChip } from '../components/TechIcon'
 import { getProject } from '../data/projects'
 
 function ResourceLink({ label, url, placeholder }: { label: string; url?: string; placeholder?: boolean }) {
-  return placeholder || !url ? <span className="resource-link disabled">{label}<small>자료 준비 중</small></span> : <a className="resource-link" href={url} target="_blank" rel="noreferrer">{label}<span>↗</span></a>
+  return placeholder || !url ? <span className="resource-link disabled"><TechIcon name={label} />{label}<small>자료 준비 중</small></span> : <a className="resource-link" href={url} target="_blank" rel="noreferrer"><TechIcon name={label} />{label}<span>↗</span></a>
 }
 
 export default function ProjectDetail() {
@@ -34,7 +35,7 @@ export default function ProjectDetail() {
           <Reveal as="section" id="role" className="detail-section"><span className="section-number">{num('role')} / MY ROLE</span><h2>담당 역할</h2><ul className="check-list">{project.role.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>
           <Reveal as="section" id="features" className="detail-section"><span className="section-number">{num('features')} / FEATURES</span><h2>주요 기능</h2><div className="feature-grid">{project.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}</div></Reveal>
           <ExtraSections after="features" />
-          <Reveal as="section" id="stack" className="detail-section"><span className="section-number">{num('stack')} / TECH STACK</span><h2>기술 스택</h2><div className="large-chip-row">{project.techStack.map((tech) => <span key={tech}>{tech}</span>)}</div></Reveal>
+          <Reveal as="section" id="stack" className="detail-section"><span className="section-number">{num('stack')} / TECH STACK</span><h2>기술 스택</h2><div className="large-chip-row">{project.techStack.map((tech) => <TechChip label={tech} className="" key={tech} />)}</div></Reveal>
           <ExtraSections after="stack" />
           <Reveal as="section" id="flow" className="detail-section"><span className="section-number">{num('flow')} / SYSTEM FLOW</span><h2>시스템 구조와 서비스 흐름</h2><div className="system-flow">{project.systemFlow.map((step, index) => <div className="flow-step" key={step.label}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{step.label}</h3><p>{step.description}</p></div></div>)}</div>{project.slug === 'staccato' && <p className="security-note">보안을 위해 실제 인프라 IP와 내부 접속 정보는 공개하지 않습니다.</p>}</Reveal>
           <ExtraSections after="flow" />

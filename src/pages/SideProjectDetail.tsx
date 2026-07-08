@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import TechIcon, { TechChip } from '../components/TechIcon'
 import { getSideProject } from '../data/sideProjects'
 
 export default function SideProjectDetail() {
@@ -19,11 +20,11 @@ export default function SideProjectDetail() {
           </div>
         )}
         {project.note && <p className="side-detail-note">{project.note}</p>}
-        {project.tags?.length ? <div className="chip-row">{project.tags.map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div> : null}
+        {project.tags?.length ? <div className="chip-row">{project.tags.map((tag) => <TechChip label={tag} key={tag} />)}</div> : null}
         <div className="detail-actions">
-          <a className="resource-link" href={project.url} target="_blank" rel="noreferrer">{project.linkLabel ?? '사이트 바로가기'}<span>↗</span></a>
+          <a className="resource-link" href={project.url} target="_blank" rel="noreferrer"><TechIcon name={project.linkLabel ?? '사이트 바로가기'} />{project.linkLabel ?? '사이트 바로가기'}<span>↗</span></a>
           {project.github && project.github !== project.url && (
-            <a className="resource-link" href={project.github} target="_blank" rel="noreferrer">GitHub 저장소<span>↗</span></a>
+            <a className="resource-link" href={project.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub 저장소<span>↗</span></a>
           )}
         </div>
       </div>
