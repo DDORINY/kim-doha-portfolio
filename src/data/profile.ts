@@ -50,7 +50,7 @@ export const profile = {
     ],
   },
   certifications: [
-    { title: '데이터분석준전문가(ADsP)', issuer: '한국데이터베이스진흥원', date: '2025.11 합격' },
+    { title: '데이터분석준전문가(ADsP)', issuer: '한국데이터베이스진흥원', date: '2025.11 합격', image: '/images/adsp-certificate.jpg' },
     { title: 'AI/데이터 분석 부트캠프 수료증', issuer: 'MBC 아카데미 · 대보정보통신', date: '2025.12.31 ~ 2026.07.07 수료', image: '/images/mbc-academy-certificate.jpg' },
     { title: '개인평가 우수상 (1위)', issuer: 'MBC 아카데미 · 대보정보통신', date: '2026.07 수상', image: '/images/mbc-academy-award.jpg' },
   ] as Certification[],
