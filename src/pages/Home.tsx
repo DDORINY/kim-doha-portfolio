@@ -14,18 +14,7 @@ export default function Home() {
     <>
       <section className="hero section">
         <ProjectShowcase />
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">AI SERVICE DEVELOPER PORTFOLIO</p>
-            <h1>AI를 연결해<br /><span>사용 가능한 서비스</span>를 만듭니다.</h1>
-            <p className="hero-description">{profile.intro}</p>
-            <div className="button-row">
-              <Link className="button primary" to="/projects">Projects 보기</Link>
-              <Link className="button secondary" to="/resume">Resume</Link>
-              <a className="button ghost" href={profile.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub ↗</a>
-              <Link className="button ghost" to="/ai-learning">AI Learning →</Link>
-            </div>
-          </div>
+        <div className="container hero-top">
           <div className="hero-panel" aria-label="개발자 프로필 요약">
             <div className="code-dots"><span /><span /><span /></div>
             <div className="hero-code">
@@ -38,6 +27,21 @@ export default function Home() {
               <p>&nbsp;&nbsp;]</p><p>{'}'}</p>
             </div>
             <div className="availability"><span /> 새로운 기회를 기다리고 있습니다</div>
+          </div>
+        </div>
+        <div className="hero-band">
+          <div className="container hero-band-inner">
+            <div className="hero-band-heading">
+              <p className="eyebrow">AI SERVICE DEVELOPER PORTFOLIO</p>
+              <h1>AI를 연결해 <span>사용 가능한 서비스</span>를 만듭니다.</h1>
+            </div>
+            <p className="hero-description">{profile.intro}</p>
+            <div className="button-row">
+              <Link className="button primary" to="/projects">Projects 보기</Link>
+              <Link className="button secondary" to="/resume">Resume</Link>
+              <a className="button ghost" href={profile.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub ↗</a>
+              <Link className="button ghost" to="/ai-learning">AI Learning →</Link>
+            </div>
           </div>
         </div>
       </section>
