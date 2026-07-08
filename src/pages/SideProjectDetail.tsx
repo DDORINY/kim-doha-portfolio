@@ -32,7 +32,7 @@ export default function SideProjectDetail() {
             <div className="detail-actions">
               <a className="resource-link" href={project.url} target="_blank" rel="noreferrer"><TechIcon name={project.linkLabel ?? '사이트 바로가기'} />{project.linkLabel ?? '사이트 바로가기'}<span>↗</span></a>
               {project.github && project.github !== project.url && (
-                <a className="resource-link" href={project.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub 저장소<span>↗</span></a>
+                <a className="resource-link" href={project.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />{project.githubLabel ?? 'GitHub 저장소'}<span>↗</span></a>
               )}
             </div>
           </div>

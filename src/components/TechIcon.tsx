@@ -3,7 +3,7 @@ import { FaAws } from 'react-icons/fa6'
 import {
   SiCss, SiFastapi, SiFlask, SiGit, SiGithub, SiGithubpages, SiGooglemaps, SiHtml5,
   SiJavascript, SiJinja, SiJsonwebtokens, SiKakao, SiKeras, SiLinux, SiMysql, SiNextdotjs,
-  SiNginx, SiNumpy, SiOpencv, SiPandas, SiPostgresql, SiPython, SiPytest, SiReact, SiSocketdotio,
+  SiLua, SiNginx, SiNumpy, SiOpencv, SiPandas, SiPostgresql, SiPython, SiPytest, SiReact, SiSocketdotio,
   SiSpringboot, SiSqlalchemy, SiSupabase, SiTailwindcss, SiTensorflow, SiTypescript, SiUbuntu, SiVercel, SiVite, SiVmware,
 } from 'react-icons/si'
 
@@ -55,6 +55,7 @@ const iconMap: Record<string, IconType> = {
   'tailwind css': SiTailwindcss,
   'tailwindcss': SiTailwindcss,
   'postgresql': SiPostgresql,
+  'lua': SiLua,
 }
 
 export function resolveTechIcon(label: string): IconType | undefined {

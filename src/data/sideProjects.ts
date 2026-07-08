@@ -12,6 +12,7 @@ export type SideProject = {
   github?: string
   status?: 'in-progress'
   linkLabel?: string
+  githubLabel?: string
   tags?: string[]
   accent?: string
 }
@@ -61,11 +62,27 @@ export const sideProjects: SideProject[] = [
     slug: 'mafia-msw',
     name: '마피아 게임 (MSW)',
     description: 'MapleStory Worlds 공모전 출품을 위해 3인 팀으로 개발 중인 마피아 게임',
+    note: '메이플스토리 월드 기반 소셜 디덕션 게임 공모전 출품을 목표로 3인 팀 프로젝트로 시작했습니다. "커닝시티: 지하수사록"이라는 세계관 아래, 낮에는 토론과 투표로 추리하고 밤에는 직업 능력으로 정보를 모으거나 사건을 조작하는 6~8인 마피아 게임을 기획하고 있습니다.',
+    role: [
+      '프로젝트 기획 총괄 — 게임 콘셉트, 세계관, 진행 흐름 설계',
+      '팀 작업 규칙 수립 — 문서 작성 기준, 파일 네이밍, 커밋 컨벤션 등 협업 규칙 정리',
+      'UI 디자인 — 로비·방 만들기·매칭 등 화면 UI 설계 (진행 중)',
+    ],
+    features: [
+      '인트로 스토리 연출 및 닉네임 설정',
+      '아바타 이동·점프 물리 시뮬레이션이 적용된 로비',
+      '방 만들기(인원수·비밀번호 검증) 및 빠른 매칭 UI',
+      '프로필 이미지·닉네임·칭호 저장',
+      '경찰·의사·마피아 역할 기반 낮/밤 진행 시스템 (설계 중)',
+    ],
+    retrospective: '게임 기획자로서 콘셉트와 세계관을 잡고 팀이 함께 쓸 작업 규칙을 정하는 것부터 시작해, 지금은 UI 디자인까지 맡으며 기획이 실제 화면과 흐름으로 이어지는 과정을 경험하고 있습니다.',
     image: '/images/mafia-msw-cover.png',
     url: 'https://github.com/ai-mafia-detective-team/MapleStory-Worlds-mafia',
+    github: 'https://github.com/ai-mafia-detective-team/MapleStory-Worlds-mafia-docs',
     status: 'in-progress',
-    linkLabel: 'GitHub 저장소 보기',
-    tags: ['MapleStory Worlds', 'Game UI', 'Team Project'],
+    linkLabel: '게임 저장소 보기',
+    githubLabel: '기획 문서 저장소',
+    tags: ['MapleStory Worlds', 'Lua', 'Game UI', 'Multiplayer'],
     accent: '#ff6b6b',
   },
 ]
