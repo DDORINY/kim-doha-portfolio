@@ -13,6 +13,20 @@ export default function ProjectDetail() {
   if (!project) return <section className="section empty-state"><h1>프로젝트를 찾을 수 없습니다.</h1><Link className="button primary" to="/projects">프로젝트 목록</Link></section>
 
   const baseIds = ['overview', 'background', 'role', 'features', 'stack', 'flow', 'trouble', 'screens', 'docs', 'retrospect'] as const
+  const baseLabels: Record<string, string> = {
+    overview: '프로젝트 개요',
+    background: '개발 배경',
+    role: '담당 역할',
+    features: '주요 기능',
+    stack: '기술 스택',
+    flow: '시스템 구조·흐름',
+    trouble: '문제 해결 경험',
+    screens: '화면 캡처',
+    docs: '문서와 링크',
+    retrospect: '회고',
+  }
+  const extraLabels: Record<string, string> = Object.fromEntries((project.extraSections ?? []).map((s) => [s.id, s.heading]))
+  const getLabel = (id: string) => baseLabels[id] ?? extraLabels[id] ?? id
   const extrasAfter = (id: string) => project.extraSections?.filter((s) => s.insertAfter === id) ?? []
   const sectionIds = baseIds.flatMap((id) => [id, ...extrasAfter(id).map((s) => s.id)])
   const num = (id: string) => String(sectionIds.indexOf(id) + 1).padStart(2, '0')
@@ -22,7 +36,12 @@ export default function ProjectDetail() {
     <article className="detail-page" style={{ '--accent': project.accent } as React.CSSProperties}>
       <header className="detail-hero section"><div className="container"><Link className="back-link" to="/projects">← Projects</Link><div className="detail-title"><div><span className="eyebrow">{project.type}{project.period && !project.type.includes(project.period) ? ` · ${project.period}` : ''}</span><h1>{project.name}</h1><p>{project.tagline}</p></div><div className="detail-actions"><ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></div></div></header>
       <div className="container detail-layout">
-        <aside className="detail-nav"><span>CONTENTS</span>{sectionIds.map((id, i) => <button type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} aria-label={`${id} 섹션으로 이동`} key={id}>{String(i + 1).padStart(2, '0')}</button>)}</aside>
+        <aside className="detail-nav"><span>CONTENTS</span>{sectionIds.map((id, i) => (
+          <button type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} aria-label={`${getLabel(id)} 섹션으로 이동`} key={id}>
+            <span className="detail-nav-index">{String(i + 1).padStart(2, '0')}</span>
+            <span className="detail-nav-label">{getLabel(id)}</span>
+          </button>
+        ))}</aside>
         <div className="detail-content">
           <Reveal as="section" id="overview" className="detail-section"><span className="section-number">{num('overview')} / OVERVIEW</span><h2>프로젝트 개요</h2>{project.teamNote && <span className="team-note">{project.teamNote}</span>}<p className="lead-copy">{project.summary}</p>{project.resumeHighlight && (
             <div className="role-summary-card">

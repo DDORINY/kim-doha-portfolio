@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import TechIcon, { TechChip } from '../components/TechIcon'
-import { contactKeywords, contactSummary, contactTopics, profile } from '../data/profile'
+import { contactFaq, contactKeywords, contactSummary, contactTopics, profile } from '../data/profile'
 
 export default function Contact() {
   return (
@@ -25,6 +25,17 @@ export default function Contact() {
         <div className="contact-topics">
           <SectionHeading eyebrow="CONTACT TOPICS" title="연락 가능한 주제" />
           <div className="contact-topic-list">{contactTopics.map((topic) => <span className="contact-topic-chip" key={topic}>{topic}</span>)}</div>
+        </div>
+        <div className="contact-faq">
+          <SectionHeading eyebrow="FAQ" title="자주 묻는 질문" description="면접이나 채용 담당자분들이 궁금해하실 만한 질문에 미리 답변을 정리했습니다." />
+          <div className="faq-list">
+            {contactFaq.map((item) => (
+              <details className="faq-item" key={item.q}>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </div>
     </section>
