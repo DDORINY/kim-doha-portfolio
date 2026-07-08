@@ -38,7 +38,7 @@ export default function AILearning() {
           </div>
         </div>
         <div className="learning-block">
-          <SectionHeading eyebrow="PROJECT APPLICATION" title="학습 내용의 프로젝트 적용" description="학습한 내용이 STACCATO·404RNF 프로젝트의 어떤 부분과 연결되는지 정리했습니다." />
+          <SectionHeading eyebrow="PROJECT APPLICATION" title="학습 → 프로젝트 적용" description="배운 내용을 어떤 프로젝트에서 실제로 어떻게 적용했는지 연결해 정리했습니다." />
           <div className="trouble-list">
             {learningProjectMap.map((item) => (
               <Reveal as="div" className="trouble-card" key={item.title}>
@@ -46,6 +46,7 @@ export default function AILearning() {
                 <dl>
                   <div><dt>Learning</dt><dd>{item.learning}</dd></div>
                   <div><dt>Project</dt><dd>{item.project}</dd></div>
+                  <div><dt>Applied</dt><dd>{item.applied}</dd></div>
                 </dl>
               </Reveal>
             ))}

@@ -40,6 +40,40 @@ export const profile = {
     '저는 앞으로도 AI를 단순히 기능으로 붙이는 개발자가 아니라, 실제 문제를 이해하고 이를 서비스 구조 안에서 안정적으로 연결하는 개발자로 성장하고 싶습니다. Python, Flask, Spring Boot, Next.js 기반의 프로젝트 경험을 바탕으로 운영 문제를 발견하고, 데이터를 연결하며, 사용자가 체감할 수 있는 AI 연동 서비스를 만드는 SW 개발자가 되겠습니다.',
   ],
   desiredRoles: ['AI 서비스 개발자', 'AI 객체탐지 서비스 개발자', 'Computer Vision 개발자', 'Python / Flask 기반 AI 백엔드 개발자', 'AI 모델 연동 서비스 개발자'],
+  roleStrengths: [
+    {
+      role: 'AI 서비스 개발자',
+      points: [
+        'YOLO 기반 객체탐지 결과를 웹 관제 화면과 DB에 연결',
+        'AI VM · Flask VM · Frontend VM · DB VM 분리 구조 경험',
+        'bbox · confidence · metadata 기반 프론트 표시 흐름 이해',
+      ],
+    },
+    {
+      role: '백엔드 / API 개발자',
+      points: [
+        'Flask, FastAPI, Spring Boot 기반 API 연동 경험',
+        'JWT 인증, MySQL, SQLAlchemy, REST API 구조 경험',
+        'API 응답 계약 테스트 및 health check 점검 경험',
+      ],
+    },
+    {
+      role: '프론트엔드 개발자',
+      points: [
+        'React, Next.js, TypeScript 기반 화면 구현',
+        '관제 대시보드, 이벤트 상세, 관리자 화면 UI 구성',
+        'API 연동, 상태 처리, 영상·이미지 표시 흐름 경험',
+      ],
+    },
+    {
+      role: '운영 / 인프라 보조 역량',
+      points: [
+        'Linux, SSH, 방화벽, DB 설치, Nginx, 배포 점검 경험',
+        'Vercel, GitHub Pages, AWS 배포 경험',
+        '서버 health check와 운영 문서화 경험',
+      ],
+    },
+  ],
   infra: {
     summary: '프로젝트를 단순 구현에 그치지 않고, Linux/VMware/AWS/Vercel 환경에서 직접 배포하며 서버 실행, 포트 설정, SSH 접속, DNS 도메인 연결, DB 연동, HTTPS 및 프록시 설정까지 경험했습니다. 이를 통해 프론트엔드·백엔드·DB·AI 서버가 실제 운영 환경에서 연결되는 전체 흐름을 이해하고 점검할 수 있습니다.',
     categories: [
@@ -140,12 +174,12 @@ export const learningExperiments = [
 ]
 
 export const learningProjectMap = [
-  { title: 'Keras / CNN', learning: '이미지 분류와 딥러닝 학습 흐름 이해', project: 'STACCATO의 Keras 기반 실험 경험과 연결' },
-  { title: 'OpenCV / Computer Vision', learning: 'CCTV 영상과 이미지 처리 흐름 이해', project: 'STACCATO 영상 기반 관제 화면과 연결' },
-  { title: 'YOLO / Object Detection', learning: '객체 탐지 모델과 confidence, bbox 결과 이해', project: 'STACCATO 정차 차량 탐지, 404RNF 낙하물 탐지와 연결' },
-  { title: 'Flask / FastAPI API Integration', learning: 'AI 모델 결과를 API 응답으로 전달하는 구조 학습', project: 'AI VM, Flask VM, Frontend 화면 연동 경험과 연결' },
-  { title: 'Database / Metadata', learning: '탐지 결과, 신고, 이벤트 metadata 저장 구조 이해', project: 'MySQL 기반 프로젝트 저장 구조와 연결' },
-  { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'AI 서비스가 실제 환경에서 동작하기 위한 운영 흐름과 연결' },
+  { title: 'Keras / CNN', learning: '이미지 분류와 딥러닝 학습 흐름 이해', project: 'STACCATO', applied: 'YOLO 탐지 결과를 사용하기 전 Keras로 직접 CNN을 학습시켜 입력 → 출력 → confidence로 이어지는 흐름을 확인' },
+  { title: 'OpenCV / Computer Vision', learning: 'CCTV 영상과 이미지 처리 흐름 이해', project: 'STACCATO', applied: 'CCTV 프레임 크기와 bbox 좌표를 percentage로 변환해 관제 화면에 BBOX overlay를 정확한 위치에 표시' },
+  { title: 'YOLO / Object Detection', learning: '객체 탐지 모델과 confidence, bbox 결과 이해', project: 'STACCATO, 404 R·N·F AI', applied: 'STACCATO 정차 차량 탐지(YOLOv11), 404RNF 낙하물 탐지(YOLOv8·RT-DETR)에서 confidence·bbox 기준 이벤트 판단 로직 구현' },
+  { title: 'Flask / FastAPI API Integration', learning: 'AI 모델 결과를 API 응답으로 전달하는 구조 학습', project: 'STACCATO, 404 R·N·F AI', applied: 'AI VM(FastAPI) → Flask VM(API Gateway) → MySQL 저장 → Socket.IO 알림까지 이어지는 API 계약을 설계하고 pytest로 검증' },
+  { title: 'Database / Metadata', learning: '탐지 결과, 신고, 이벤트 metadata 저장 구조 이해', project: 'STACCATO, CommerceOps ERP', applied: '탐지 로그·신고·알림·주문 데이터를 MySQL 테이블로 설계하고 SQLAlchemy Repository 계층으로 접근을 분리' },
+  { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'STACCATO, AI Developer Portfolio Hub', applied: 'STACCATO는 4개 VM의 SSH 접속·방화벽·health check 점검, 포트폴리오 허브는 GitHub Pages + 커스텀 도메인 배포 파이프라인 구축' },
 ]
 
 export const contactSummary = 'AI 객체탐지 서비스 개발자를 목표로, 모델 실험부터 API 연동, DB 저장, 프론트엔드 화면 반영, Linux/VM 기반 배포 점검까지 경험했습니다.'
