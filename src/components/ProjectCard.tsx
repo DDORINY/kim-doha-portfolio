@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
 import Reveal from './Reveal'
+import { TechChip } from './TechIcon'
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
@@ -15,12 +16,12 @@ export default function ProjectCard({ project, index }: { project: Project; inde
       <p className="tagline">{project.tagline}</p>
       {project.highlights?.length ? (
         <div className="highlight-row">
-          {project.highlights.slice(0, 6).map((item) => <span className="highlight-chip" key={item}>{item}</span>)}
+          {project.highlights.slice(0, 6).map((item) => <TechChip label={item} className="highlight-chip" key={item} />)}
         </div>
       ) : null}
       <div className="card-meta">
         <div><span className="meta-label">ROLE</span><p>{project.role.slice(0, 2).join(' · ')}</p></div>
-        <div><span className="meta-label">STACK</span><div className="chip-row">{project.techStack.slice(0, 4).map((tech) => <span className="chip" key={tech}>{tech}</span>)}</div></div>
+        <div><span className="meta-label">STACK</span><div className="chip-row">{project.techStack.slice(0, 4).map((tech) => <TechChip label={tech} key={tech} />)}</div></div>
       </div>
       <div className="card-footer">
         <Link className="text-link" to={`/projects/${project.slug}`} aria-label={`${project.name} 상세 보기`}>프로젝트 상세 보기 <span>↗</span></Link>
