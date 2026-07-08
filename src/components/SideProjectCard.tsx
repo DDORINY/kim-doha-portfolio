@@ -1,10 +1,10 @@
+import { Link } from 'react-router-dom'
 import type { SideProject } from '../data/sideProjects'
 import Reveal from './Reveal'
 
 export default function SideProjectCard({ project }: { project: SideProject }) {
-  const linkLabel = project.linkLabel ?? '배포 사이트 바로가기'
   return (
-    <Reveal as="a" className="side-project-card" href={project.url} target="_blank" rel="noreferrer" aria-label={`${project.name} ${linkLabel}`}>
+    <Reveal as={Link} className="side-project-card" to={`/side-projects/${project.slug}`} aria-label={`${project.name} 상세 보기`}>
       <div className="side-project-head">
         <h3>{project.name}</h3>
         {project.status === 'in-progress' && <span className="status-badge">개발 중</span>}
@@ -15,7 +15,7 @@ export default function SideProjectCard({ project }: { project: SideProject }) {
           {project.tags.map((tag) => <span className="side-project-tag" key={tag}>{tag}</span>)}
         </div>
       ) : null}
-      <span className="side-project-link">{linkLabel} ↗</span>
+      <span className="side-project-link">상세 보기 →</span>
     </Reveal>
   )
 }
