@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ProjectCard from '../components/ProjectCard'
+import ProjectShowcase from '../components/ProjectShowcase'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import SideProjectCard from '../components/SideProjectCard'
@@ -37,6 +38,9 @@ export default function Home() {
             <div className="availability"><span /> 새로운 기회를 기다리고 있습니다</div>
           </div>
         </div>
+      </section>
+      <section className="section showcase-section">
+        <div className="container"><ProjectShowcase /></div>
       </section>
       <section className="section projects-preview">
         <div className="container">

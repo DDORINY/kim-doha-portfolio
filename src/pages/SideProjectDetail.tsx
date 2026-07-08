@@ -13,6 +13,11 @@ export default function SideProjectDetail() {
         <span className="eyebrow">SIDE PROJECT{project.status === 'in-progress' ? ' · 개발 중' : ''}</span>
         <h1>{project.name}</h1>
         <p className="lead-copy">{project.description}</p>
+        {project.image && (
+          <div className="side-detail-image">
+            <img src={project.image} alt={`${project.name} 대표 이미지`} />
+          </div>
+        )}
         {project.note && <p className="side-detail-note">{project.note}</p>}
         {project.tags?.length ? <div className="chip-row">{project.tags.map((tag) => <span className="chip" key={tag}>{tag}</span>)}</div> : null}
         <div className="detail-actions">
