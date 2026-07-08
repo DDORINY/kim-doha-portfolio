@@ -3,7 +3,7 @@ import ProjectCard from '../components/ProjectCard'
 import ProjectShowcase from '../components/ProjectShowcase'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
-import SideProjectCard from '../components/SideProjectCard'
+import SideProjectCarousel from '../components/SideProjectCarousel'
 import TechIcon from '../components/TechIcon'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
@@ -63,7 +63,7 @@ export default function Home() {
         <section className="section side-projects">
           <div className="container">
             <SectionHeading eyebrow="SIDE & MINI BUILDS" title="기타 프로젝트" description="짧게 만들어보고 배포까지 이어본 개인 프로젝트입니다." />
-            <div className="side-project-grid">{sideProjects.map((project) => <SideProjectCard project={project} key={project.name} />)}</div>
+            <SideProjectCarousel projects={sideProjects} />
           </div>
         </section>
       )}
