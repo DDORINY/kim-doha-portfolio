@@ -46,7 +46,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <main key={location.pathname}>{children}</main>
       <footer className="site-footer">
         <div className="container footer-inner">
-          <p>© {new Date().getFullYear()} {profile.name}. AI Service Developer Portfolio.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. AI Developer Portfolio.</p>
           <Link to="/contact">함께 이야기하기 →</Link>
         </div>
       </footer>
