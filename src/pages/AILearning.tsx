@@ -13,12 +13,23 @@ export default function AILearning() {
         </div>
         <div className="learning-block"><span className="eyebrow">LEARNING NOTES</span><div className="large-chip-row">{learningNotes.map((note) => <span key={note}>{note}</span>)}</div></div>
         <div className="learning-block"><span className="eyebrow">OVERVIEW</span><p className="lead-copy">{aiLearningOverview}</p></div>
-        <div className="learning-path" aria-label="AI 서비스 개발 학습 방향">
-          <span>DATA</span><i>→</i><span>MODEL</span><i>→</i><span>API</span><i>→</i><span>SERVICE</span>
+        <div className="roadmap" aria-label="AI 서비스 개발 학습 로드맵">
+          <div className="roadmap-line" />
+          {learningTracks.map((track) => (
+            <button
+              type="button"
+              className="roadmap-step"
+              key={track.key}
+              onClick={() => document.getElementById(`track-${track.key}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+            >
+              <span className="roadmap-node">{track.key}</span>
+              <span className="roadmap-title">{track.title}</span>
+            </button>
+          ))}
         </div>
         <div className="learning-grid">
           {learningTracks.map((track) => (
-            <Reveal as="article" className="learning-card" key={track.key}>
+            <Reveal as="article" id={`track-${track.key}`} className="learning-card" key={track.key}>
               <span className="learning-number">{track.key}</span>
               <h2>{track.title}</h2>
               <p>{track.description}</p>
