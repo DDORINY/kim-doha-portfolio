@@ -5,7 +5,7 @@ import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import SideProjectCarousel from '../components/SideProjectCarousel'
 import TechIcon from '../components/TechIcon'
-import { profile } from '../data/profile'
+import { homeEvidenceMetrics, homeModelMetrics, profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { sideProjects } from '../data/sideProjects'
 
@@ -49,6 +49,29 @@ export default function Home() {
               <a className="button ghost" href={profile.github} target="_blank" rel="noreferrer"><TechIcon name="GitHub" />GitHub ↗</a>
               <Link className="button ghost" to="/ai-learning">AI Learning →</Link>
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="section evidence-summary">
+        <div className="container">
+          <SectionHeading eyebrow="EVIDENCE SUMMARY" title="말이 아니라 근거로 보여주는 역량" description="AI 서비스 통합, 객체탐지, VM 운영, 모델 실험까지 실제 프로젝트에서 확인한 수치입니다." />
+          <div className="metric-card-grid">
+            {homeEvidenceMetrics.map((metric) => (
+              <div className="metric-card" key={metric.label}>
+                <span className="metric-card-value">{metric.value}</span>
+                <span className="metric-card-label">{metric.label}</span>
+                {metric.description && <p>{metric.description}</p>}
+              </div>
+            ))}
+          </div>
+          <div className="metric-card-grid metric-card-grid-model">
+            {homeModelMetrics.map((metric) => (
+              <div className="metric-card metric-card-model" key={metric.label}>
+                <span className="metric-card-value">{metric.value}</span>
+                <span className="metric-card-label">{metric.label}</span>
+                {metric.description && <p>{metric.description}</p>}
+              </div>
+            ))}
           </div>
         </div>
       </section>

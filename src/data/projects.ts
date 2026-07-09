@@ -1,9 +1,13 @@
-﻿export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
+﻿import type { ModelExperimentRow } from './evidence'
+
+export type ProjectLink = { label: string; url?: string; placeholder?: boolean }
 
 export type ExtraSectionAnchor = 'overview' | 'background' | 'role' | 'features' | 'stack' | 'flow' | 'trouble' | 'screens' | 'docs'
 export type ExtraSection = { id: string; insertAfter: ExtraSectionAnchor; label: string; heading: string; items: string[] }
 
 export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment'
+
+export type ArchitectureNode = { label: string; sub?: string }
 
 export type Project = {
   slug: 'staccato' | 'erp' | '404rnf'
@@ -29,6 +33,20 @@ export type Project = {
   github: ProjectLink
   retrospective: string
   accent: string
+  /** Projects 목록 카드에 노출할 "무엇을 증명하는지" 요약 — 핵심 역량 */
+  proofCompetencies?: string[]
+  /** Projects 목록 카드에 노출할 "무엇을 증명하는지" 요약 — 대표 증거 */
+  proofEvidence?: string[]
+  /** 상세페이지 System Architecture Evidence 다이어그램 노드 (VM 흐름 등) */
+  architectureFlow?: ArchitectureNode[]
+  /** 상세페이지 AI Model Evidence 표에 쓰이는 모델 실험 비교 행 (최종 발표 PPT 성능표 기준) */
+  modelExperiments?: ModelExperimentRow[]
+  /** AI Model Evidence 표 아래 노출되는 최종 모델 선정 근거 문구 */
+  modelEvidenceNote?: string
+  /** AI Model Evidence 영역에 노출되는 최종 모델 데이터셋 요약 카드 */
+  datasetSummary?: { title: string; items: string[] }
+  /** 상세페이지 Operation Evidence 카드에 쓰이는 운영 점검 항목 (모두 기존 troubleshooting/role/qa 내용에서 정리) */
+  operationChecks?: string[]
 }
 
 export const projects: Project[] = [
@@ -170,11 +188,57 @@ export const projects: Project[] = [
       { src: '/images/staccato-07.png', alt: 'STACCATO 알림 화면', caption: '알림 · 실시간 사고 이벤트 알림 및 상세 정보' },
       { src: '/images/staccato-08.png', alt: 'STACCATO 운영 환경 정보 화면', caption: '운영 환경 정보 · VM별 인프라 구성 현황' },
       { src: '/images/staccato-09.png', alt: 'STACCATO 버그리포트 화면', caption: '버그리포트 · 점검 및 이슈 처리 이력' },
+      { src: '/images/staccato-10-dashboard-live.png', alt: 'STACCATO 통합 관제 대시보드 실시간 화면', caption: '통합 관제 대시보드 (실제 운영 화면) · 전체 이벤트 100건, CCTV 8대 ONLINE 실시간 현황' },
+      { src: '/images/staccato-11-cctv-bbox.png', alt: 'STACCATO CCTV 관제 BBOX 탐지 화면', caption: 'CCTV 관제 실시간 화면 · YOLO 탐지 BBOX(car 73%) 오버레이 실제 표시' },
+      { src: '/images/staccato-12-detection-stopped-vehicle.png', alt: 'STACCATO 정차 차량 객체 탐지 결과', caption: '실제 탐지 결과 · STOPPED_VEHICLE 이벤트 판단 및 confidence 표시 (터널 구간)' },
+      { src: '/images/staccato-13-detection-stopped-vehicle-2.png', alt: 'STACCATO 정차 차량 객체 탐지 결과 2', caption: '실제 탐지 결과 · STOPPED_VEHICLE 3.0s 지속 판단, confidence 0.86·0.89' },
+      { src: '/images/staccato-14-replay-shoulder-stop.png', alt: 'STACCATO 갓길 정차 이벤트 리플레이 화면', caption: '이벤트 리플레이 · SHOULDER_STOP 갓길 정차 탐지, 스냅샷·영상 재생 및 이벤트 목록 확인' },
+      { src: '/images/staccato-15-bug-report-board.png', alt: 'STACCATO 버그리포트 게시판 실제 운영 화면', caption: '버그리포트 게시판 (실제 운영) · 정기점검·이슈 조치 이력 20건 관리' },
+      { src: '/images/staccato-16-security-log-auto-report.png', alt: 'STACCATO 자동 보안 로그 게시판', caption: '자동 보안 로그 · 3시간 주기 자동 접속 로그 리포트 생성·다운로드 확인' },
     ],
     documents: [{ label: '시연 영상', url: 'https://youtu.be/l2xOOqAfufo' }, { label: '발표자료', url: '/docs/STACCATO-presentation.pdf' }, { label: '결과보고서', placeholder: true }, { label: '사용자 매뉴얼', placeholder: true }, { label: '관리자 매뉴얼', placeholder: true }, { label: '릴리즈 체크리스트', placeholder: true }, { label: '코드리뷰', placeholder: true }],
     deploy: { label: 'STACCATO Live Demo', url: 'https://mbc-sw.iptime.org:3221/' },
     github: { label: 'GitHub 저장소', url: 'https://github.com/staccato-ai-highway-control/staccato-ai-highway-control' },
     retrospective: '모델 정확도만으로 AI 서비스가 완성되지는 않습니다. 추론 결과가 API와 DB를 거쳐 사용자의 판단으로 이어지고, 운영자가 문제를 점검할 수 있어야 실제로 사용할 수 있는 서비스가 된다는 점을 배웠습니다.', accent: '#70e1f5',
+    proofCompetencies: ['AI 서비스 통합', '객체탐지', 'VM 운영'],
+    proofEvidence: ['모델 성능표', '관제 화면', 'VM 구조도', '운영 점검'],
+    architectureFlow: [
+      { label: 'User Browser', sub: '관제자 접속' },
+      { label: 'Frontend VM', sub: 'Next.js · BBOX overlay' },
+      { label: 'Flask API Gateway', sub: '인증 · DB 저장' },
+      { label: 'AI VM / YOLO Detection', sub: 'FastAPI · YOLOv11' },
+      { label: 'MySQL DB', sub: '탐지 로그 · 이벤트 저장' },
+      { label: 'Socket.IO Alert', sub: '실시간 알림' },
+      { label: 'CCTV Monitoring UI', sub: '관제 화면 반영' },
+    ],
+    modelExperiments: [
+      { model: 'RT-DETR-L', precision: '0.8989', recall: '0.8558', f1: '0.8768', map50: '0.9107', map5095: '0.7681', note: '정확도 최고' },
+      { model: 'YOLO11s 640 stage2', precision: '0.8850', recall: '0.8456', f1: '0.8648', map50: '0.9089', map5095: '0.7587', note: '경량·실시간 후보' },
+      { model: 'YOLO11s CVAT balanced', precision: '0.9210', recall: '0.8670', f1: '0.8932', map50: '0.9290', map5095: '0.7680', note: '최종 선정 모델' },
+      { model: 'YOLO11n stage2', precision: '0.8839', recall: '0.8246', f1: '0.8532', map50: '0.8949', map5095: '0.7329', note: '경량 후보' },
+      { model: 'YOLO11n baseline', precision: '0.8714', recall: '0.7766', f1: '0.8213', map50: '0.8647', map5095: '0.7144', note: '기준 모델' },
+    ],
+    modelEvidenceNote: '최종 적용 모델은 YOLO11s CVAT balanced입니다. RT-DETR-L은 mAP50-95 기준으로 높은 성능을 보였지만, 실시간 CCTV 스트림 처리, ByteTrack 추적, ROI 기반 이벤트 판단, 관제 화면 연동까지 고려했을 때 YOLO11s CVAT balanced가 가장 안정적인 균형을 보였습니다.',
+    datasetSummary: {
+      title: 'YOLO11s CVAT balanced Dataset',
+      items: [
+        '20,000 images',
+        'car / truck / bus 3-class relabeling',
+        'highway CCTV vehicle detection',
+        'balanced dataset for real-time detection',
+        'connected with ByteTrack, bottom_center, ROI event logic',
+      ],
+    },
+    operationChecks: [
+      'SSH 기반 VM 접속 정상 (AI · Flask · Frontend · DB)',
+      'Flask API health check 200 OK 확인',
+      'Flask pytest 응답 계약 테스트 통과',
+      'Frontend HTTPS 접속 및 Nginx reverse proxy 동작 확인',
+      'CCTV 스트림 및 객체탐지 BBOX overlay 정상 표시 확인',
+      'MySQL DB 연결 및 이벤트 저장 확인',
+      'Socket.IO 실시간 알림 연결 및 sid 반환 확인',
+      '브라우저 기준 로그인 · 이벤트 목록 · 스냅샷 · 영상 재생 QA (8개 이상 화면)',
+    ],
   },
   {
     slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: '개인 프로젝트 · 진행 중',
@@ -198,6 +262,8 @@ export const projects: Project[] = [
     documents: [{ label: '기능 명세서', placeholder: true }, { label: 'ERD 및 API 문서', placeholder: true }],
     deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/commerceops-erp' },
     retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요하다는 것을 이 프로젝트를 진행하며 체감하고 있습니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다지는 중입니다.', accent: '#8b80ff',
+    proofCompetencies: ['백엔드 API', 'DB 설계', '관리자 기능'],
+    proofEvidence: ['API 목록', '관리자 상품 관리', '주문/결제 Mock'],
   },
   {
     slug: '404rnf', name: '404 R·N·F AI', type: 'AI 낙하물 탐지 · Mini Project', period: 'Mini Project',
@@ -279,6 +345,8 @@ export const projects: Project[] = [
     documents: [{ label: '시연 영상', url: 'https://youtu.be/Iet2QiSkU5s' }, { label: '발표자료', url: '/docs/404rnf-presentation.pdf' }, { label: '코드리뷰', url: '/docs/404rnf-code-review.pdf' }],
     deploy: { label: '배포 사이트', url: 'https://404-rnf.ddoriny.com/' }, github: { label: 'GitHub 저장소', url: 'https://github.com/lms-mini-project/AI-accident-detection' },
     retrospective: 'AI 탐지 결과를 화면에 출력하는 수준을 넘어, DB에 저장하고 관리자 통계·로그로 연결하는 구조가 중요하다는 것을 배웠습니다. 여러 AI 모델을 비교하며 탐지 수·신뢰도·처리 시간 등 복합 지표로 판단하는 경험을 쌓았고, 프로젝트 규모가 커질수록 Service·Repository 계층 분리가 왜 필요한지 체감했습니다. 모델 성능뿐 아니라 실시간성, 권한 관리, 데이터 흐름을 함께 고려해야 실제로 동작하는 안전 서비스가 된다는 것을 팀과 함께 배운 프로젝트였습니다.', accent: '#ffbe70',
+    proofCompetencies: ['AI 모델 비교분석', '실시간 알림', '관리자 시스템'],
+    proofEvidence: ['3개 모델 비교표', '위험도 분류 로직', 'Flask-SocketIO 알림 구조'],
   },
 ]
 

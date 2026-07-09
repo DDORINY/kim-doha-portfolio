@@ -4,6 +4,24 @@ import SectionHeading from '../components/SectionHeading'
 import TechIcon, { TechChip } from '../components/TechIcon'
 import { contactFaq, contactKeywords, contactSummary, contactTopics, profile } from '../data/profile'
 
+function FaqRelatedLinks({ related }: { related?: { label: string; to?: string; url?: string }[] }) {
+  if (!related?.length) return null
+  return (
+    <div className="faq-related-links">
+      <span>관련 근거</span>
+      {related.map((item) =>
+        item.to ? (
+          <Link className="faq-related-link" to={item.to} key={item.label}>{item.label}</Link>
+        ) : item.url ? (
+          <a className="faq-related-link" href={item.url} target="_blank" rel="noreferrer" key={item.label}>{item.label} ↗</a>
+        ) : (
+          <span className="faq-related-link is-text" key={item.label}>{item.label}</span>
+        ),
+      )}
+    </div>
+  )
+}
+
 export default function Contact() {
   return (
     <section className="section page-section">
@@ -33,6 +51,7 @@ export default function Contact() {
               <details className="faq-item" key={item.q}>
                 <summary>{item.q}</summary>
                 <p>{item.a}</p>
+                <FaqRelatedLinks related={item.related} />
               </details>
             ))}
           </div>
