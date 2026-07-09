@@ -15,6 +15,9 @@ export type SideProject = {
   githubLabel?: string
   tags?: string[]
   accent?: string
+  /** Projects 목록 카드에 노출할 핵심 역량 / 대표 증거 요약 */
+  proofCompetencies?: string[]
+  proofEvidence?: string[]
 }
 
 export const sideProjects: SideProject[] = [
@@ -29,6 +32,8 @@ export const sideProjects: SideProject[] = [
     linkLabel: '포트폴리오 사이트 바로가기',
     tags: ['React', 'TypeScript', 'Vite', 'GitHub Pages'],
     accent: '#8c83ff',
+    proofCompetencies: ['React / Vite / TypeScript', 'GitHub Pages 배포'],
+    proofEvidence: ['HashRouter 기반 라우팅', 'custom domain (ddoriny.com)', 'Responsive UI'],
   },
   {
     slug: 'tarot',
