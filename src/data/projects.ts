@@ -47,6 +47,12 @@ export type Project = {
   datasetSummary?: { title: string; items: string[] }
   /** 상세페이지 Operation Evidence 카드에 쓰이는 운영 점검 항목 (모두 기존 troubleshooting/role/qa 내용에서 정리) */
   operationChecks?: string[]
+  /** AI 탐지 파이프라인을 아키텍처 다이어그램으로 보여주는 노드 (YOLO→ByteTrack→ROI 등) */
+  aiPipeline?: ArchitectureNode[]
+  /** AI 탐지 파이프라인 다이어그램 아래 붙는 짧은 설명 */
+  aiPipelineNote?: string
+  /** AI 탐지 파이프라인을 뒷받침하는 실제 화면 (화면 캡처 갤러리와 중복되지 않는 1장) */
+  aiPipelineImage?: { src: string; alt: string; caption: string }
 }
 
 export const projects: Project[] = [
@@ -180,19 +186,15 @@ export const projects: Project[] = [
     ],
     screenshots: [
       { src: '/images/staccato-01.png', alt: 'STACCATO 메인 화면', caption: '메인 화면 · AI 기반 고속도로 정차 탐지 소개', category: '서비스 소개' },
-      { src: '/images/staccato-02.png', alt: 'STACCATO 통합 관제 대시보드', caption: '통합 관제 대시보드 · 이벤트·신고·CCTV 현황 요약', category: '관제 대시보드' },
-      { src: '/images/staccato-03.png', alt: 'STACCATO CCTV 관제 화면', caption: 'CCTV 관제 · 실시간 카메라 영상 및 탐지 표시', category: '관제 대시보드' },
-      { src: '/images/staccato-10-dashboard-live.png', alt: 'STACCATO 통합 관제 대시보드 실시간 화면', caption: '통합 관제 대시보드 (실제 운영 화면) · 전체 이벤트 100건, CCTV 8대 ONLINE 실시간 현황', category: '관제 대시보드' },
+      { src: '/images/staccato-10-dashboard-live.png', alt: 'STACCATO 통합 관제 대시보드 실시간 화면', caption: '통합 관제 대시보드 (실제 운영 화면) · 전체 이벤트 100건, CCTV 온라인 상태 실시간 확인', category: '관제 대시보드' },
       { src: '/images/staccato-11-cctv-bbox.png', alt: 'STACCATO CCTV 관제 BBOX 탐지 화면', caption: 'CCTV 관제 실시간 화면 · YOLO 탐지 BBOX(car 73%) 오버레이 실제 표시', category: '관제 대시보드' },
       { src: '/images/staccato-05.png', alt: 'STACCATO 모델 성능 비교 화면', caption: '모델 성능 비교 · YOLO11 · Keras YOLOv8 · RT-DETR 비교', category: 'AI 탐지 결과' },
       { src: '/images/staccato-12-detection-stopped-vehicle.png', alt: 'STACCATO 정차 차량 객체 탐지 결과', caption: '실제 탐지 결과 · STOPPED_VEHICLE 이벤트 판단 및 confidence 표시 (터널 구간)', category: 'AI 탐지 결과' },
-      { src: '/images/staccato-13-detection-stopped-vehicle-2.png', alt: 'STACCATO 정차 차량 객체 탐지 결과 2', caption: '실제 탐지 결과 · STOPPED_VEHICLE 3.0s 지속 판단, confidence 0.86·0.89', category: 'AI 탐지 결과' },
       { src: '/images/staccato-14-replay-shoulder-stop.png', alt: 'STACCATO 갓길 정차 이벤트 리플레이 화면', caption: '이벤트 리플레이 · SHOULDER_STOP 갓길 정차 탐지, 스냅샷·영상 재생 및 이벤트 목록 확인', category: 'AI 탐지 결과' },
       { src: '/images/staccato-04.png', alt: 'STACCATO 신고 목록 화면', caption: '신고 목록 · 접수된 신고 조회 및 AI 분석 요청', category: '신고 · 이벤트 관리' },
       { src: '/images/staccato-06.png', alt: 'STACCATO 리플레이 화면', caption: '리플레이 · 탐지 이벤트 영상 재생 및 상세 확인', category: '신고 · 이벤트 관리' },
       { src: '/images/staccato-07.png', alt: 'STACCATO 알림 화면', caption: '알림 · 실시간 사고 이벤트 알림 및 상세 정보', category: '신고 · 이벤트 관리' },
       { src: '/images/staccato-08.png', alt: 'STACCATO 운영 환경 정보 화면', caption: '운영 환경 정보 · VM별 인프라 구성 현황', category: '운영 · 보안' },
-      { src: '/images/staccato-09.png', alt: 'STACCATO 버그리포트 화면', caption: '버그리포트 · 점검 및 이슈 처리 이력', category: '운영 · 보안' },
       { src: '/images/staccato-15-bug-report-board.png', alt: 'STACCATO 버그리포트 게시판 실제 운영 화면', caption: '버그리포트 게시판 (실제 운영) · 정기점검·이슈 조치 이력 20건 관리', category: '운영 · 보안' },
       { src: '/images/staccato-16-security-log-auto-report.png', alt: 'STACCATO 자동 보안 로그 게시판', caption: '자동 보안 로그 · 3시간 주기 자동 접속 로그 리포트 생성·다운로드 확인', category: '운영 · 보안' },
     ],
@@ -211,6 +213,15 @@ export const projects: Project[] = [
       { label: 'Socket.IO Alert', sub: '실시간 알림' },
       { label: 'CCTV Monitoring UI', sub: '관제 화면 반영' },
     ],
+    aiPipeline: [
+      { label: 'YOLO 탐지', sub: 'bus/car/truck 분류' },
+      { label: 'ByteTrack 추적', sub: 'track_id 기반 동일 차량 유지' },
+      { label: 'bottom_center 계산', sub: 'bbox 하단 중심점 위치 변화 분석' },
+      { label: 'ROI 판단', sub: 'ROI 영역 내 위치·이동 상태 분석' },
+      { label: '위험 감지', sub: '갓길 정차 · 급감속 이벤트 생성' },
+    ],
+    aiPipelineNote: 'YOLO로 탐지한 차량을 ByteTrack으로 프레임 간 추적하고, bbox 하단 중심점(bottom_center)의 위치 변화를 ROI 기준으로 분석해 갓길 정차·급감속 같은 위험 상황을 이벤트로 생성합니다.',
+    aiPipelineImage: { src: '/images/staccato-13-detection-stopped-vehicle-2.png', alt: 'STACCATO 정차 차량 객체 탐지 결과', caption: '실제 탐지 결과 · STOPPED_VEHICLE 3.0s 지속 판단, confidence 0.86·0.89' },
     modelExperiments: [
       { model: 'RT-DETR-L', precision: '0.8989', recall: '0.8558', f1: '0.8768', map50: '0.9107', map5095: '0.7681', note: '정확도 최고' },
       { model: 'YOLO11s 640 stage2', precision: '0.8850', recall: '0.8456', f1: '0.8648', map50: '0.9089', map5095: '0.7587', note: '경량·실시간 후보' },
