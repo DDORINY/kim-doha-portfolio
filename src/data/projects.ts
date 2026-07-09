@@ -27,7 +27,7 @@ export type Project = {
   systemFlow: { label: string; description: string }[]
   troubleshooting: { title: string; situation: string; solution: string; result: string }[]
   extraSections?: ExtraSection[]
-  screenshots: { src: string; alt: string; caption: string }[]
+  screenshots: { src: string; alt: string; caption: string; category?: string }[]
   documents: ProjectLink[]
   deploy: ProjectLink
   github: ProjectLink
@@ -179,22 +179,22 @@ export const projects: Project[] = [
       ] },
     ],
     screenshots: [
-      { src: '/images/staccato-01.png', alt: 'STACCATO 메인 화면', caption: '메인 화면 · AI 기반 고속도로 정차 탐지 소개' },
-      { src: '/images/staccato-02.png', alt: 'STACCATO 통합 관제 대시보드', caption: '통합 관제 대시보드 · 이벤트·신고·CCTV 현황 요약' },
-      { src: '/images/staccato-03.png', alt: 'STACCATO CCTV 관제 화면', caption: 'CCTV 관제 · 실시간 카메라 영상 및 탐지 표시' },
-      { src: '/images/staccato-04.png', alt: 'STACCATO 신고 목록 화면', caption: '신고 목록 · 접수된 신고 조회 및 AI 분석 요청' },
-      { src: '/images/staccato-05.png', alt: 'STACCATO 모델 성능 비교 화면', caption: '모델 성능 비교 · YOLO11 · Keras YOLOv8 · RT-DETR 비교' },
-      { src: '/images/staccato-06.png', alt: 'STACCATO 리플레이 화면', caption: '리플레이 · 탐지 이벤트 영상 재생 및 상세 확인' },
-      { src: '/images/staccato-07.png', alt: 'STACCATO 알림 화면', caption: '알림 · 실시간 사고 이벤트 알림 및 상세 정보' },
-      { src: '/images/staccato-08.png', alt: 'STACCATO 운영 환경 정보 화면', caption: '운영 환경 정보 · VM별 인프라 구성 현황' },
-      { src: '/images/staccato-09.png', alt: 'STACCATO 버그리포트 화면', caption: '버그리포트 · 점검 및 이슈 처리 이력' },
-      { src: '/images/staccato-10-dashboard-live.png', alt: 'STACCATO 통합 관제 대시보드 실시간 화면', caption: '통합 관제 대시보드 (실제 운영 화면) · 전체 이벤트 100건, CCTV 8대 ONLINE 실시간 현황' },
-      { src: '/images/staccato-11-cctv-bbox.png', alt: 'STACCATO CCTV 관제 BBOX 탐지 화면', caption: 'CCTV 관제 실시간 화면 · YOLO 탐지 BBOX(car 73%) 오버레이 실제 표시' },
-      { src: '/images/staccato-12-detection-stopped-vehicle.png', alt: 'STACCATO 정차 차량 객체 탐지 결과', caption: '실제 탐지 결과 · STOPPED_VEHICLE 이벤트 판단 및 confidence 표시 (터널 구간)' },
-      { src: '/images/staccato-13-detection-stopped-vehicle-2.png', alt: 'STACCATO 정차 차량 객체 탐지 결과 2', caption: '실제 탐지 결과 · STOPPED_VEHICLE 3.0s 지속 판단, confidence 0.86·0.89' },
-      { src: '/images/staccato-14-replay-shoulder-stop.png', alt: 'STACCATO 갓길 정차 이벤트 리플레이 화면', caption: '이벤트 리플레이 · SHOULDER_STOP 갓길 정차 탐지, 스냅샷·영상 재생 및 이벤트 목록 확인' },
-      { src: '/images/staccato-15-bug-report-board.png', alt: 'STACCATO 버그리포트 게시판 실제 운영 화면', caption: '버그리포트 게시판 (실제 운영) · 정기점검·이슈 조치 이력 20건 관리' },
-      { src: '/images/staccato-16-security-log-auto-report.png', alt: 'STACCATO 자동 보안 로그 게시판', caption: '자동 보안 로그 · 3시간 주기 자동 접속 로그 리포트 생성·다운로드 확인' },
+      { src: '/images/staccato-01.png', alt: 'STACCATO 메인 화면', caption: '메인 화면 · AI 기반 고속도로 정차 탐지 소개', category: '서비스 소개' },
+      { src: '/images/staccato-02.png', alt: 'STACCATO 통합 관제 대시보드', caption: '통합 관제 대시보드 · 이벤트·신고·CCTV 현황 요약', category: '관제 대시보드' },
+      { src: '/images/staccato-03.png', alt: 'STACCATO CCTV 관제 화면', caption: 'CCTV 관제 · 실시간 카메라 영상 및 탐지 표시', category: '관제 대시보드' },
+      { src: '/images/staccato-10-dashboard-live.png', alt: 'STACCATO 통합 관제 대시보드 실시간 화면', caption: '통합 관제 대시보드 (실제 운영 화면) · 전체 이벤트 100건, CCTV 8대 ONLINE 실시간 현황', category: '관제 대시보드' },
+      { src: '/images/staccato-11-cctv-bbox.png', alt: 'STACCATO CCTV 관제 BBOX 탐지 화면', caption: 'CCTV 관제 실시간 화면 · YOLO 탐지 BBOX(car 73%) 오버레이 실제 표시', category: '관제 대시보드' },
+      { src: '/images/staccato-05.png', alt: 'STACCATO 모델 성능 비교 화면', caption: '모델 성능 비교 · YOLO11 · Keras YOLOv8 · RT-DETR 비교', category: 'AI 탐지 결과' },
+      { src: '/images/staccato-12-detection-stopped-vehicle.png', alt: 'STACCATO 정차 차량 객체 탐지 결과', caption: '실제 탐지 결과 · STOPPED_VEHICLE 이벤트 판단 및 confidence 표시 (터널 구간)', category: 'AI 탐지 결과' },
+      { src: '/images/staccato-13-detection-stopped-vehicle-2.png', alt: 'STACCATO 정차 차량 객체 탐지 결과 2', caption: '실제 탐지 결과 · STOPPED_VEHICLE 3.0s 지속 판단, confidence 0.86·0.89', category: 'AI 탐지 결과' },
+      { src: '/images/staccato-14-replay-shoulder-stop.png', alt: 'STACCATO 갓길 정차 이벤트 리플레이 화면', caption: '이벤트 리플레이 · SHOULDER_STOP 갓길 정차 탐지, 스냅샷·영상 재생 및 이벤트 목록 확인', category: 'AI 탐지 결과' },
+      { src: '/images/staccato-04.png', alt: 'STACCATO 신고 목록 화면', caption: '신고 목록 · 접수된 신고 조회 및 AI 분석 요청', category: '신고 · 이벤트 관리' },
+      { src: '/images/staccato-06.png', alt: 'STACCATO 리플레이 화면', caption: '리플레이 · 탐지 이벤트 영상 재생 및 상세 확인', category: '신고 · 이벤트 관리' },
+      { src: '/images/staccato-07.png', alt: 'STACCATO 알림 화면', caption: '알림 · 실시간 사고 이벤트 알림 및 상세 정보', category: '신고 · 이벤트 관리' },
+      { src: '/images/staccato-08.png', alt: 'STACCATO 운영 환경 정보 화면', caption: '운영 환경 정보 · VM별 인프라 구성 현황', category: '운영 · 보안' },
+      { src: '/images/staccato-09.png', alt: 'STACCATO 버그리포트 화면', caption: '버그리포트 · 점검 및 이슈 처리 이력', category: '운영 · 보안' },
+      { src: '/images/staccato-15-bug-report-board.png', alt: 'STACCATO 버그리포트 게시판 실제 운영 화면', caption: '버그리포트 게시판 (실제 운영) · 정기점검·이슈 조치 이력 20건 관리', category: '운영 · 보안' },
+      { src: '/images/staccato-16-security-log-auto-report.png', alt: 'STACCATO 자동 보안 로그 게시판', caption: '자동 보안 로그 · 3시간 주기 자동 접속 로그 리포트 생성·다운로드 확인', category: '운영 · 보안' },
     ],
     documents: [{ label: '시연 영상', url: 'https://youtu.be/l2xOOqAfufo' }, { label: '발표자료', url: '/docs/STACCATO-presentation.pdf' }, { label: '결과보고서', placeholder: true }, { label: '사용자 매뉴얼', placeholder: true }, { label: '관리자 매뉴얼', placeholder: true }, { label: '릴리즈 체크리스트', placeholder: true }, { label: '코드리뷰', placeholder: true }],
     deploy: { label: 'STACCATO Live Demo', url: 'https://mbc-sw.iptime.org:3221/' },

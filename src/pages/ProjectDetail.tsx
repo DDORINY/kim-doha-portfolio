@@ -60,6 +60,15 @@ export default function ProjectDetail() {
     { label: 'Troubleshooting', value: `${project.troubleshooting.length}건`, description: 'Problem → Cause → Fix → Result로 정리' },
   ]
 
+  type Screenshot = (typeof project.screenshots)[number]
+  const screenshotGroups = project.screenshots.reduce<{ category: string | null; items: Screenshot[] }[]>((groups, shot) => {
+    const category = shot.category ?? null
+    const last = groups[groups.length - 1]
+    if (last && last.category === category) last.items.push(shot)
+    else groups.push({ category, items: [shot] })
+    return groups
+  }, [])
+
   return (
     <article className="detail-page" style={{ '--accent': project.accent } as React.CSSProperties}>
       <header className="detail-hero section"><div className="container"><Link className="back-link" to="/projects">← Projects</Link><div className="detail-title"><div><span className="eyebrow">{project.type}{project.period && !project.type.includes(project.period) ? ` · ${project.period}` : ''}</span><h1>{project.name}</h1><p>{project.tagline}</p></div><div className="detail-actions"><ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></div></div></header>
@@ -143,7 +152,23 @@ export default function ProjectDetail() {
           ) : null}
           <Reveal as="section" id="trouble" className="detail-section"><span className="section-number">{num('trouble')} / PROBLEM SOLVING</span><h2>문제 해결 경험</h2><div className="trouble-list">{project.troubleshooting.map((item) => <div className="trouble-card" key={item.title}><h3>{item.title}</h3><dl><div><dt>Problem</dt><dd>{item.situation}</dd></div><div><dt>Cause & Fix</dt><dd>{item.solution}</dd></div><div><dt>Result</dt><dd>{item.result}</dd></div></dl></div>)}</div></Reveal>
           <ExtraSections after="trouble" />
-          <Reveal as="section" id="screens" className="detail-section"><span className="section-number">{num('screens')} / SCREENS</span><h2>화면 캡처</h2><div className="screenshots">{project.screenshots.map((image) => <figure key={image.src}><ImageWithFallback src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`} alt={image.alt} fallbackLabel="화면 캡처 준비 중" /><figcaption>{image.caption}</figcaption></figure>)}</div></Reveal>
+          <Reveal as="section" id="screens" className="detail-section">
+            <span className="section-number">{num('screens')} / SCREENS</span>
+            <h2>화면 캡처</h2>
+            {screenshotGroups.map((group, i) => (
+              <div className="screenshot-group" key={group.category ?? `ungrouped-${i}`}>
+                {group.category && <h3 className="screenshot-group-label">{group.category}</h3>}
+                <div className="screenshots">
+                  {group.items.map((image) => (
+                    <figure key={image.src}>
+                      <ImageWithFallback src={`${import.meta.env.BASE_URL}${image.src.replace(/^\//, '')}`} alt={image.alt} fallbackLabel="화면 캡처 준비 중" />
+                      <figcaption>{image.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </Reveal>
           <Reveal as="section" id="docs" className="detail-section"><span className="section-number">{num('docs')} / RESOURCES</span><h2>문서와 링크</h2><div className="resource-grid">{project.documents.map((doc) => <ResourceLink key={doc.label} {...doc} />)}<ResourceLink {...project.deploy} /><ResourceLink {...project.github} /></div></Reveal>
           <Reveal as="section" id="retrospect" className="detail-section"><span className="section-number">{num('retrospect')} / RETROSPECTIVE</span><h2>회고</h2><blockquote>{project.retrospective}</blockquote></Reveal>
           <div className="detail-bottom"><Link className="button secondary" to="/projects">← 프로젝트 목록</Link></div>
