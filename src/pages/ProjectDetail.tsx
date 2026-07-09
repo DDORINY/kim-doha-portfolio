@@ -29,6 +29,7 @@ export default function ProjectDetail() {
   const evidenceLabels: Record<string, string> = {
     'evidence-overview': 'Project Evidence Overview',
     architecture: 'System Architecture Evidence',
+    'ai-pipeline': 'AI Detection Pipeline',
     'model-evidence': 'AI Model Evidence',
     operation: 'Operation Evidence',
   }
@@ -40,6 +41,7 @@ export default function ProjectDetail() {
     sectionIds.push(id)
     if (id === 'overview') sectionIds.push('evidence-overview')
     if (id === 'flow' && project.architectureFlow?.length) sectionIds.push('architecture')
+    if (id === 'flow' && project.aiPipeline?.length) sectionIds.push('ai-pipeline')
     extrasAfter(id).forEach((s) => sectionIds.push(s.id))
     if (id === 'flow' && project.modelExperiments?.length) sectionIds.push('model-evidence')
     if (id === 'flow' && project.operationChecks?.length) sectionIds.push('operation')
@@ -107,6 +109,31 @@ export default function ProjectDetail() {
                   </div>
                 ))}
               </div>
+            </Reveal>
+          ) : null}
+          {project.aiPipeline?.length ? (
+            <Reveal as="section" id="ai-pipeline" className="detail-section">
+              <span className="section-number">{num('ai-pipeline')} / AI DETECTION PIPELINE</span>
+              <h2>AI 탐지 파이프라인</h2>
+              <div className="architecture-diagram">
+                {project.aiPipeline.map((node, index) => (
+                  <div className="architecture-node" key={node.label}>
+                    <div className="architecture-box"><strong>{node.label}</strong>{node.sub && <span>{node.sub}</span>}</div>
+                    {index < project.aiPipeline!.length - 1 && <span className="architecture-arrow" aria-hidden="true">→</span>}
+                  </div>
+                ))}
+              </div>
+              {(project.aiPipelineNote || project.aiPipelineImage) && (
+                <div className="pipeline-evidence">
+                  {project.aiPipelineNote && <p>{project.aiPipelineNote}</p>}
+                  {project.aiPipelineImage && (
+                    <figure className="pipeline-evidence-image">
+                      <ImageWithFallback src={`${import.meta.env.BASE_URL}${project.aiPipelineImage.src.replace(/^\//, '')}`} alt={project.aiPipelineImage.alt} fallbackLabel="탐지 결과 이미지 준비 중" />
+                      <figcaption>{project.aiPipelineImage.caption}</figcaption>
+                    </figure>
+                  )}
+                </div>
+              )}
             </Reveal>
           ) : null}
           <ExtraSections after="flow" />
