@@ -11,10 +11,15 @@ const SIDE_PAGE_SIZE = 6
 export default function Projects() {
   const [filter, setFilter] = useState<'All' | ProjectCategory>('All')
   const filteredProjects = filter === 'All' ? projects : projects.filter((project) => project.categories?.includes(filter))
+  const completedProjects = filteredProjects.filter((project) => project.status !== 'in-progress')
+  const inProgressProjects = filteredProjects.filter((project) => project.status === 'in-progress')
+
+  const completedSideProjects = sideProjects.filter((project) => project.status !== 'in-progress')
+  const inProgressSideProjects = sideProjects.filter((project) => project.status === 'in-progress')
 
   const [sidePage, setSidePage] = useState(0)
-  const sideTotalPages = Math.ceil(sideProjects.length / SIDE_PAGE_SIZE)
-  const pagedSideProjects = sideProjects.slice(sidePage * SIDE_PAGE_SIZE, sidePage * SIDE_PAGE_SIZE + SIDE_PAGE_SIZE)
+  const sideTotalPages = Math.ceil(completedSideProjects.length / SIDE_PAGE_SIZE)
+  const pagedSideProjects = completedSideProjects.slice(sidePage * SIDE_PAGE_SIZE, sidePage * SIDE_PAGE_SIZE + SIDE_PAGE_SIZE)
 
   return (
     <>
@@ -28,7 +33,13 @@ export default function Projects() {
             ))}
             <button type="button" onClick={() => document.getElementById('side-projects')?.scrollIntoView({ behavior: 'smooth' })}>Side Project</button>
           </div>
-          <div className="project-grid">{filteredProjects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div>
+          <div className="project-grid">{completedProjects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div>
+          {inProgressProjects.length > 0 && (
+            <div className="in-progress-block">
+              <SectionHeading eyebrow="IN PROGRESS" title="개발 진행 중인 프로젝트" description="아직 개발이 끝나지 않아 완료 프로젝트와 구분해 별도로 관리하고 있습니다." />
+              <div className="project-grid">{inProgressProjects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div>
+            </div>
+          )}
         </div>
       </section>
       {sideProjects.length > 0 && (
@@ -36,6 +47,12 @@ export default function Projects() {
           <div className="container">
             <SectionHeading eyebrow="SIDE & MINI BUILDS" title="기타 프로젝트" description="작게 만들어보며 배포, 도메인 연결, 게임 UI, 자동화 아이디어를 실험한 프로젝트입니다." />
             <div className="side-project-grid">{pagedSideProjects.map((project) => <SideProjectCard project={project} key={project.name} />)}</div>
+            {inProgressSideProjects.length > 0 && (
+              <div className="in-progress-block">
+                <SectionHeading eyebrow="IN PROGRESS" title="개발 진행 중인 사이드 프로젝트" description="완료된 사이드 프로젝트와 구분해 별도로 관리하고 있습니다." />
+                <div className="side-project-grid">{inProgressSideProjects.map((project) => <SideProjectCard project={project} key={project.name} />)}</div>
+              </div>
+            )}
             {sideTotalPages > 1 && (
               <div className="pagination">
                 <button type="button" onClick={() => setSidePage((p) => Math.max(0, p - 1))} disabled={sidePage === 0}>← 이전</button>

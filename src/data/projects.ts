@@ -16,6 +16,8 @@ export type Project = {
   period: string
   tagline: string
   teamNote?: string
+  /** 개발 진행 중인 프로젝트를 완료 프로젝트와 분리해서 보여주기 위한 상태 표시 */
+  status?: 'in-progress'
   categories?: ProjectCategory[]
   highlights?: string[]
   resumeHighlight?: { role: string; contribution: string; achievement: string }
@@ -256,6 +258,7 @@ export const projects: Project[] = [
     slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: '개인 프로젝트 · 진행 중',
     tagline: '쇼핑몰 운영 데이터를 하나의 흐름으로 연결하는 실무형 ERP (개발 중)',
     teamNote: '개인 프로젝트 · 현재 개발 진행 중',
+    status: 'in-progress',
     categories: ['Full-stack'],
     highlights: ['Spring Boot', 'Next.js', 'MySQL', 'JWT 인증', '주문·재고 흐름', '관리자 API'],
     resumeHighlight: {
