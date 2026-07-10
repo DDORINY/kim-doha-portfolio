@@ -156,7 +156,7 @@ main { flex: 1; animation: page-fade-in .55s cubic-bezier(.16,.84,.44,1) both; }
 .deploy-link:hover { color: var(--accent); }
 .deploy-link span { color: var(--accent); }
 .center-action { margin-top: 40px; text-align: center; }
-.in-progress-block { margin-top: 64px; padding-top: 56px; border-top: 1px solid var(--line); }
+.in-progress-section { border-top: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 45%, transparent); }
 .side-project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 .side-project-card { display: flex; flex-direction: column; padding: 24px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(150deg,var(--surface-2),var(--surface)); transition: border-color .2s; }
 .side-project-image { margin: -24px -24px 18px; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px 12px 0 0; background: var(--surface-2); }
