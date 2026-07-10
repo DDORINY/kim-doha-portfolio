@@ -9,6 +9,9 @@ import { homeEvidenceMetrics, homeModelMetrics, profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { sideProjects } from '../data/sideProjects'
 
+const deployedProjects = projects.filter((project) => project.deploy.url && !project.deploy.placeholder)
+const deployedSideProjects = sideProjects.filter((project) => project.status !== 'in-progress')
+
 export default function Home() {
   return (
     <>
@@ -78,15 +81,15 @@ export default function Home() {
       <section className="section projects-preview">
         <div className="container">
           <SectionHeading eyebrow="SELECTED AI & WEB WORK" title="대표 프로젝트" description="모델, API, 데이터, 화면을 연결해 서비스로 완성한 과정을 담았습니다." />
-          <div className="project-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div>
+          <div className="project-grid">{deployedProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div>
           <div className="center-action"><Link className="button secondary" to="/projects">전체 프로젝트 보기 →</Link></div>
         </div>
       </section>
-      {sideProjects.length > 0 && (
+      {deployedSideProjects.length > 0 && (
         <section className="section side-projects">
           <div className="container">
             <SectionHeading eyebrow="SIDE & MINI BUILDS" title="기타 프로젝트" description="짧게 만들어보고 배포까지 이어본 개인 프로젝트입니다." />
-            <SideProjectCarousel projects={sideProjects} />
+            <SideProjectCarousel projects={deployedSideProjects} />
           </div>
         </section>
       )}
