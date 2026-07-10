@@ -1,8 +1,9 @@
 import ImageWithFallback from '../components/ImageWithFallback'
+import { AccuracyComparisonChart, TrainingTimeChart } from '../components/PerfBarChart'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { TechChip } from '../components/TechIcon'
-import { aiLearningOverview, datasetEvidence, experimentSummary, learningExperiments, learningNotes, learningProjectMap, learningTracks, modelComparisonTable, profile, realtimePerformance } from '../data/profile'
+import { aiLearningOverview, cpuBaselineRange, datasetEvidence, experimentSummary, learningExperiments, learningNotes, learningProjectMap, learningTracks, modelComparisonTable, profile, realtimeAccuracyChart, trainingTimeChart } from '../data/profile'
 
 export default function AILearning() {
   return (
@@ -75,15 +76,9 @@ export default function AILearning() {
           </div>
           <h3 className="learning-subheading">실시간 처리 성능 비교</h3>
           <p className="learning-subheading-desc">정확도뿐 아니라 실시간 CCTV 관제에 적용 가능한 처리 속도·학습 시간까지 함께 비교했습니다.</p>
-          <div className="metric-card-grid">
-            {realtimePerformance.map((metric) => (
-              <div className="metric-card" key={metric.label}>
-                <span className="metric-card-value">{metric.value}</span>
-                <span className="metric-card-label">{metric.label}</span>
-                {metric.description && <p>{metric.description}</p>}
-              </div>
-            ))}
-          </div>
+          <AccuracyComparisonChart rows={realtimeAccuracyChart} cpuRange={cpuBaselineRange} />
+          <h4 className="perf-chart-title">GPU 학습 소요 시간 비교</h4>
+          <TrainingTimeChart rows={trainingTimeChart} />
         </div>
 
         <div className="learning-block">

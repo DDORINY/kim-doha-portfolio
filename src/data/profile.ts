@@ -292,6 +292,25 @@ export const realtimePerformance: EvidenceMetric[] = [
   { label: 'GPU 학습 시간', value: 'YOLO11s 약 15시간 · RT-DETR-L 약 3일', description: '동일 GPU 환경 기준 학습 소요 시간 비교' },
 ]
 
+export type AccuracyBarDatum = { name: string; map50: number; f1: number; note: string }
+
+export const realtimeAccuracyChart: AccuracyBarDatum[] = [
+  { name: 'YOLO11s (최종 선정)', map50: 0.929, f1: 0.8932, note: '정확도와 속도 균형 우수, 실시간 처리 안정적' },
+  { name: 'RT-DETR-L', map50: 0.9107, f1: 0.8768, note: '정확도는 높지만 추론 속도는 상대적으로 낮음' },
+]
+
+export const cpuBaselineRange = {
+  name: 'CPU baseline models',
+  map50: [0.40, 0.65] as [number, number],
+  f1: [0.40, 0.70] as [number, number],
+  note: 'CPU 환경은 학습·추론 속도 모두 실시간 처리에 한계',
+}
+
+export const trainingTimeChart = [
+  { name: 'YOLO11s', hours: 15, label: '약 15시간' },
+  { name: 'RT-DETR-L', hours: 72, label: '약 3일 (72시간)' },
+]
+
 type DatasetEvidenceRow = { source: string; volume: string; note: string }
 
 export const datasetEvidence: DatasetEvidenceRow[] = [
