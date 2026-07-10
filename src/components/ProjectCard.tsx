@@ -13,7 +13,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
         </div>
       )}
       <div className="card-topline"><span>0{index + 1}</span><span>{project.type}</span></div>
-      <h3>{project.name}</h3>
+      <div className="card-title-row"><h3>{project.name}</h3>{project.status === 'in-progress' && <span className="status-badge">개발 중</span>}</div>
       <p className="tagline">{project.tagline}</p>
       {project.highlights?.length ? (
         <div className="highlight-row">
