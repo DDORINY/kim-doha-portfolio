@@ -298,7 +298,7 @@ export const datasetEvidence: DatasetEvidenceRow[] = [
   { source: 'AIHub 데이터', volume: '약 20,000장', note: '공개 데이터셋 기반 초기 학습 (전체 수집량 기준)' },
   { source: '직접 수집 데이터', volume: '약 2,000장', note: '부족한 클래스 보강을 위해 직접 수집·라벨링 (전체 수집량 기준)' },
   { source: 'YOLO11s CVAT balanced 최종 학습 데이터셋', volume: '20,000장', note: 'AIHub + 직접 수집 데이터를 car/truck/bus 3-class로 재구성·밸런스 조정한 최종 선정 모델의 학습 데이터셋 (위 전체 수집량의 단순 합산이 아닌 재구성된 데이터셋)' },
-  { source: 'Train / Validation 분할 비율', volume: 'TODO', note: '정확한 분할 비율은 현재 기록에 없어 추가 확인 필요' },
+  { source: 'Train / Val / Test 분할', volume: '16,000 · 2,000 · 2,000장', note: 'data.yaml 기준 80% · 10% · 10% 분할 (전체 20,000장)' },
   { source: '총 비교 데이터셋 수', volume: '3가지', note: 'AIHub 단독 · 직접 수집 포함 · 밸런스 조정 데이터셋 학습 결과 비교' },
 ]
 

@@ -234,6 +234,7 @@ export const projects: Project[] = [
       title: 'YOLO11s CVAT balanced Dataset',
       items: [
         '20,000 images',
+        'train 16,000 · val 2,000 · test 2,000 (80% · 10% · 10%)',
         'car / truck / bus 3-class relabeling',
         'highway CCTV vehicle detection',
         'balanced dataset for real-time detection',
