@@ -201,7 +201,7 @@ main { flex: 1; animation: page-fade-in .55s cubic-bezier(.16,.84,.44,1) both; }
 .detail-nav-index { flex: 0 0 auto; font: .68rem 'DM Mono',monospace; opacity: .7; }
 .detail-nav-label { font-size: .78rem; line-height: 1.35; color: var(--muted); }
 .detail-nav button:hover .detail-nav-label { color: var(--accent); }
-.detail-content { max-width: 900px; }
+.detail-content { max-width: 900px; min-width: 0; }
 .detail-section { padding: 0 0 90px; margin-bottom: 90px; border-bottom: 1px solid var(--line); }
 .detail-section h2,.resume-block h2 { margin: 18px 0 28px; font-size: clamp(1.8rem,3vw,2.55rem); letter-spacing: -.035em; }
 .detail-section > p { max-width: 760px; font-size: 1rem; }
@@ -213,8 +213,9 @@ main { flex: 1; animation: page-fade-in .55s cubic-bezier(.16,.84,.44,1) both; }
 .role-summary-card { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 30px; padding: 26px 28px; border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 12px; background: var(--surface); }
 .role-summary-card p { margin: 8px 0 0; font-size: .88rem; color: var(--muted-strong); line-height: 1.65; }
 .team-note { display: inline-block; margin-bottom: 16px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--muted); font-size: .75rem; font-weight: 600; }
-.check-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; padding: 0; list-style: none; }
-.check-list li { padding: 17px 18px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted-strong); font-size: .87rem; }
+.check-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; padding: 0; list-style: none; min-width: 0; }
+.check-list li { min-width: 0; }
+.check-list li { padding: 17px 18px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted-strong); font-size: .87rem; overflow-wrap: anywhere; }
 .check-list li::before { content: '✓'; margin-right: 10px; color: var(--accent); }
 .feature-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
 .feature-grid > div { padding: 25px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
