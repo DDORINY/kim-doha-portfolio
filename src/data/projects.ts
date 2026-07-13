@@ -80,6 +80,8 @@ export type Project = {
   aiPipelineImage?: { src: string; alt: string; caption: string }
   /** 기술 영역 탭(Frontend/Backend/AI/Database/Infrastructure) — 존재할 때만 상세페이지에 탭 UI를 표시 */
   projectAreas?: ProjectArea[]
+  /** Project Evidence Overview 카드를 직접 지정 — 없으면 techStack/systemFlow 등에서 자동 계산한 generic 카드를 사용 */
+  evidenceOverview?: { label: string; value: string; description: string }[]
 }
 
 export const projects: Project[] = [
@@ -281,39 +283,58 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: 'v1.0 배포 완료',
+    slug: 'erp', name: 'CommerceOps ERP', type: 'AI Commerce ERP · Personal Project', period: '개인 프로젝트 · v1.0 배포 완료',
     tagline: '쇼핑몰 사용자 기능부터 상품·주문·재고·물류·회계·권한·AI 운영까지 하나의 데이터 흐름으로 연결한 AI 커머스 ERP',
-    teamNote: '개인 프로젝트 · 기획부터 배포까지 전체 구현',
+    teamNote: '개인 프로젝트 · 기획부터 개발·배포까지 전체 구현',
     categories: ['Full-stack', 'Infra / Deployment'],
     highlights: ['쇼핑몰 + ERP', 'Permission 권한', '재고·물류·회계', 'AI 운영 기능', 'Docker Compose', 'AWS HTTPS 배포'],
     techHighlights: ['Spring Boot', 'Next.js', 'MySQL', 'Python', 'Docker', 'AWS'],
     resumeHighlight: {
       role: '쇼핑몰·관리자 ERP 전체 기능 설계 및 구현, AI 운영 기능 구성, AWS 배포',
-      contribution: '개인 프로젝트 · 기획부터 배포까지 전체 구현',
+      contribution: '개인 프로젝트 · 기획부터 개발·배포까지 전체 구현',
       achievement: '상품·주문·재고·생산·바코드·출고·배송·회계·권한·AI 운영 기능을 하나의 데이터 흐름으로 연결하고 AWS EC2 Docker Compose HTTPS 환경으로 배포',
     },
-    summary: "Next.js와 Spring Boot를 기반으로 사용자 쇼핑몰과 관리자 ERP를 함께 구현한 개인 프로젝트입니다. 상품·카테고리·주문·결제에서 시작해 재고·창고·생산·바코드·출고·배송·회계·권한 관리까지 운영 흐름을 확장했고, ERP 데이터를 AI 학습 후보 데이터로 연결해 상품 추천·수요 예측·리뷰 분석·이상 주문 탐지 등 관리자 의사결정 보조 화면을 구현했습니다. AWS EC2에 MySQL·Spring Boot·Next.js·Nginx를 Docker Compose로 구성하고 Let's Encrypt HTTPS 환경으로 배포했습니다.",
-    background: "쇼핑몰의 상품·주문·결제와 관리자의 재고·물류·회계·권한을 분리된 기능이 아니라 하나의 데이터 흐름으로 연결하고, 이 운영 데이터를 AI 의사결정 보조 기능까지 확장할 수 있는 구조로 구현하기 위해 개인적으로 시작했습니다.",
+    summary: "Next.js와 Spring Boot를 기반으로 사용자 쇼핑몰과 관리자 ERP를 함께 구현한 개인 프로젝트입니다. 상품·카테고리·주문·결제에서 시작해 재고·창고·생산·바코드·출고·배송·회계·권한 관리까지 운영 흐름을 확장했습니다. ERP 데이터를 AI 학습 후보 데이터로 연결하고 상품 추천, 수요 예측, 리뷰 분석, 이상 주문 탐지 등 관리자 의사결정 보조 기능을 구현했습니다. AWS EC2에 MySQL, Spring Boot, Next.js, Nginx를 Docker Compose로 구성하고 Let's Encrypt HTTPS 환경으로 배포했습니다.",
+    background: "온라인 쇼핑몰에서는 상품 등록, 주문, 결제, 재고, 출고, 배송, 정산 데이터가 서로 연결되어야 하지만 기능이 분리되면 운영자가 여러 화면과 데이터를 반복해서 확인해야 합니다. 이를 하나의 운영 흐름으로 연결하는 ERP 구조를 직접 설계하고, 향후 AI 기능이 활용할 수 있는 데이터 기반까지 구성하기 위해 프로젝트를 시작했습니다.",
     role: ['쇼핑몰·관리자 ERP 전체 기능 설계 및 구현', 'AI 운영 기능 구성', 'AWS EC2 Docker Compose HTTPS 배포'],
     features: ['사용자 쇼핑몰', '관리자 대시보드', '상품·카테고리·배너 CMS', '주문·결제·환불 관리', '재고·생산·바코드 관리', '출고·배송·반품 관리', '회계·정산 관리', '권한 기반 관리자 메뉴', 'AI 운영 대시보드'],
-    techStack: ['Next.js', 'TypeScript', 'React', 'Spring Boot', 'Java 17', 'Spring Security', 'JWT', 'JPA', 'MySQL 8', 'Flyway', 'Python', 'PyTorch', 'Docker', 'Docker Compose', 'Nginx', 'AWS EC2', "Let's Encrypt"],
+    techStack: ['Next.js', 'React', 'TypeScript', 'Spring Boot', 'Java 17', 'Spring Security', 'JWT', 'JPA', 'Hibernate', 'MySQL 8', 'Flyway', 'Python', 'PyTorch', 'pandas', 'scikit-learn', 'Docker', 'Docker Compose', 'Nginx', 'AWS EC2', "Let's Encrypt", 'Certbot'],
     systemFlow: [
-      { label: 'Customer / Admin', description: '쇼핑몰 사용자와 관리자의 요청' },
-      { label: 'Next.js', description: '사용자 쇼핑몰과 관리자 ERP 화면 제공' },
-      { label: 'Spring Boot API', description: 'JWT 인증, Role·Permission 검증, ERP 도메인 로직 처리' },
-      { label: 'MySQL', description: '상품·주문·재고·물류·회계 등 운영 데이터 저장' },
-      { label: 'AI Dataset Export', description: 'ERP 데이터를 마스킹·합성해 AI 학습 후보 데이터로 변환' },
-      { label: 'Admin AI 운영 화면', description: '추천·예측·분석·탐지 결과를 관리자가 검토' },
+      { label: 'Customer / Admin', description: '사용자 쇼핑몰과 관리자 ERP에서 요청 발생' },
+      { label: 'Next.js Frontend', description: '스토어·관리자·AI 운영 화면 제공' },
+      { label: 'Spring Boot API', description: '인증·권한·ERP 도메인 로직 처리' },
+      { label: 'MySQL / Flyway', description: '상품·주문·재고·물류·회계 운영 데이터 저장' },
+      { label: 'AI Pipeline', description: '데이터셋 Export·마스킹·학습·평가 수행' },
+      { label: 'AI Operations UI', description: '추천·예측·분석 결과를 관리자 검토 화면에 제공' },
+      { label: 'AWS Infrastructure', description: 'Docker Compose·Nginx·HTTPS 환경으로 서비스 제공' },
     ],
     troubleshooting: [
       {
-        title: 'Role만으로는 부족한 관리자 권한 체계를 프론트-백엔드 전반에 통일',
+        title: 'Role만으로 부족한 관리자 권한 구조',
         situation: '상품·주문·재고·배송·회계 기능이 늘어나며 ADMIN·MANAGER 같은 Role만으로는 화면 메뉴 노출과 실제 서버 실행 권한을 세밀하게 나누기 어려웠습니다.',
         solution: '백엔드는 Role을 1차 조건으로 유지하면서 permission code 기반 세부 권한을 추가 검증하고, 프론트엔드는 서버가 반환한 permission code로 메뉴와 실행 버튼을 제어해 두 계층의 권한 판단 기준을 일치시켰습니다.',
         result: '기능이 늘어나도 화면에 보이는 메뉴와 실제로 실행 가능한 서버 권한이 어긋나지 않는 일관된 권한 체계를 갖췄습니다.',
       },
+      {
+        title: '주문·결제·재고 상태 정합성',
+        situation: '주문 생성, 결제 승인, 재고 차감이 각각 처리되면서 일부 단계가 실패했을 때 데이터가 불일치할 수 있었습니다.',
+        solution: '상태 전이 순서와 트랜잭션 범위를 정의하고, 재고 예약과 결제 상태를 분리해 관리했습니다.',
+        result: '주문 처리 상태를 추적하기 쉬워지고 데이터 정합성이 개선되었습니다.',
+      },
+      {
+        title: '기능 확장에 따른 Flyway 스키마 변경 관리',
+        situation: '상품 중심 구조에서 재고·생산·배송·회계까지 확장되며 DB 변경이 반복되었습니다.',
+        solution: 'JPA Entity 변경만 사용하는 대신 Flyway 마이그레이션 파일로 변경 순서를 관리했습니다.',
+        result: '환경별 스키마 차이를 줄이고 배포 시 DB 변경 내역을 추적할 수 있게 되었습니다.',
+      },
+      {
+        title: '제한된 EC2 메모리에서 다중 컨테이너 운영',
+        situation: 'MySQL, Spring Boot, Next.js, Nginx를 한 EC2에서 실행하면서 메모리 부족 가능성이 있었습니다.',
+        solution: '컨테이너별 memory limit과 JVM·Node 메모리 옵션을 설정하고 MySQL 설정을 경량화했습니다.',
+        result: '단일 EC2 환경에서 전체 서비스를 안정적으로 구동할 수 있었습니다.',
+      },
     ],
-    screenshots: [{ src: '/images/erp-01.png', alt: 'CommerceOps 쇼핑몰 메인 화면', caption: '사용자 쇼핑몰 메인 화면 · 상품 검색 · 메인 배너 · 로그인/마이페이지 진입', category: '사용자 쇼핑몰' }],
+    screenshots: [{ src: '/images/erp-01.png', alt: 'CommerceOps 사용자 쇼핑몰 메인 화면', caption: '사용자 쇼핑몰 · 상품 탐색과 카테고리 진입 화면', category: '사용자 쇼핑몰' }],
     documents: [
       { label: 'API 명세', url: 'https://github.com/DDORINY/commerceops-erp/blob/main/docs/architecture/API_REFERENCE.md' },
       { label: 'DB 스키마', url: 'https://github.com/DDORINY/commerceops-erp/blob/main/docs/architecture/DATABASE_SCHEMA.md' },
@@ -322,9 +343,17 @@ export const projects: Project[] = [
     ],
     deploy: { label: 'CommerceOps Live Demo', url: 'https://commerceops.ddoriny.com' },
     github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/commerceops-erp' },
-    retrospective: '모델이나 화면 하나만으로는 서비스가 완성되지 않는다는 것을 다시 확인했습니다. 상품부터 재고·물류·회계·권한까지 이어지는 데이터 흐름을 먼저 안정적으로 설계해야 그 위에 AI 추천·예측·이상 탐지 같은 기능이 의미를 가진다는 것을 CommerceOps ERP를 v1.0까지 완성하며 체감했습니다. 배포 환경까지 직접 구성하면서 기능 구현과 운영 안정성을 함께 고려하는 개발자로 한 단계 성장했습니다.', accent: '#8b80ff',
+    retrospective: 'CommerceOps ERP를 통해 상품·주문 화면을 구현하는 것보다 주문 이후의 재고 예약, 출고, 배송, 회계 반영, 권한과 감사 로그까지 데이터 흐름을 연결하는 것이 더 중요하다는 점을 배웠습니다. 또한 AI 기능도 모델만 만드는 것이 아니라 데이터 Export, 개인정보 마스킹, 학습·평가 구조, 운영 화면, 배포 환경까지 함께 구성해야 실제 서비스에서 활용할 수 있다는 점을 확인했습니다.', accent: '#8b80ff',
     proofCompetencies: ['풀스택 ERP 설계', 'AI 운영 통합', 'AWS 배포'],
     proofEvidence: ['5개 기술 영역', 'AI 운영 대시보드', 'AWS HTTPS 배포'],
+    evidenceOverview: [
+      { label: 'Service Integration', value: 'End-to-End', description: '쇼핑몰 → ERP → DB → AI 운영 흐름 연결' },
+      { label: 'Backend Architecture', value: 'Spring Boot', description: 'JWT · JPA · Permission 기반 관리자 API' },
+      { label: 'AI Operations', value: '6개 기능', description: '추천 · 수요 예측 · 리뷰 분석 · 이상 주문 · 리스크 · 리포트' },
+      { label: 'Database', value: 'MySQL 8', description: 'Flyway 기반 쇼핑몰·재고·물류·회계 스키마 관리' },
+      { label: 'Infrastructure', value: 'AWS HTTPS', description: "EC2 · Docker Compose · Nginx · Let's Encrypt" },
+      { label: 'Verification', value: 'Build Passed', description: 'TypeScript · Production Build · Playwright 검증' },
+    ],
     projectAreas: [
       {
         id: 'frontend', label: 'Frontend',
