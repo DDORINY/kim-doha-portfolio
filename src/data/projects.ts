@@ -9,6 +9,27 @@ export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / D
 
 export type ArchitectureNode = { label: string; sub?: string }
 
+export type ProjectAreaKey = 'frontend' | 'backend' | 'ai' | 'database' | 'infrastructure'
+
+export type ProjectAreaEvidence = { label: string; value: string }
+
+export type ProjectAreaTroubleshooting = { title: string; problem: string; solution: string; result: string }
+
+/** 기술 영역(Frontend/Backend/AI/Database/Infrastructure) 탭 하나의 콘텐츠 — CommerceOps ERP처럼 영역별 상세 구현을 탭으로 분리하는 프로젝트에서 사용 */
+export type ProjectArea = {
+  id: ProjectAreaKey
+  label: string
+  shortLabel?: string
+  summary: string
+  techStack: string[]
+  architecture: { label: string; description: string }[]
+  responsibilities: string[]
+  features: string[]
+  implementationPoints: string[]
+  troubleshooting: ProjectAreaTroubleshooting[]
+  evidence: ProjectAreaEvidence[]
+}
+
 export type Project = {
   slug: 'staccato' | 'erp' | '404rnf'
   name: string
@@ -57,6 +78,8 @@ export type Project = {
   aiPipelineNote?: string
   /** AI 탐지 파이프라인을 뒷받침하는 실제 화면 (화면 캡처 갤러리와 중복되지 않는 1장) */
   aiPipelineImage?: { src: string; alt: string; caption: string }
+  /** 기술 영역 탭(Frontend/Backend/AI/Database/Infrastructure) — 존재할 때만 상세페이지에 탭 UI를 표시 */
+  projectAreas?: ProjectArea[]
 }
 
 export const projects: Project[] = [
@@ -258,31 +281,315 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: '개인 프로젝트 · 진행 중',
-    tagline: '쇼핑몰 운영 데이터를 하나의 흐름으로 연결하는 실무형 ERP (개발 중)',
-    teamNote: '개인 프로젝트 · 현재 개발 진행 중',
-    status: 'in-progress',
-    categories: ['Full-stack'],
-    highlights: ['Spring Boot', 'Next.js', 'MySQL', 'JWT 인증', '주문·재고 흐름', '관리자 API'],
-    techHighlights: ['Spring Boot', 'Next.js', 'MySQL', 'JWT', 'REST API'],
+    slug: 'erp', name: 'CommerceOps ERP', type: 'Full-stack · Personal Project', period: 'v1.0 배포 완료',
+    tagline: '쇼핑몰 사용자 기능부터 상품·주문·재고·물류·회계·권한·AI 운영까지 하나의 데이터 흐름으로 연결한 AI 커머스 ERP',
+    teamNote: '개인 프로젝트 · 기획부터 배포까지 전체 구현',
+    categories: ['Full-stack', 'Infra / Deployment'],
+    highlights: ['쇼핑몰 + ERP', 'Permission 권한', '재고·물류·회계', 'AI 운영 기능', 'Docker Compose', 'AWS HTTPS 배포'],
+    techHighlights: ['Spring Boot', 'Next.js', 'MySQL', 'Python', 'Docker', 'AWS'],
     resumeHighlight: {
-      role: '상품·주문·결제·재고 흐름 구현, 관리자 대시보드 UI, JWT 인증 흐름 적용',
-      contribution: '개인 프로젝트 · 진행 중',
-      achievement: 'Spring Boot API와 Next.js 프론트엔드를 연동해 상품 등록부터 주문·결제·재고·관리자 확인까지 이어지는 운영 데이터 흐름 구현 중',
+      role: '쇼핑몰·관리자 ERP 전체 기능 설계 및 구현, AI 운영 기능 구성, AWS 배포',
+      contribution: '개인 프로젝트 · 기획부터 배포까지 전체 구현',
+      achievement: '상품·주문·재고·생산·바코드·출고·배송·회계·권한·AI 운영 기능을 하나의 데이터 흐름으로 연결하고 AWS EC2 Docker Compose HTTPS 환경으로 배포',
     },
-    summary: '개인 프로젝트로 진행하고 있는 쇼핑몰 운영 ERP입니다. 상품 등록부터 주문, 결제, 재고, 관리자 확인까지 쇼핑몰 운영 데이터 흐름을 구현하고 있으며, AI 기능이 의존할 백엔드 API, 데이터베이스, 인증, 관리자 시스템의 기반 역량을 쌓기 위해 진행 중입니다.',
-    background: '상품, 주문, 결제, 재고를 분리된 기능이 아닌 하나의 서비스 흐름으로 이해하고 안정적인 관리자 경험을 구현하기 위해 개인적으로 시작했습니다.',
-    role: ['상품·카테고리 관리 화면 구현', '장바구니와 주문·결제 흐름 구현', '재고 데이터 상태 처리', '관리자 대시보드 UI 구성', 'Spring Boot API 연동', 'JWT 인증 흐름 적용'],
-    features: ['상품 및 카테고리 관리', '장바구니와 주문 생성', '결제 상태 관리', '재고 수량 관리', '관리자 대시보드', 'JWT 사용자 인증'],
-    techStack: ['Next.js', 'Spring Boot', 'MySQL', 'JWT', 'REST API'],
-    systemFlow: [{ label: 'Customer / Admin', description: '사용자와 관리자의 요청' }, { label: 'Next.js', description: '스토어·관리자 UI 제공' }, { label: 'Spring Boot API', description: '도메인 로직과 인증 처리' }, { label: 'MySQL', description: '운영 데이터 저장' }],
-    troubleshooting: [{ title: '주문과 재고 상태의 일관성', situation: '주문·결제·재고가 연속 변경되어 상태 누락 시 화면과 데이터가 달라질 수 있었습니다.', solution: '도메인별 상태 변화와 API 요청 순서를 명시하고 요청 중·성공·실패 UI를 분리했습니다.', result: '데이터 흐름을 추적하기 쉬워지고 현재 상태를 명확히 전달할 수 있었습니다.' }],
-    screenshots: [{ src: '/images/erp-01.png', alt: 'CommerceOps ERP 대시보드', caption: 'ERP 관리자 화면 · 상품·주문·재고 흐름 대시보드' }],
-    documents: [{ label: '기능 명세서', placeholder: true }, { label: 'ERD 및 API 문서', placeholder: true }],
-    deploy: { label: '배포 사이트', placeholder: true }, github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/commerceops-erp' },
-    retrospective: 'AI 서비스를 안정적으로 제공하려면 모델뿐 아니라 데이터, API 계약, 인증, 운영 화면이 필요하다는 것을 이 프로젝트를 진행하며 체감하고 있습니다. 복잡한 비즈니스 데이터를 서비스로 연결하는 기본기를 다지는 중입니다.', accent: '#8b80ff',
-    proofCompetencies: ['백엔드 API', 'DB 설계', '관리자 기능'],
-    proofEvidence: ['API 목록', '관리자 상품 관리', '주문/결제 Mock'],
+    summary: "Next.js와 Spring Boot를 기반으로 사용자 쇼핑몰과 관리자 ERP를 함께 구현한 개인 프로젝트입니다. 상품·카테고리·주문·결제에서 시작해 재고·창고·생산·바코드·출고·배송·회계·권한 관리까지 운영 흐름을 확장했고, ERP 데이터를 AI 학습 후보 데이터로 연결해 상품 추천·수요 예측·리뷰 분석·이상 주문 탐지 등 관리자 의사결정 보조 화면을 구현했습니다. AWS EC2에 MySQL·Spring Boot·Next.js·Nginx를 Docker Compose로 구성하고 Let's Encrypt HTTPS 환경으로 배포했습니다.",
+    background: "쇼핑몰의 상품·주문·결제와 관리자의 재고·물류·회계·권한을 분리된 기능이 아니라 하나의 데이터 흐름으로 연결하고, 이 운영 데이터를 AI 의사결정 보조 기능까지 확장할 수 있는 구조로 구현하기 위해 개인적으로 시작했습니다.",
+    role: ['쇼핑몰·관리자 ERP 전체 기능 설계 및 구현', 'AI 운영 기능 구성', 'AWS EC2 Docker Compose HTTPS 배포'],
+    features: ['사용자 쇼핑몰', '관리자 대시보드', '상품·카테고리·배너 CMS', '주문·결제·환불 관리', '재고·생산·바코드 관리', '출고·배송·반품 관리', '회계·정산 관리', '권한 기반 관리자 메뉴', 'AI 운영 대시보드'],
+    techStack: ['Next.js', 'TypeScript', 'React', 'Spring Boot', 'Java 17', 'Spring Security', 'JWT', 'JPA', 'MySQL 8', 'Flyway', 'Python', 'PyTorch', 'Docker', 'Docker Compose', 'Nginx', 'AWS EC2', "Let's Encrypt"],
+    systemFlow: [
+      { label: 'Customer / Admin', description: '쇼핑몰 사용자와 관리자의 요청' },
+      { label: 'Next.js', description: '사용자 쇼핑몰과 관리자 ERP 화면 제공' },
+      { label: 'Spring Boot API', description: 'JWT 인증, Role·Permission 검증, ERP 도메인 로직 처리' },
+      { label: 'MySQL', description: '상품·주문·재고·물류·회계 등 운영 데이터 저장' },
+      { label: 'AI Dataset Export', description: 'ERP 데이터를 마스킹·합성해 AI 학습 후보 데이터로 변환' },
+      { label: 'Admin AI 운영 화면', description: '추천·예측·분석·탐지 결과를 관리자가 검토' },
+    ],
+    troubleshooting: [
+      {
+        title: 'Role만으로는 부족한 관리자 권한 체계를 프론트-백엔드 전반에 통일',
+        situation: '상품·주문·재고·배송·회계 기능이 늘어나며 ADMIN·MANAGER 같은 Role만으로는 화면 메뉴 노출과 실제 서버 실행 권한을 세밀하게 나누기 어려웠습니다.',
+        solution: '백엔드는 Role을 1차 조건으로 유지하면서 permission code 기반 세부 권한을 추가 검증하고, 프론트엔드는 서버가 반환한 permission code로 메뉴와 실행 버튼을 제어해 두 계층의 권한 판단 기준을 일치시켰습니다.',
+        result: '기능이 늘어나도 화면에 보이는 메뉴와 실제로 실행 가능한 서버 권한이 어긋나지 않는 일관된 권한 체계를 갖췄습니다.',
+      },
+    ],
+    screenshots: [{ src: '/images/erp-01.png', alt: 'CommerceOps 쇼핑몰 메인 화면', caption: '사용자 쇼핑몰 메인 화면 · 상품 검색 · 메인 배너 · 로그인/마이페이지 진입', category: '사용자 쇼핑몰' }],
+    documents: [
+      { label: 'API 명세', url: 'https://github.com/DDORINY/commerceops-erp/blob/main/docs/architecture/API_REFERENCE.md' },
+      { label: 'DB 스키마', url: 'https://github.com/DDORINY/commerceops-erp/blob/main/docs/architecture/DATABASE_SCHEMA.md' },
+      { label: 'AI 데모 가이드', url: 'https://github.com/DDORINY/commerceops-erp/blob/main/docs/ai/PORTFOLIO_AI_DEMO_GUIDE.md' },
+      { label: 'AWS HTTPS 운영 가이드', url: 'https://github.com/DDORINY/commerceops-erp/blob/main/docs/operations/AWS_SINGLE_EC2_HTTPS.md' },
+    ],
+    deploy: { label: 'CommerceOps Live Demo', url: 'https://commerceops.ddoriny.com' },
+    github: { label: 'GitHub 저장소', url: 'https://github.com/DDORINY/commerceops-erp' },
+    retrospective: '모델이나 화면 하나만으로는 서비스가 완성되지 않는다는 것을 다시 확인했습니다. 상품부터 재고·물류·회계·권한까지 이어지는 데이터 흐름을 먼저 안정적으로 설계해야 그 위에 AI 추천·예측·이상 탐지 같은 기능이 의미를 가진다는 것을 CommerceOps ERP를 v1.0까지 완성하며 체감했습니다. 배포 환경까지 직접 구성하면서 기능 구현과 운영 안정성을 함께 고려하는 개발자로 한 단계 성장했습니다.', accent: '#8b80ff',
+    proofCompetencies: ['풀스택 ERP 설계', 'AI 운영 통합', 'AWS 배포'],
+    proofEvidence: ['5개 기술 영역', 'AI 운영 대시보드', 'AWS HTTPS 배포'],
+    projectAreas: [
+      {
+        id: 'frontend', label: 'Frontend',
+        summary: 'Next.js와 TypeScript를 기반으로 일반 사용자 쇼핑몰과 관리자 ERP를 하나의 프론트엔드 애플리케이션으로 구성했습니다.',
+        techStack: ['Next.js', 'React', 'TypeScript', 'REST API', 'JWT', 'Responsive UI'],
+        architecture: [
+          { label: 'Customer Store', description: '상품 목록·상세·장바구니·주문·마이페이지' },
+          { label: 'Admin ERP', description: '상품·주문·재고·배송·회계·권한·AI 운영' },
+          { label: 'Service Layer', description: '도메인별 API 호출 함수와 응답 처리' },
+          { label: 'Spring Boot API', description: '인증과 ERP 비즈니스 데이터 제공' },
+        ],
+        responsibilities: [
+          '사용자 쇼핑몰과 관리자 ERP 화면 전체 구성',
+          '상품·카테고리·배너 관리 UI 구현',
+          '장바구니·주문·결제·마이페이지 구현',
+          '재고·창고·생산·바코드 관리 화면 구현',
+          '출고·송장·배송·반품 관리 화면 구현',
+          '직원·부서·직급·권한 관리 화면 구현',
+          '회계·정산·운영 분석 화면 구현',
+          'AI 운영 화면 구현',
+        ],
+        features: ['사용자 쇼핑몰', '관리자 대시보드', '상품·카테고리·배너 CMS', '주문·결제·환불 관리', '재고·생산·바코드 관리', '출고·배송·반품 관리', '회계·정산 관리', '권한 기반 관리자 메뉴', 'AI 운영 대시보드'],
+        implementationPoints: [
+          '화면에서 API를 직접 호출하지 않고 도메인별 Service Layer로 분리',
+          '사용자 쇼핑몰과 관리자 ERP 라우팅 및 레이아웃 분리',
+          'JWT 인증 상태에 따라 보호 화면 접근 제어',
+          '백엔드에서 반환한 permission code를 기준으로 메뉴와 실행 버튼 제어',
+          '목록·상세·등록·수정 화면의 loading, success, error 상태 분리',
+          '관리자 기능이 많아져도 유지보수할 수 있도록 도메인 단위로 화면 구성',
+        ],
+        troubleshooting: [
+          {
+            title: '관리자 기능 증가에 따른 화면 복잡도',
+            problem: '상품·주문·재고·배송·회계 기능이 증가하면서 하나의 관리자 구조에서 메뉴와 화면 흐름이 복잡해졌습니다.',
+            solution: '관리 기능을 도메인 단위 메뉴와 서비스 계층으로 분리하고, 공통 목록·상세·폼 패턴을 재사용했습니다.',
+            result: '기능 추가 시 영향 범위가 줄고 관리자 화면의 탐색 구조가 명확해졌습니다.',
+          },
+          {
+            title: '관리자 Role과 실제 기능 권한 불일치',
+            problem: 'ADMIN 또는 MANAGER 역할만으로 메뉴를 표시하면 실제 실행 권한과 UI가 달라질 수 있었습니다.',
+            solution: '백엔드에서 effective permission 목록을 받아 메뉴와 변경 버튼을 permission code 기준으로 제어했습니다.',
+            result: '화면 접근 상태와 서버 권한 정책의 일관성을 높였습니다.',
+          },
+        ],
+        evidence: [
+          { label: '사용자 영역', value: '상품·장바구니·주문·마이페이지' },
+          { label: '관리자 영역', value: '상품부터 AI 운영까지 통합' },
+          { label: '권한 UI', value: 'Permission code 기반' },
+          { label: 'API 연결', value: '도메인별 Service Layer' },
+        ],
+      },
+      {
+        id: 'backend', label: 'Backend',
+        summary: 'Spring Boot와 Java 17을 기반으로 인증, 권한, 상품, 주문, 재고, 물류, 회계 등 ERP 전체 비즈니스 로직을 구현했습니다.',
+        techStack: ['Spring Boot', 'Java 17', 'Spring Security', 'JWT', 'JPA', 'Hibernate', 'REST API', 'JUnit'],
+        architecture: [
+          { label: 'Controller', description: 'HTTP 요청과 응답 계약 처리' },
+          { label: 'Service', description: 'ERP 도메인 비즈니스 로직과 트랜잭션' },
+          { label: 'Repository', description: 'JPA 기반 데이터 접근' },
+          { label: 'MySQL', description: '쇼핑몰 및 ERP 운영 데이터 저장' },
+        ],
+        responsibilities: [
+          'JWT 로그인·Refresh Token·로그아웃 구현',
+          '공통 API 응답과 페이지 응답 구조 구성',
+          '상품·카테고리·배너 API 구현',
+          '장바구니·주문·결제·환불 API 구현',
+          '재고 예약·차감·이동 API 구현',
+          '생산 입고·바코드·출고 API 구현',
+          '송장·배송 추적·반품 API 구현',
+          '회계 원장·거래·기간 마감 API 구현',
+          '직원·조직·권한 그룹 API 구현',
+          '관리자 감사 로그 구현',
+          'AI 데이터셋 Export와 운영 지표 API 구현',
+        ],
+        features: ['JWT 인증', 'Role 기반 접근 제어', 'Permission code 기반 세부 권한', '상품·주문·재고 도메인 API', '창고·생산·출고·배송 API', '회계·정산 API', '감사 로그', 'AI 데이터셋 Export'],
+        implementationPoints: [
+          'Controller, Service, Repository, Entity, DTO 계층 분리',
+          'ApiResponse와 PageResponse를 사용한 일관된 응답 계약',
+          'Role 검증 후 PermissionChecker를 이용한 세부 실행 권한 재검증',
+          '주문 생성부터 결제·재고 예약·출고·회계 반영까지 상태 흐름 연결',
+          '관리자 변경 작업에 before/after JSON과 요청 정보를 감사 로그로 저장',
+          '도메인 서비스에 트랜잭션 경계를 명확히 설정',
+        ],
+        troubleshooting: [
+          {
+            title: 'Role만으로 부족한 관리자 권한 구조',
+            problem: 'MANAGER와 ADMIN 역할만으로는 상품 수정, 환불, 재고 변경 등 세부 기능을 안전하게 나누기 어려웠습니다.',
+            solution: 'Role을 1차 접근 조건으로 사용하고 Controller 실행 시 permission code를 추가 검증하도록 확장했습니다.',
+            result: '관리자 역할을 유지하면서 기능 단위 권한 제어가 가능해졌습니다.',
+          },
+          {
+            title: '주문·결제·재고 상태 정합성',
+            problem: '주문 생성, 결제 승인, 재고 차감이 각각 처리되면 일부 단계 실패 시 데이터가 불일치할 수 있었습니다.',
+            solution: '상태 전이 순서와 트랜잭션 범위를 정의하고 재고 예약과 결제 상태를 분리해 관리했습니다.',
+            result: '주문 처리 상태를 추적하기 쉬워지고 데이터 정합성이 개선되었습니다.',
+          },
+        ],
+        evidence: [
+          { label: '인증', value: 'JWT Access·Refresh Token' },
+          { label: '권한', value: 'Role + Permission Code' },
+          { label: 'API', value: '쇼핑몰·ERP 전체 도메인' },
+          { label: '감사', value: '변경 전후 JSON 로그' },
+        ],
+      },
+      {
+        id: 'ai', label: 'AI',
+        summary: 'ERP 운영 데이터를 AI 학습 데이터로 변환하고 추천·예측·분석 결과를 관리자가 검토할 수 있는 운영 화면으로 연결했습니다.',
+        techStack: ['Python', 'PyTorch', 'pandas', 'scikit-learn', 'JSON', 'JSONL', 'Baseline Model'],
+        architecture: [
+          { label: 'ERP Data', description: '상품·재고·주문·리뷰 운영 데이터' },
+          { label: 'Dataset Export', description: 'Spring Boot API 기반 데이터셋 추출' },
+          { label: 'Masking', description: '개인정보 제거 및 합성 데이터 구성' },
+          { label: 'Training', description: 'Python baseline 학습·평가' },
+          { label: 'Admin AI UI', description: '추천·예측·분석 결과 검토' },
+        ],
+        responsibilities: [
+          'AI 데이터셋 Export 구조 설계',
+          '개인정보 마스킹 기준 적용',
+          '합성 샘플 데이터 구성',
+          '수요 예측 baseline 학습·평가 스크립트 구성',
+          '리뷰 감성 baseline 학습·평가 스크립트 구성',
+          '상품 추천 후보 화면 구현',
+          '수요 예측 화면 구현',
+          '리뷰 분석 화면 구현',
+          '이상 주문 탐지 화면 구현',
+          'AI 리스크 알림과 리포트 화면 구현',
+        ],
+        features: ['상품 추천 후보', '상품 수요 예측', '리뷰 감성 분석', '이상 주문 탐지', '재고·정산 리스크 알림', 'AI 근거 리포트', '합성 데이터 학습', '개인정보 마스킹'],
+        implementationPoints: [
+          '실제 고객 데이터 대신 개인정보가 없는 합성 샘플 데이터 사용',
+          '운영 DB 원본과 모델 체크포인트를 Git 추적 대상에서 제외',
+          '데이터셋 Export, 전처리, 학습, 평가, 리포트 단계를 분리',
+          'PyTorch 환경에서는 .pt 모델을 생성하고 미설치 환경에서는 메타데이터로 입력 구조 검증',
+          'AI 결과를 자동 실행이 아닌 관리자 의사결정 보조 지표로 제공',
+          '현재 운영 화면은 baseline 설명과 rule-based 점수를 조합해 안정적인 데모 제공',
+        ],
+        troubleshooting: [
+          {
+            title: '실제 운영 데이터가 없는 AI 포트폴리오',
+            problem: '개인 프로젝트에서는 실제 고객 주문·리뷰 데이터를 안전하게 확보할 수 없었습니다.',
+            solution: '개인정보 없는 합성 데이터를 구성하고 동일한 Export·학습·평가 구조를 재현했습니다.',
+            result: '실제 데이터 없이도 ERP 데이터가 AI 운영 화면까지 연결되는 구조를 검증할 수 있었습니다.',
+          },
+          {
+            title: 'AI 데모 안정성과 실제 추론 범위',
+            problem: '배포 서버에서 모든 모델을 실시간 추론하면 데모 안정성과 서버 자원 문제가 발생할 수 있었습니다.',
+            solution: 'baseline 모델 학습 구조는 유지하고 운영 화면에서는 rule-based 점수와 모델 설명을 함께 사용했습니다.',
+            result: '제한된 서버 환경에서도 AI 운영 흐름을 안정적으로 시연할 수 있게 되었습니다.',
+          },
+        ],
+        evidence: [
+          { label: '학습 모델', value: '수요 예측·리뷰 감성 baseline' },
+          { label: '운영 기능', value: '추천·예측·분석·탐지' },
+          { label: '데이터', value: '합성 샘플 + 마스킹 Export' },
+          { label: '적용 방식', value: '관리자 의사결정 보조' },
+        ],
+      },
+      {
+        id: 'database', label: 'Database',
+        summary: '쇼핑몰 거래 데이터와 ERP 운영 데이터를 하나의 MySQL 구조로 연결하고 Flyway로 스키마 변경 이력을 관리했습니다.',
+        techStack: ['MySQL 8', 'JPA', 'Hibernate', 'Flyway', 'H2 Test', 'ERD'],
+        architecture: [
+          { label: 'Commerce', description: '회원·상품·장바구니·주문·결제' },
+          { label: 'Inventory', description: 'SKU·창고·재고·생산·바코드' },
+          { label: 'Logistics', description: '출고·송장·배송·반품' },
+          { label: 'Management', description: '직원·권한·회계·감사 로그' },
+        ],
+        responsibilities: [
+          '회원·직원·부서·권한 테이블 설계',
+          '상품·카테고리·SKU·배너 테이블 설계',
+          '주문·주문 항목·결제 테이블 설계',
+          '창고·재고·예약·재고 이동 테이블 설계',
+          '생산·입고·바코드 테이블 설계',
+          '출고·송장·배송 추적·반품 테이블 설계',
+          '회계 원장·거래·정산 테이블 설계',
+          '감사 로그와 운영 설정 테이블 설계',
+          'Flyway 마이그레이션 관리',
+        ],
+        features: ['주문 상품 Snapshot', '결제 Idempotency Key', '재고와 예약 재고 분리', 'SKU와 상품 마스터 분리', '재고 변경 이력', '배송 추적 이벤트', '회계 원장·거래', '관리자 감사 로그', 'Flyway 버전 관리'],
+        implementationPoints: [
+          '주문 시 상품명·가격·옵션을 Snapshot으로 저장',
+          '결제 중복 실행 방지를 위해 idempotency key 사용',
+          'warehouse stock과 stock reservation을 분리',
+          '재고 변경 전후 수량과 원인을 inventory log에 기록',
+          '상품과 SKU를 분리해 옵션·바코드 단위 재고 관리',
+          '출고·배송·반품 이벤트를 주문과 별도 이력으로 관리',
+          '회계 거래를 reference type과 reference id로 원본 업무 데이터와 연결',
+          'Flyway를 이용해 스키마 변경 순서와 배포 이력 관리',
+        ],
+        troubleshooting: [
+          {
+            title: '기능 확장에 따른 스키마 변경 관리',
+            problem: '상품 중심 구조에서 재고·생산·배송·회계까지 확장되며 DB 변경이 반복되었습니다.',
+            solution: 'JPA Entity 변경만 사용하는 대신 Flyway 마이그레이션 파일로 변경 순서를 관리했습니다.',
+            result: '환경별 스키마 차이를 줄이고 배포 시 DB 변경 내역을 추적할 수 있게 되었습니다.',
+          },
+          {
+            title: '상품 재고와 SKU 재고의 역할 분리',
+            problem: '옵션 상품이 추가되면서 상품 단위 재고만으로는 바코드와 실제 재고를 관리하기 어려웠습니다.',
+            solution: '상품 마스터와 SKU를 분리하고 SKU별 바코드와 안전재고를 관리하도록 확장했습니다.',
+            result: '옵션·바코드·창고 단위로 확장 가능한 재고 구조를 만들었습니다.',
+          },
+        ],
+        evidence: [
+          { label: 'DBMS', value: 'MySQL 8' },
+          { label: '마이그레이션', value: 'Flyway V1 이상 누적 관리' },
+          { label: '주요 영역', value: 'Commerce·Inventory·Logistics·Accounting' },
+          { label: '이력 관리', value: '재고·배송·감사 로그' },
+        ],
+      },
+      {
+        id: 'infrastructure', label: 'Infrastructure',
+        summary: "AWS EC2에 Docker Compose 기반 운영 환경을 구성하고 Nginx Reverse Proxy와 Let's Encrypt를 이용해 HTTPS로 배포했습니다.",
+        techStack: ['AWS EC2', 'Docker', 'Docker Compose', 'Nginx', "Let's Encrypt", 'Certbot', 'Linux', 'systemd', 'HTTPS'],
+        architecture: [
+          { label: 'Browser', description: 'commerceops.ddoriny.com HTTPS 접속' },
+          { label: 'Nginx', description: 'Reverse Proxy 및 TLS 종료' },
+          { label: 'Next.js', description: 'Frontend Container :3000' },
+          { label: 'Spring Boot', description: 'Backend Container :8080' },
+          { label: 'MySQL', description: 'Database Container :3306' },
+        ],
+        responsibilities: [
+          'AWS EC2 서버 환경 구성',
+          'Dockerfile과 Docker Compose 운영 구조 구성',
+          'MySQL·Backend·Frontend·Nginx 컨테이너 분리',
+          'Nginx Reverse Proxy 설정',
+          '도메인과 Elastic IP 연결',
+          "Let's Encrypt HTTPS 인증서 발급",
+          'HTTP에서 HTTPS 301 리다이렉트 구성',
+          'Certbot 인증서 자동 갱신 구성',
+          'Docker Volume을 이용한 DB·업로드·인증서 유지',
+          '배포 후 컨테이너·API·HTTPS 상태 검증',
+        ],
+        features: ['AWS EC2 배포', 'Docker Compose', 'Nginx Reverse Proxy', 'HTTPS', 'Certbot 자동 갱신', 'Container Health Check', 'Docker Volume', '내부 네트워크 격리'],
+        implementationPoints: [
+          '외부에는 80과 443만 공개하고 3000·8080·3306은 Docker 내부 네트워크에서만 사용',
+          'Nginx가 / 요청은 Frontend로, /api와 /uploads는 Backend로 전달',
+          'MySQL health check 성공 이후 Backend를 시작하도록 의존성 구성',
+          'MySQL 데이터, 업로드 파일, 인증서를 Named Volume으로 유지',
+          '인증서가 없는 최초 실행에서는 HTTP 설정으로 기동 후 Certbot 발급',
+          '인증서 발급 후 Nginx를 재생성해 HTTPS와 301 redirect 활성화',
+          'systemd timer와 Certbot container를 이용해 인증서 자동 갱신',
+        ],
+        troubleshooting: [
+          {
+            title: '인증서 발급 전 Nginx 시작 실패',
+            problem: '최초 배포 시 인증서 파일이 없으면 HTTPS Nginx 설정을 바로 사용할 수 없었습니다.',
+            solution: '인증서 존재 여부에 따라 HTTP bootstrap 설정과 HTTPS 설정을 선택하도록 분리했습니다.',
+            result: '최초 배포에서도 서비스가 정상 기동하고 이후 HTTPS로 안전하게 전환할 수 있게 되었습니다.',
+          },
+          {
+            title: '제한된 EC2 메모리에서 다중 컨테이너 운영',
+            problem: 'MySQL, Spring Boot, Next.js, Nginx를 한 EC2에서 실행하면서 메모리 부족 가능성이 있었습니다.',
+            solution: '컨테이너별 memory limit과 JVM·Node 메모리 옵션을 설정하고 MySQL 설정을 경량화했습니다.',
+            result: '단일 EC2 환경에서 전체 서비스를 안정적으로 구동할 수 있었습니다.',
+          },
+        ],
+        evidence: [
+          { label: '배포', value: 'AWS EC2' },
+          { label: '구성', value: 'MySQL·Backend·Frontend·Nginx' },
+          { label: '보안', value: 'HTTPS·내부 포트 격리' },
+          { label: '운영', value: 'Health Check·Certbot Timer' },
+        ],
+      },
+    ],
   },
   {
     slug: '404rnf', name: '404 R·N·F AI', type: 'AI 낙하물 탐지 · Mini Project', period: 'Mini Project',

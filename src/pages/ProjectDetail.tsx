@@ -1,8 +1,11 @@
-import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import ImageWithFallback from '../components/ImageWithFallback'
+import ProjectAreaPanel from '../components/project-detail/ProjectAreaPanel'
+import ProjectAreaTabs from '../components/project-detail/ProjectAreaTabs'
 import Reveal from '../components/Reveal'
 import TechIcon, { TechChip } from '../components/TechIcon'
-import { getProject } from '../data/projects'
+import { getProject, type ProjectAreaKey } from '../data/projects'
 
 function ResourceLink({ label, url, placeholder }: { label: string; url?: string; placeholder?: boolean }) {
   return placeholder || !url ? <span className="resource-link disabled"><TechIcon name={label} />{label}<small>자료 준비 중</small></span> : <a className="resource-link" href={url} target="_blank" rel="noreferrer"><TechIcon name={label} />{label}<span>↗</span></a>
@@ -11,9 +14,24 @@ function ResourceLink({ label, url, placeholder }: { label: string; url?: string
 export default function ProjectDetail() {
   const { slug } = useParams()
   const project = getProject(slug)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const projectAreas = project?.projectAreas ?? []
+  const hasAreas = projectAreas.length > 0
+  const urlAreaId = searchParams.get('area') as ProjectAreaKey | null
+  const initialAreaId = (urlAreaId && projectAreas.some((area) => area.id === urlAreaId) ? urlAreaId : projectAreas[0]?.id) as ProjectAreaKey
+  const [activeAreaId, setActiveAreaId] = useState<ProjectAreaKey>(initialAreaId)
   if (!project) return <section className="section empty-state"><h1>프로젝트를 찾을 수 없습니다.</h1><Link className="button primary" to="/projects">프로젝트 목록</Link></section>
 
+  const activeArea = projectAreas.find((area) => area.id === activeAreaId) ?? projectAreas[0]
+  const handleAreaChange = (id: ProjectAreaKey) => {
+    setActiveAreaId(id)
+    const next = new URLSearchParams(searchParams)
+    next.set('area', id)
+    setSearchParams(next, { replace: true })
+  }
+
   const baseIds = ['overview', 'background', 'role', 'features', 'stack', 'flow', 'trouble', 'screens', 'docs', 'retrospect'] as const
+  const skipIds = new Set<string>(hasAreas ? ['role', 'features', 'stack'] : [])
   const baseLabels: Record<string, string> = {
     overview: '프로젝트 개요',
     background: '개발 배경',
@@ -32,12 +50,14 @@ export default function ProjectDetail() {
     'ai-pipeline': 'AI Detection Pipeline',
     'model-evidence': 'AI Model Evidence',
     operation: 'Operation Evidence',
+    areas: '기술 영역',
   }
   const extraLabels: Record<string, string> = Object.fromEntries((project.extraSections ?? []).map((s) => [s.id, s.heading]))
   const getLabel = (id: string) => baseLabels[id] ?? evidenceLabels[id] ?? extraLabels[id] ?? id
   const extrasAfter = (id: string) => project.extraSections?.filter((s) => s.insertAfter === id) ?? []
   const sectionIds: string[] = []
   baseIds.forEach((id) => {
+    if (skipIds.has(id)) return
     sectionIds.push(id)
     if (id === 'overview') sectionIds.push('evidence-overview')
     if (id === 'flow' && project.architectureFlow?.length) sectionIds.push('architecture')
@@ -45,18 +65,20 @@ export default function ProjectDetail() {
     extrasAfter(id).forEach((s) => sectionIds.push(s.id))
     if (id === 'flow' && project.modelExperiments?.length) sectionIds.push('model-evidence')
     if (id === 'flow' && project.operationChecks?.length) sectionIds.push('operation')
+    if (id === 'flow' && hasAreas) sectionIds.push('areas')
   })
   const num = (id: string) => String(sectionIds.indexOf(id) + 1).padStart(2, '0')
   const ExtraSections = ({ after }: { after: string }) => <>{extrasAfter(after).map((s) => <Reveal as="section" id={s.id} className="detail-section" key={s.id}><span className="section-number">{num(s.id)} / {s.label}</span><h2>{s.heading}</h2><ul className="check-list">{s.items.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>)}</>
 
-  const aiKeywords = ['YOLO', 'RT-DETR', 'TensorFlow', 'Keras', 'OpenCV', 'CNN']
+  const aiKeywords = ['YOLO', 'RT-DETR', 'TensorFlow', 'Keras', 'OpenCV', 'CNN', 'PyTorch']
   const aiStack = project.techStack.filter((tech) => aiKeywords.some((k) => tech.includes(k)))
   const infraSectionCount = (project.extraSections ?? []).filter((s) => /VM|INFRA|ARCHITECTURE|SECURITY/i.test(s.label)).length
+  const hasInfraArea = projectAreas.some((area) => area.id === 'infrastructure')
   const qaSection = project.extraSections?.find((s) => s.id === 'qa')
   const overviewCards: { label: string; value: string; description: string }[] = [
     { label: 'AI Model', value: aiStack.length ? `${aiStack.length}개 기술` : 'TODO', description: aiStack.length ? aiStack.slice(0, 4).join(' · ') : 'AI 모델 미적용 프로젝트' },
     { label: 'Service Integration', value: `${project.systemFlow.length}단계`, description: '요청 → 처리 → 저장 → 알림까지 서비스 흐름 연결' },
-    { label: 'Infra / VM', value: infraSectionCount ? `${infraSectionCount}개 섹션` : 'TODO', description: infraSectionCount ? '서버·VM 분리 운영 및 배포 점검 경험' : 'VM/인프라 분리 경험 없음' },
+    { label: 'Infra / VM', value: infraSectionCount ? `${infraSectionCount}개 섹션` : hasInfraArea ? '전용 기술 영역' : 'TODO', description: infraSectionCount || hasInfraArea ? '서버·VM 분리 운영 및 배포 점검 경험' : 'VM/인프라 분리 경험 없음' },
     { label: 'Operation Check', value: project.operationChecks?.length ? `${project.operationChecks.length}개 항목` : 'TODO', description: '실행 환경·연결 상태 점검 체크리스트' },
     { label: 'QA / Test', value: qaSection ? `${qaSection.items.length}개 확인` : 'TODO', description: qaSection ? '배포 전 브라우저·API 기준 검증' : '별도 QA 체크리스트 미기록' },
     { label: 'Troubleshooting', value: `${project.troubleshooting.length}건`, description: 'Problem → Cause → Fix → Result로 정리' },
@@ -91,11 +113,15 @@ export default function ProjectDetail() {
           )}</Reveal>
           <Reveal as="section" id="evidence-overview" className="detail-section"><span className="section-number">{num('evidence-overview')} / EVIDENCE</span><h2>Project Evidence Overview</h2><div className="evidence-grid">{overviewCards.map((card) => <div className="evidence-card" key={card.label}><span className="evidence-card-label">{card.label}</span><strong>{card.value}</strong><p>{card.description}</p></div>)}</div></Reveal>
           <Reveal as="section" id="background" className="detail-section"><span className="section-number">{num('background')} / BACKGROUND</span><h2>개발 배경</h2><p>{project.background}</p></Reveal>
-          <Reveal as="section" id="role" className="detail-section"><span className="section-number">{num('role')} / MY ROLE</span><h2>담당 역할</h2><ul className="check-list">{project.role.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>
-          <Reveal as="section" id="features" className="detail-section"><span className="section-number">{num('features')} / FEATURES</span><h2>주요 기능</h2><div className="feature-grid">{project.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}</div></Reveal>
-          <ExtraSections after="features" />
-          <Reveal as="section" id="stack" className="detail-section"><span className="section-number">{num('stack')} / TECH STACK</span><h2>기술 스택</h2><div className="large-chip-row">{project.techStack.map((tech) => <TechChip label={tech} className="" key={tech} />)}</div></Reveal>
-          <ExtraSections after="stack" />
+          {!hasAreas && (
+            <>
+              <Reveal as="section" id="role" className="detail-section"><span className="section-number">{num('role')} / MY ROLE</span><h2>담당 역할</h2><ul className="check-list">{project.role.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>
+              <Reveal as="section" id="features" className="detail-section"><span className="section-number">{num('features')} / FEATURES</span><h2>주요 기능</h2><div className="feature-grid">{project.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}</div></Reveal>
+              <ExtraSections after="features" />
+              <Reveal as="section" id="stack" className="detail-section"><span className="section-number">{num('stack')} / TECH STACK</span><h2>기술 스택</h2><div className="large-chip-row">{project.techStack.map((tech) => <TechChip label={tech} className="" key={tech} />)}</div></Reveal>
+              <ExtraSections after="stack" />
+            </>
+          )}
           <Reveal as="section" id="flow" className="detail-section"><span className="section-number">{num('flow')} / SYSTEM FLOW</span><h2>시스템 구조와 서비스 흐름</h2><div className="system-flow">{project.systemFlow.map((step, index) => <div className="flow-step" key={step.label}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{step.label}</h3><p>{step.description}</p></div></div>)}</div>{project.slug === 'staccato' && <p className="security-note">보안을 위해 실제 인프라 IP와 내부 접속 정보는 공개하지 않습니다.</p>}</Reveal>
           {project.architectureFlow?.length ? (
             <Reveal as="section" id="architecture" className="detail-section">
@@ -177,6 +203,14 @@ export default function ProjectDetail() {
               <div className="operation-check-grid">{project.operationChecks.map((item) => <div className="operation-check-item" key={item}><span aria-hidden="true">✓</span>{item}</div>)}</div>
             </Reveal>
           ) : null}
+          {hasAreas && activeArea && (
+            <Reveal as="section" id="areas" className="detail-section">
+              <span className="section-number">{num('areas')} / TECH AREAS</span>
+              <h2>기술 영역</h2>
+              <ProjectAreaTabs areas={projectAreas} activeId={activeArea.id} onChange={handleAreaChange} />
+              <ProjectAreaPanel area={activeArea} key={activeArea.id} />
+            </Reveal>
+          )}
           <Reveal as="section" id="trouble" className="detail-section"><span className="section-number">{num('trouble')} / PROBLEM SOLVING</span><h2>문제 해결 경험</h2><div className="trouble-list">{project.troubleshooting.map((item) => <div className="trouble-card" key={item.title}><h3>{item.title}</h3><dl><div><dt>Problem</dt><dd>{item.situation}</dd></div><div><dt>Cause & Fix</dt><dd>{item.solution}</dd></div><div><dt>Result</dt><dd>{item.result}</dd></div></dl></div>)}</div></Reveal>
           <ExtraSections after="trouble" />
           <Reveal as="section" id="screens" className="detail-section">
