@@ -21,6 +21,8 @@ export type Project = {
   categories?: ProjectCategory[]
   highlights?: string[]
   resumeHighlight?: { role: string; contribution: string; achievement: string }
+  /** 이력서 프로젝트 카드용 핵심 기술 4~6개 (techStack에서 발췌, 중요도순 — highlights와 달리 기능 태그가 아닌 기술 스택 우선순위) */
+  techHighlights?: string[]
   summary: string
   background: string
   role: string[]
@@ -64,6 +66,7 @@ export const projects: Project[] = [
     teamNote: '팀 프로젝트 · 개인 기여도 약 50%',
     categories: ['AI / Computer Vision', 'Infra / Deployment'],
     highlights: ['YOLOv11', 'Keras 실험', 'BBOX Overlay', 'VM 분리 운영', 'Socket.IO', 'AI Media Proxy'],
+    techHighlights: ['Python', 'YOLOv11', 'Flask', 'MySQL', 'Next.js', 'Linux'],
     resumeHighlight: {
       role: '프론트엔드 MVP 정리, Flask API 연동 점검, VM 인프라 연결 점검, 운영 문서화',
       contribution: '개인 기여도 약 50%',
@@ -261,6 +264,7 @@ export const projects: Project[] = [
     status: 'in-progress',
     categories: ['Full-stack'],
     highlights: ['Spring Boot', 'Next.js', 'MySQL', 'JWT 인증', '주문·재고 흐름', '관리자 API'],
+    techHighlights: ['Spring Boot', 'Next.js', 'MySQL', 'JWT', 'REST API'],
     resumeHighlight: {
       role: '상품·주문·결제·재고 흐름 구현, 관리자 대시보드 UI, JWT 인증 흐름 적용',
       contribution: '개인 프로젝트 · 진행 중',
@@ -286,6 +290,7 @@ export const projects: Project[] = [
     teamNote: '팀 프로젝트(팀장) · 개인 기여도 약 80% 이상',
     categories: ['AI / Computer Vision'],
     highlights: ['YOLOv8', 'RT-DETR', 'AI 모델 비교', 'Flask-SocketIO', 'DB 설계', '팀장'],
+    techHighlights: ['Flask', 'YOLOv8', 'RT-DETR', 'MySQL', 'SQLAlchemy', 'LLM'],
     resumeHighlight: {
       role: '팀장, Flask 백엔드 구조 설계, DB 모델링, 관리자 기능, AI 모델 비교분석 구현',
       contribution: '팀장 · 개인 기여도 약 80% 이상',
