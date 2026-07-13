@@ -1,4 +1,5 @@
-import type { EvidenceMetric } from './evidence'
+import type { EvidenceMetric, PerformanceMetric, SupportingEvidenceItem } from './evidence'
+import type { ArchitectureNode } from './projects'
 
 type Certification = { title: string; issuer: string; date: string; image?: string }
 
@@ -152,22 +153,37 @@ export const profile = {
   },
 }
 
-export const homeEvidenceMetrics: EvidenceMetric[] = [
-  { label: 'VM 분리 운영', value: '4개', description: 'AI · Flask · Frontend · DB VM 분리 구조 (STACCATO)' },
-  { label: '주요 화면 QA', value: '8개+', description: '로그인 · 이벤트 · 스냅샷 · 알림 등 브라우저 기준 확인' },
-  { label: '객체탐지', value: 'YOLOv11', description: 'CCTV 차량 탐지 · ROI 기반 이벤트 판단' },
-  { label: '실시간 알림', value: 'Socket.IO', description: '관제 화면에 실시간 이벤트 전달' },
-  { label: '이벤트 저장', value: 'MySQL', description: '탐지 로그 · 알림 · metadata 저장' },
-  { label: '배포 구성', value: 'HTTPS · Nginx', description: '리버스 프록시 및 AI media proxy 구성' },
+/** Home EVIDENCE SUMMARY 상단에 강조 노출하는 핵심 KPI 4개 */
+export const homeKeyMetrics: EvidenceMetric[] = [
+  { label: '학습 데이터셋', value: '20,000장', description: 'car · truck · bus 3개 클래스로 구성' },
+  { label: 'mAP50', value: '0.9290', description: 'YOLO11s CVAT balanced 기준' },
+  { label: 'F1 Score', value: '0.8932', description: '정밀도와 재현율의 균형 지표' },
+  { label: '분리 운영 VM', value: '4개', description: 'AI · Flask · Frontend · DB' },
 ]
 
-export const homeModelMetrics: EvidenceMetric[] = [
-  { label: 'Final Model', value: 'YOLO11s CVAT balanced', description: '실시간 CCTV 처리·ByteTrack 추적까지 고려해 최종 선정' },
-  { label: 'Dataset', value: '20,000 images', description: 'car / truck / bus 3-class로 재구성한 최종 학습 데이터셋' },
-  { label: 'Classes', value: 'car · truck · bus', description: 'Highway CCTV vehicle detection 기준 3개 클래스' },
-  { label: 'mAP50', value: '0.9290', description: 'YOLO11s CVAT balanced 기준 (Precision 0.9210 · Recall 0.8670)' },
-  { label: 'F1 Score', value: '0.8932', description: '최종 선정 모델의 정밀도·재현율 균형 지표' },
-  { label: 'mAP50-95', value: '0.7680', description: 'RT-DETR-L(0.7681)과 근접한 수준까지 확보' },
+/** Home AI SERVICE PIPELINE 단계 (STACCATO 상세 페이지의 세부 아키텍처를 5초 스캔용으로 단순화) */
+export const homePipelineSteps: ArchitectureNode[] = [
+  { label: 'CCTV 영상' },
+  { label: 'YOLO11s 객체 탐지', sub: 'car · truck · bus 분류' },
+  { label: 'ByteTrack 차량 추적', sub: 'track_id 유지' },
+  { label: 'Flask API · Socket.IO', sub: '이벤트 처리 · 실시간 전달' },
+  { label: 'MySQL 이벤트 저장', sub: '탐지 로그 · metadata' },
+  { label: '관제 웹 화면', sub: 'BBOX overlay · 알림 표시' },
+]
+
+/** Home MODEL PERFORMANCE 가로 막대 그래프 데이터 (최종 선정 모델 YOLO11s CVAT balanced 기준) */
+export const homePerformanceMetrics: PerformanceMetric[] = [
+  { label: 'mAP50', value: 0.929, display: '0.9290' },
+  { label: 'F1 Score', value: 0.8932, display: '0.8932' },
+  { label: 'mAP50-95', value: 0.768, display: '0.7680' },
+]
+
+/** Home 보조 근거 목록 (KPI보다 낮은 시각적 중요도) */
+export const homeSupportingEvidence: SupportingEvidenceItem[] = [
+  { label: 'DEPLOYMENT', value: 'HTTPS · Nginx reverse proxy' },
+  { label: 'REALTIME', value: 'Socket.IO 기반 실시간 이벤트 전달' },
+  { label: 'DATABASE', value: 'MySQL 탐지 로그 · 알림 · metadata 저장' },
+  { label: 'VALIDATION', value: '핵심 사용자 흐름 8개 이상 브라우저 동작 검증' },
 ]
 
 export const learningTracks = [

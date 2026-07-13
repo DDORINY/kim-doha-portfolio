@@ -5,7 +5,7 @@ import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import SideProjectCarousel from '../components/SideProjectCarousel'
 import TechIcon from '../components/TechIcon'
-import { homeEvidenceMetrics, homeModelMetrics, profile } from '../data/profile'
+import { homeKeyMetrics, homePerformanceMetrics, homePipelineSteps, homeSupportingEvidence, profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { sideProjects } from '../data/sideProjects'
 
@@ -57,24 +57,60 @@ export default function Home() {
       </section>
       <section className="section evidence-summary">
         <div className="container">
-          <SectionHeading eyebrow="EVIDENCE SUMMARY" title="말이 아니라 근거로 보여주는 역량" description="AI 서비스 통합, 객체탐지, VM 운영, 모델 실험까지 실제 프로젝트에서 확인한 수치입니다." />
-          <div className="metric-card-grid">
-            {homeEvidenceMetrics.map((metric) => (
-              <div className="metric-card" key={metric.label}>
-                <span className="metric-card-value">{metric.value}</span>
-                <span className="metric-card-label">{metric.label}</span>
+          <SectionHeading
+            variant="single"
+            eyebrow="VERIFIED RESULTS"
+            title="실제 프로젝트에서 검증한 결과"
+            description="데이터 구축부터 모델 학습, API·DB·웹 연동, 분리 서버 운영까지 수행한 핵심 결과입니다."
+          />
+          <div className="kpi-grid">
+            {homeKeyMetrics.map((metric) => (
+              <div className="kpi-card" key={metric.label}>
+                <span className="kpi-card-value">{metric.value}</span>
+                <span className="kpi-card-label">{metric.label}</span>
                 {metric.description && <p>{metric.description}</p>}
               </div>
             ))}
           </div>
-          <div className="metric-card-grid metric-card-grid-model">
-            {homeModelMetrics.map((metric) => (
-              <div className="metric-card metric-card-model" key={metric.label}>
-                <span className="metric-card-value">{metric.value}</span>
-                <span className="metric-card-label">{metric.label}</span>
-                {metric.description && <p>{metric.description}</p>}
+          <div className="evidence-panels">
+            <div className="evidence-panel">
+              <span className="evidence-panel-title">AI SERVICE PIPELINE</span>
+              <div className="pipeline-flow">
+                {homePipelineSteps.map((step, index) => (
+                  <div className="pipeline-step" key={step.label}>
+                    <div className="pipeline-step-box"><strong>{step.label}</strong>{step.sub && <span>{step.sub}</span>}</div>
+                    {index < homePipelineSteps.length - 1 && <span className="pipeline-arrow" aria-hidden="true">→</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="evidence-panel">
+              <span className="evidence-panel-title">MODEL PERFORMANCE</span>
+              <div className="performance-bars">
+                {homePerformanceMetrics.map((metric) => (
+                  <div className="performance-bar-row" key={metric.label}>
+                    <span className="performance-bar-label">{metric.label}</span>
+                    <div className="performance-bar-track" role="img" aria-label={`${metric.label} ${metric.display}`}>
+                      <div className="performance-bar-fill" style={{ width: `${metric.value * 100}%` }} />
+                    </div>
+                    <span className="performance-bar-value">{metric.display}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="supporting-evidence">
+            {homeSupportingEvidence.map((item) => (
+              <div className="supporting-evidence-item" key={item.label}>
+                <span className="supporting-evidence-label">{item.label}</span>
+                <span className="supporting-evidence-value">{item.value}</span>
               </div>
             ))}
+          </div>
+          <div className="evidence-actions">
+            <Link className="button ghost" to="/ai-learning">모델 실험 보기</Link>
+            <Link className="button ghost" to="/projects/staccato#architecture">시스템 구조 보기</Link>
+            <Link className="button ghost" to="/projects/staccato">프로젝트 상세 보기</Link>
           </div>
         </div>
       </section>
