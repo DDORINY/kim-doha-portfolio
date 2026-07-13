@@ -75,7 +75,7 @@ export default function ProjectDetail() {
   const infraSectionCount = (project.extraSections ?? []).filter((s) => /VM|INFRA|ARCHITECTURE|SECURITY/i.test(s.label)).length
   const hasInfraArea = projectAreas.some((area) => area.id === 'infrastructure')
   const qaSection = project.extraSections?.find((s) => s.id === 'qa')
-  const overviewCards: { label: string; value: string; description: string }[] = [
+  const overviewCards: { label: string; value: string; description: string }[] = project.evidenceOverview ?? [
     { label: 'AI Model', value: aiStack.length ? `${aiStack.length}개 기술` : 'TODO', description: aiStack.length ? aiStack.slice(0, 4).join(' · ') : 'AI 모델 미적용 프로젝트' },
     { label: 'Service Integration', value: `${project.systemFlow.length}단계`, description: '요청 → 처리 → 저장 → 알림까지 서비스 흐름 연결' },
     { label: 'Infra / VM', value: infraSectionCount ? `${infraSectionCount}개 섹션` : hasInfraArea ? '전용 기술 영역' : 'TODO', description: infraSectionCount || hasInfraArea ? '서버·VM 분리 운영 및 배포 점검 경험' : 'VM/인프라 분리 경험 없음' },
