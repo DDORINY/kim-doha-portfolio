@@ -3,6 +3,11 @@
 
 export type EvidenceMetric = { label: string; value: string; description?: string }
 
+/** 가로 막대 그래프로 표시하는 성능 지표. value는 0~1 비율(막대 너비 계산용), display는 화면에 보이는 텍스트 값 */
+export type PerformanceMetric = { label: string; value: number; display: string; description?: string }
+
+export type SupportingEvidenceItem = { label: string; value: string }
+
 export type EvidenceImage = { src: string; alt: string; caption: string }
 
 export type EvidenceSection = { title: string; description: string; metrics?: EvidenceMetric[]; images?: EvidenceImage[]; items?: string[] }

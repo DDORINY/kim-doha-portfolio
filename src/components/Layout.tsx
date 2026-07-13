@@ -17,8 +17,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   const location = useLocation()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
+    const target = location.hash && document.getElementById(location.hash.slice(1))
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    else window.scrollTo(0, 0)
+  }, [location.pathname, location.hash])
 
   return (
     <div className="site-shell">
