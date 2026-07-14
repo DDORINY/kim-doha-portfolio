@@ -1,41 +1,42 @@
 import { useEffect, useRef, useState } from 'react'
-import { projects } from '../data/projects'
+
+const heroImages = [
+  { src: `${import.meta.env.BASE_URL}images/hero-ai-developer-bg.png`, alt: '' },
+  { src: `${import.meta.env.BASE_URL}images/hero-ai-object-detection.png`, alt: '' },
+]
 
 export default function ProjectShowcase() {
-  const slides = projects.filter((p) => p.screenshots[0])
   const [index, setIndex] = useState(0)
   const pausedRef = useRef(false)
 
   useEffect(() => {
-    if (slides.length < 2) return
+    if (heroImages.length < 2) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const id = setInterval(() => {
-      if (!pausedRef.current) setIndex((i) => (i + 1) % slides.length)
+      if (!pausedRef.current) setIndex((i) => (i + 1) % heroImages.length)
     }, 4200)
     return () => clearInterval(id)
-  }, [slides.length])
-
-  if (slides.length === 0) return null
+  }, [])
 
   return (
     <div className="hero-backdrop" onMouseEnter={() => (pausedRef.current = true)} onMouseLeave={() => (pausedRef.current = false)}>
       <div className="hero-backdrop-track" style={{ transform: `translateX(-${index * 100}%)` }}>
-        {slides.map((project) => (
-          <div className="hero-backdrop-slide" key={project.slug}>
-            <img src={project.screenshots[0].src} alt="" loading="lazy" />
+        {heroImages.map((image) => (
+          <div className="hero-backdrop-slide" key={image.src}>
+            <img src={image.src} alt={image.alt} loading="lazy" />
           </div>
         ))}
       </div>
       <div className="hero-backdrop-scrim" />
-      {slides.length > 1 && (
+      {heroImages.length > 1 && (
         <div className="hero-backdrop-dots">
-          {slides.map((project, i) => (
+          {heroImages.map((image, i) => (
             <button
               type="button"
-              key={project.slug}
+              key={image.src}
               className={i === index ? 'active' : ''}
               onClick={() => setIndex(i)}
-              aria-label={`${project.name} 화면 보기`}
+              aria-label={`배경 이미지 ${i + 1} 보기`}
             />
           ))}
         </div>
