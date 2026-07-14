@@ -31,7 +31,7 @@ export type ProjectArea = {
 }
 
 export type Project = {
-  slug: 'staccato' | 'erp' | '404rnf'
+  slug: 'staccato' | 'erp' | '404rnf' | 'roadbogo'
   name: string
   type: string
   period: string
@@ -1085,6 +1085,98 @@ export const projects: Project[] = [
         ],
       },
     ],
+  },
+  {
+    slug: 'roadbogo', name: '도로보GO', type: 'AI 도로 안전관제 시스템 · 2026 K-디지털 트레이닝 해커톤', period: '2026.07 ~ 진행 중',
+    tagline: '고속도로 CCTV 영상에서 차량·낙하물·야생동물을 탐지하고, 위험 후보를 관제자의 확인과 현장 출동 업무까지 연결하는 AI 기반 도로 안전관제 시스템',
+    teamNote: '팀 프로젝트 · 6인 팀 (DB·인프라 설계 담당)',
+    status: 'in-progress',
+    categories: ['AI / Computer Vision', 'Infra / Deployment'],
+    highlights: ['MySQL Primary-Replica', 'Event Outbox', 'YOLO 탐지', 'Raspberry Pi 연동', '트랜잭션 정책 설계'],
+    techHighlights: ['MySQL 8.0', 'Python', 'FastAPI', 'WebSocket', 'Docker', 'Raspberry Pi'],
+    resumeHighlight: {
+      role: 'MySQL 기반 데이터베이스 전체 구조 설계, Primary-Replica 이중화 및 백업·복구 기준 정의, 라즈베리파이 출동 단말 데이터 구조 설계',
+      contribution: '6인 팀 프로젝트 · DB·인프라 설계 담당',
+      achievement: 'MySQL 8.0 기반 MVP 37개 테이블 설계, Event Outbox 기반 알림 유실 방지 구조와 Primary-Replica 이중화 구조 설계, 라즈베리파이 GPS·Heartbeat·출동 명령 연동 스키마 설계',
+    },
+    summary: '고속도로 CCTV 영상에서 차량·낙하물·야생동물을 탐지하고, 위험 후보를 관제자의 확인과 현장 출동 업무까지 연결하는 AI 기반 도로 안전관제 시스템입니다. AI가 위험 여부를 자동으로 확정하는 구조가 아니라 객체의 신뢰도, 지속시간, 반복 탐지 횟수를 기반으로 위험 후보를 선별하고, 관제자가 탐지 근거를 확인해 실제 위험 여부와 출동 필요성을 결정하도록 설계했습니다. 2026 K-디지털 트레이닝 해커톤에서 6인 팀으로 진행 중인 프로젝트입니다.',
+    background: '고속도로 CCTV 관제는 사람이 모든 화면을 실시간으로 지켜보기 어렵고, AI가 위험 상황을 자동으로 판단해 즉시 확정하는 구조는 오탐이 발생했을 때 현장 대응 자원을 잘못 투입할 위험이 있습니다. 이에 AI는 신뢰도·지속시간·반복 탐지 횟수를 기준으로 위험 후보만 선별하고, 관제자가 탐지 근거를 직접 확인해 실제 위험 여부와 출동 필요성을 최종 판단하도록 설계했습니다.',
+    role: [
+      'MySQL 기반 데이터베이스 전체 구조 설계',
+      '인증·권한·CCTV·AI 탐지·사건·출동·알림 데이터 모델 설계',
+      '사건 상태와 출동 상태 전이 및 이력 관리 구조 설계',
+      'MySQL Primary–Replica 이중화 구조 설계',
+      'DB 백업·복구 및 복제 상태 점검 기준 정의',
+      '라즈베리파이 단말 등록·인증·Heartbeat·GPS 데이터 구조 설계',
+      '출동 담당자·차량·단말 연결 및 실시간 위치 이력 설계',
+      '팀장과 라즈베리파이 출동차량 연동 구조 공동 설계',
+    ],
+    features: [
+      'CCTV 영상 기반 차량·낙하물·야생동물 탐지',
+      '동일 객체 추적 및 신뢰도·지속시간·반복 탐지 기반 위험 후보 선별',
+      '사건 생성·병합 및 관제자 확인·선점·최종 판정',
+      '출동 담당자 배정 및 현장 조치 결과 등록',
+      '라즈베리파이 기반 출동차량 GPS·Heartbeat 연동',
+      'MySQL Primary-Replica 이중화 및 백업·복구 체계',
+      'WebSocket 기반 실시간 관제 알림 (Event Outbox 구조)',
+    ],
+    techStack: ['Next.js', 'TypeScript', 'Python', 'FastAPI', 'Flask', 'YOLO', 'OpenCV', 'MySQL 8.0', 'WebSocket', 'Docker', 'Linux', 'Raspberry Pi'],
+    systemFlow: [
+      { label: 'CCTV 영상 수집', description: '고속도로 CCTV 영상을 수집해 AI 분석 파이프라인으로 전달' },
+      { label: '차량·낙하물·야생동물 탐지', description: 'YOLO 기반으로 영상에서 차량, 낙하물, 야생동물 객체를 탐지' },
+      { label: '위험 후보 선별', description: '동일 객체를 추적하고 신뢰도·지속시간·반복 탐지 횟수를 기준으로 위험 후보를 선별' },
+      { label: '사건 생성·병합', description: '위험 후보를 새 사건으로 생성하거나 기존 사건에 병합' },
+      { label: '관제자 확인·판정', description: '관제자가 탐지 근거를 확인해 선점한 뒤 최종 위험 여부를 판정' },
+      { label: '출동 배정', description: '판정된 사건에 출동 담당자를 배정' },
+      { label: '현장 조치·결과 등록', description: '출동 담당자가 현장 조치를 수행하고 결과를 등록' },
+      { label: '사건 종료', description: '관제자가 최종 확인 후 사건을 종료' },
+    ],
+    troubleshooting: [
+      {
+        title: 'WebSocket 알림 유실 방지',
+        situation: '관제 화면에 실시간 알림을 전달할 때 WebSocket 연결이 끊기거나 일시 장애가 발생하면 알림이 유실될 수 있는 위험이 있었습니다.',
+        solution: 'Event Outbox 구조를 도입해 이벤트를 DB에 먼저 기록한 뒤 별도 프로세스가 WebSocket으로 전달하도록 설계했습니다.',
+        result: '알림 전송이 일시적으로 실패해도 이벤트 자체는 유실되지 않고 재전달할 수 있는 구조를 설계 단계에서 확보했습니다.',
+      },
+      {
+        title: '사건 생성·병합, 관제 선점, 출동 배정의 정합성',
+        situation: '동일한 위험 후보가 여러 프레임에서 반복 탐지되거나 여러 관제자가 동시에 같은 사건을 확인할 경우, 사건이 중복 생성되거나 출동 배정이 꼬일 위험이 있었습니다.',
+        solution: '사건 생성·병합, 관제자 선점, 출동 배정 각 단계에 대한 트랜잭션 정책을 별도로 설계해 상태 전이 순서를 명확히 정의했습니다.',
+        result: '여러 관제자·여러 탐지 이벤트가 동시에 들어와도 사건과 출동 배정이 꼬이지 않는 구조를 설계했습니다.',
+      },
+      {
+        title: 'MySQL 단일 장애점 문제',
+        situation: 'DB가 한 대뿐이면 장애 발생 시 관제·출동 서비스 전체가 중단될 위험이 있었습니다.',
+        solution: 'MySQL Primary–Replica 이중화 구조와 수동 장애 전환 절차, 백업·복구 및 복제 상태 점검 기준을 함께 설계했습니다.',
+        result: '단일 DB 장애가 서비스 전체 중단으로 이어지지 않도록 하는 이중화 구조를 마련했습니다.',
+      },
+      {
+        title: '라즈베리파이 출동차량 연동 데이터 신뢰성',
+        situation: '출동차량에 부착되는 라즈베리파이 단말은 네트워크 상태가 불안정할 수 있어, 위치·상태 정보가 끊기거나 다른 차량과 혼선될 위험이 있었습니다.',
+        solution: '단말 등록·인증 절차와 Heartbeat·GPS 데이터 구조를 정의하고, 출동 담당자·차량·단말을 연결해 실시간 위치 이력을 관리하도록 팀장과 공동 설계했습니다.',
+        result: '단말 상태와 위치 데이터를 신뢰성 있게 추적할 수 있는 연동 구조를 설계했습니다.',
+      },
+    ],
+    extraSections: [
+      { id: 'progress', insertAfter: 'flow', label: 'PROGRESS', heading: '현재 진행 내용', items: [
+        '서비스 목표·범위 및 기능명세서 확정',
+        'MVP·강화·고도화 단계별 기능 분리',
+        '서버 3대와 라즈베리파이 1대로 구성된 시스템 아키텍처 설계',
+        'MySQL 8.0 기반 MVP 37개 테이블 상세 설계',
+        '사건 생성·병합, 관제 선점, 출동 배정의 트랜잭션 정책 설계',
+        'WebSocket 알림 누락 방지를 위한 Event Outbox 구조 설계',
+        'Primary–Replica DB 복제 및 수동 장애 전환 구조 설계',
+        '라즈베리파이 GPS·Heartbeat·출동 명령 연동 스키마 설계',
+      ] },
+    ],
+    screenshots: [],
+    documents: [],
+    deploy: { label: '배포 사이트', placeholder: true },
+    github: { label: 'GitHub 저장소', placeholder: true },
+    retrospective: '아직 설계 단계이지만, 관제 시스템은 AI가 위험을 자동으로 확정하는 것보다 판단 근거를 명확히 제공하고 사람이 최종 결정을 내리는 구조가 더 중요하다는 점을 배우고 있습니다. 또한 여러 서버와 라즈베리파이 단말이 얽힌 시스템에서는 트랜잭션 정책, 알림 유실 방지, DB 이중화를 구현 이전 설계 단계에서부터 함께 고려해야 한다는 점을 체감하고 있습니다.',
+    accent: '#5b8cff',
+    proofCompetencies: ['DB 설계', 'Primary-Replica 이중화', 'IoT 연동 설계'],
+    proofEvidence: ['MVP 37개 테이블 설계', 'Event Outbox 구조', '라즈베리파이 GPS 연동'],
   },
 ]
 
