@@ -33,7 +33,7 @@ export default function AIPipelinePanel() {
           </li>
         ))}
       </ol>
-      <div className="pipeline-panel-foot"><span>Latency <strong>42ms</strong></span><span>Service <strong>Healthy</strong></span></div>
+      <div className="pipeline-panel-foot"><span>Pipeline <strong>Connected</strong></span><span>Service <strong>Healthy</strong></span></div>
     </aside>
   )
 }

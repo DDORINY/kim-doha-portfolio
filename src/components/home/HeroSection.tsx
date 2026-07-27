@@ -9,7 +9,10 @@ export default function HeroSection() {
       <div className="container home-hero-inner">
         <div className="home-hero-copy">
           <p className="eyebrow">KIM DOHA · PORTFOLIO</p>
-          <h1 id="home-hero-title">AI SERVICE <span>DEVELOPER</span></h1>
+          <h1 id="home-hero-title">
+            <span className="hero-title-line">AI SERVICE</span>
+            <span className="hero-title-line hero-title-accent">DEVELOPER</span>
+          </h1>
           <p className="home-hero-description">
             객체탐지 모델과 LLM을 실제 서비스에 연결하고,<br />
             Python 기반 API부터 데이터베이스와 배포까지 구현하는<br />
@@ -25,6 +28,9 @@ export default function HeroSection() {
         </div>
         <AIPipelinePanel />
       </div>
+      <Link className="hero-scroll-indicator" to="/#core-competencies-title" aria-label="핵심 역량 섹션으로 이동">
+        <span>SCROLL</span><i aria-hidden="true"><b /></i>
+      </Link>
     </section>
   )
 }
