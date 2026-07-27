@@ -369,61 +369,28 @@ export const learningProjectMap = [
   { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'STACCATO, AI Developer Portfolio Hub', applied: 'STACCATO는 4개 VM의 SSH 접속·방화벽·health check 점검, 포트폴리오 허브는 GitHub Pages + 커스텀 도메인 배포 파이프라인 구축' },
 ]
 
-export const contactSummary = 'AI 객체탐지 서비스 개발자를 목표로, 모델 실험부터 API 연동, DB 저장, 프론트엔드 화면 반영, Linux/VM 기반 배포 점검까지 경험했습니다.'
-
-export const contactKeywords = ['AI Developer', 'Computer Vision', 'Object Detection', 'Flask / FastAPI', 'MySQL', 'Linux / VM', 'Deployment']
-
-export const contactTopics = [
-  'AI 개발자 포지션',
-  'Computer Vision / Object Detection 프로젝트',
-  'Flask/FastAPI 기반 AI API 연동',
-  '프론트엔드와 AI 결과 시각화 연동',
-  'Linux/VM 기반 배포 및 운영 점검',
-  '포트폴리오 및 프로젝트 관련 문의',
-]
-
 type FaqRelatedLink = { label: string; to?: string; url?: string }
 type FaqItem = { q: string; a: string; related?: FaqRelatedLink[] }
 
 export const contactFaq: FaqItem[] = [
   {
-    q: '마케팅 경력에서 AI 개발자로 전환하신 이유가 궁금합니다.',
-    a: '5년 8개월간 온라인 마케팅·운영 업무를 하며 반복적인 확인 작업과 수작업 관리가 많다는 것을 느꼈습니다. 데이터를 기반으로 판단하고 자동화할 수 있는 부분이 많다고 생각했고, 이를 직접 만들 수 있는 개발자가 되고 싶어 컴퓨터공학을 전공하고 AI/데이터 분석 부트캠프에 참여했습니다.',
+    q: '어떤 직무를 희망하나요?',
+    a: 'AI 서비스 개발자, Computer Vision·객체탐지 서비스 개발자, Python·Flask/FastAPI 백엔드 개발자 포지션을 희망합니다. AI 모델 결과를 API·DB·웹 화면과 연결하는 서비스 개발에 중점을 두고 있습니다.',
+    related: [{ label: 'Resume', to: '/resume' }, { label: 'Projects', to: '/projects' }],
+  },
+  {
+    q: '입사 가능 시기는 언제인가요?',
+    a: '근무 조건 협의 시 즉시 입사 가능합니다. 현재 진행 중인 AI 심화반 교육 기간에도 근무 조건을 협의할 수 있습니다.',
     related: [{ label: 'Resume · 경력 요약', to: '/resume' }],
   },
   {
-    q: 'AI 모델 연구가 아니라 왜 \'AI 개발자\'를 목표로 하시나요?',
-    a: 'STACCATO 프로젝트를 진행하며 모델의 정확도만큼 중요한 것이 그 결과를 실제 화면·DB·운영 흐름에 안정적으로 연결하는 일이라는 것을 체감했습니다. 모델을 만드는 사람보다, 모델의 결과를 사용자가 체감할 수 있는 서비스로 완성하는 사람으로 성장하고 싶습니다.',
-    related: [{ label: 'STACCATO 프로젝트', to: '/projects/staccato' }, { label: 'AI 모델 비교 실험', to: '/ai-learning' }],
+    q: '주요 프로젝트에서 어떤 역할을 수행했나요?',
+    a: 'STACCATO에서 Keras 기반 객체 탐지 모델 실험과 YOLO·RT-DETR 모델 학습 및 성능 비교를 수행했습니다. 동시에 프론트엔드 MVP와 Flask API 일부를 개발하고, 객체 탐지 결과를 DB와 관제 화면에 연결했으며 4개 VM 통합과 QA에도 참여했습니다.',
+    related: [{ label: 'STACCATO 상세', to: '/projects/staccato' }, { label: 'Computer Vision Experience', to: '/computer-vision' }, { label: 'GitHub 코드', url: 'https://github.com/staccato-ai-highway-control/staccato-ai-highway-control' }],
   },
   {
-    q: 'STACCATO 프로젝트에서 실제로 어떤 역할을 맡으셨나요?',
-    a: '프론트엔드 MVP 화면 정리, Flask API 연동 점검, VM 인프라 연결 점검, 운영 문서화를 담당했고 Keras 기반 AI 모델 실험도 직접 진행했습니다. 팀 프로젝트였고 개인 기여도는 약 50% 정도입니다.',
-    related: [{ label: 'STACCATO 상세 · Evidence', to: '/projects/staccato' }, { label: '운영 점검 체크리스트', to: '/projects/staccato' }, { label: 'GitHub 코드', url: 'https://github.com/staccato-ai-highway-control/staccato-ai-highway-control' }],
-  },
-  {
-    q: '협업 중 겪은 어려움은 어떻게 해결하셨나요?',
-    a: '404 R·N·F 프로젝트에서 팀장을 맡으며, 기능이 늘어날수록 라우트 코드에 비즈니스 로직과 DB 접근이 뒤섞여 유지보수가 어려워지는 문제를 겪었습니다. Service·Repository 계층 분리를 팀에 제안하고 구조를 정리해 각자 맡은 부분의 영향 범위를 명확히 했습니다.',
-    related: [{ label: '404 R·N·F AI 상세', to: '/projects/404rnf' }, { label: 'GitHub 코드', url: 'https://github.com/lms-mini-project/AI-accident-detection' }],
-  },
-  {
-    q: '입사(또는 실무 투입) 가능 시기가 언제인가요?',
-    a: '2026년 7월 9일부터 9월 9일까지 AI 심화반(Roboflow 기반 부유물 탐지) 교육이 예정되어 있지만, 근무 조건 협의 시 교육 기간 중에도 즉시 입사가 가능합니다.',
-    related: [{ label: 'Resume · 경력 요약', to: '/resume' }],
-  },
-  {
-    q: '학위는 언제 취득하시나요?',
-    a: '학점은행제로 컴퓨터공학을 전공했고, 2026년 8월(후기) 학사 학위 취득 예정입니다.',
-    related: [{ label: 'Resume · 교육', to: '/resume' }],
-  },
-  {
-    q: '왜 Python과 Flask를 주로 사용하시나요?',
-    a: 'AI 모델 학습·추론 생태계가 Python 중심이라 모델과 서비스를 연결하기에 적합하다고 판단했습니다. Flask는 구조가 단순해 API Gateway·인증·DB 연동 흐름을 직접 설계하며 배우기 좋았고, 이후 FastAPI·Spring Boot·Next.js로도 확장하며 실험했습니다.',
-    related: [{ label: 'Resume · 기술 스택', to: '/resume' }],
-  },
-  {
-    q: '앞으로의 커리어 목표는 무엇인가요?',
-    a: 'AI를 단순히 기능으로 붙이는 개발자가 아니라, 실제 운영 문제를 이해하고 AI 결과를 서비스 구조 안에서 안정적으로 연결하는 개발자로 성장하고 싶습니다. Computer Vision·Object Detection 기반 서비스에서 데이터부터 운영까지 책임질 수 있는 역량을 쌓아가고 있습니다.',
-    related: [{ label: 'AI Learning · 실험 기록', to: '/ai-learning' }, { label: 'Projects 전체 보기', to: '/projects' }],
+    q: '추가 자료는 어디서 확인할 수 있나요?',
+    a: '이력과 기술 요약은 Resume, 구현 과정과 성과는 Projects에서 확인할 수 있습니다. 코드와 개발 기록은 GitHub, 학습 기록은 AI Learning Notion으로 연결됩니다.',
+    related: [{ label: 'Resume', to: '/resume' }, { label: 'Projects', to: '/projects' }, { label: 'GitHub Profile', url: profile.github }, { label: 'AI Learning Notion', url: profile.notion }],
   },
 ]
