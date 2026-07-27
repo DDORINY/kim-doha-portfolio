@@ -4,6 +4,7 @@ import ProjectCard from '../components/ProjectCard'
 import ProjectCaseStudy from '../components/ProjectCaseStudy'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
+import SectionScrollButton from '../components/SectionScrollButton'
 import SideProjectCard from '../components/SideProjectCard'
 import { selectedCaseStudySlugs, sideProjectOrder } from '../data/projectListing'
 import { projects } from '../data/projects'
@@ -67,7 +68,7 @@ export default function Projects() {
             <div className="projects-hero-keywords" aria-label="프로젝트 기술 영역">
               {['COMPUTER VISION', 'LLM & AGENT', 'BACKEND API', 'DATABASE', 'DEPLOYMENT'].map((keyword) => <span key={keyword}>{keyword}</span>)}
             </div>
-            <a className="projects-hero-link" href="#selected-case-studies">VIEW CASE STUDIES <span>↓</span></a>
+            <SectionScrollButton className="projects-hero-link" targetId="selected-case-studies">VIEW CASE STUDIES <span>↓</span></SectionScrollButton>
           </Reveal>
           <Reveal className="projects-summary-panel" delay={100} aria-label="프로젝트 현황">
             <div className="projects-summary-head"><span>PROJECT INDEX</span><small>LIVE DATA</small></div>
@@ -93,7 +94,7 @@ export default function Projects() {
               {filters.map((item) => (
                 <button type="button" className={filter === item.key ? 'active' : ''} aria-pressed={filter === item.key} onClick={() => setFilter(item.key)} key={item.key}>{item.label}</button>
               ))}
-              <a href="#side-projects">SIDE PROJECTS <span>↓</span></a>
+              <SectionScrollButton className="projects-side-scroll" targetId="side-projects">SIDE PROJECTS <span>↓</span></SectionScrollButton>
             </div>
             <p className="projects-result-count" role="status" aria-live="polite">{filteredProjects.length} PROJECT{filteredProjects.length === 1 ? '' : 'S'}</p>
           </Reveal>

@@ -10,10 +10,8 @@ export default function Layout({ children }: { children: ReactNode }) {
   const location = useLocation()
 
   useEffect(() => {
-    const target = location.hash && document.getElementById(location.hash.slice(1))
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    else window.scrollTo(0, 0)
-  }, [location.pathname, location.hash])
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   useEffect(() => {
     document.title = pageTitles[location.pathname]

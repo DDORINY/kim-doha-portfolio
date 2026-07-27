@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
+import SectionScrollButton from '../components/SectionScrollButton'
 import {
   architectureFlow,
   developmentRows,
@@ -57,8 +58,8 @@ export default function LLM() {
               {['IN DEVELOPMENT', 'GATE 7 PASSED', '571 TESTS PASSED', 'RTX 3060 Ti 8GB', 'DECODER-ONLY'].map((tag) => <span key={tag}>{tag}</span>)}
             </div>
             <div className="llm-hero-actions">
-              <a className="button primary" href="#status">VIEW DEVELOPMENT STATUS <span>↓</span></a>
-              <a className="button secondary" href="#architecture">EXPLORE ARCHITECTURE <span>↓</span></a>
+              <SectionScrollButton className="button primary" targetId="status">VIEW DEVELOPMENT STATUS <span>↓</span></SectionScrollButton>
+              <SectionScrollButton className="button secondary" targetId="architecture">EXPLORE ARCHITECTURE <span>↓</span></SectionScrollButton>
               <a className="button ghost" href={repositoryUrl} target="_blank" rel="noreferrer" aria-label="DohaLM GitHub Repository 새 창에서 열기">GITHUB REPOSITORY <span>↗</span></a>
             </div>
           </Reveal>
@@ -76,7 +77,7 @@ export default function LLM() {
       </section>
 
       <nav className="llm-section-index" aria-label="DohaLM 페이지 섹션">
-        <div className="container">{sectionLinks.map(([label, id]) => <a href={`#${id}`} key={id}>{label}</a>)}</div>
+        <div className="container">{sectionLinks.map(([label, id]) => <SectionScrollButton className="llm-section-index-button" targetId={id} key={id}>{label}</SectionScrollButton>)}</div>
       </nav>
 
       <section className="section llm-overview" id="overview" aria-labelledby="llm-overview-title">

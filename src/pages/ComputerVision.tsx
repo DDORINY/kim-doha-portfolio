@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import ImageWithFallback from '../components/ImageWithFallback'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
+import SectionScrollButton from '../components/SectionScrollButton'
 import { TechChip } from '../components/TechIcon'
 import { projects, type Project } from '../data/projects'
 
@@ -119,7 +120,7 @@ export default function ComputerVision() {
             <div className="cv-hero-tech-groups">
               {heroTechGroups.map((group) => <div key={group.label}><span>{group.label}</span><div className="chip-row">{group.tech.map((tech) => <TechChip label={tech} key={tech} />)}</div></div>)}
             </div>
-            <a className="button primary" href="#model-development">VIEW MODEL DEVELOPMENT <span>↓</span></a>
+            <SectionScrollButton className="button primary" targetId="model-development">VIEW MODEL DEVELOPMENT <span>↓</span></SectionScrollButton>
           </Reveal>
           <Reveal className="cv-hero-evidence" delay={100} aria-label="Computer Vision 검증 결과 요약">
             <div className="cv-panel-head"><span>VISION SERVICE EVIDENCE</span><small>VERIFIED DATA</small></div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { heroTechKeywords } from '../../data/home'
+import SectionScrollButton from '../SectionScrollButton'
 import { TechChip } from '../TechIcon'
 import AIPipelinePanel from './AIPipelinePanel'
 
@@ -28,9 +29,9 @@ export default function HeroSection() {
         </div>
         <AIPipelinePanel />
       </div>
-      <Link className="hero-scroll-indicator" to="/#core-competencies-title" aria-label="SCROLL · 핵심 역량 섹션으로 이동">
+      <SectionScrollButton className="hero-scroll-indicator" targetId="core-competencies-title" ariaLabel="SCROLL · 핵심 역량 섹션으로 이동">
         <span>SCROLL</span><i aria-hidden="true"><b /></i>
-      </Link>
+      </SectionScrollButton>
     </section>
   )
 }
