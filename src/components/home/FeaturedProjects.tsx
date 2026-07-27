@@ -12,6 +12,7 @@ const featuredProjects = featuredProjectSlugs
   .filter((project) => project !== undefined)
 
 const [showcaseProject, ...secondaryProjects] = featuredProjects
+const showcaseScreenshot = showcaseProject?.screenshots[1] ?? showcaseProject?.screenshots[0]
 
 export default function FeaturedProjects() {
   return (
@@ -26,21 +27,25 @@ export default function FeaturedProjects() {
         {showcaseProject && (
           <Reveal as="article" className="featured-showcase" style={{ '--accent': showcaseProject.accent } as CSSProperties}>
             <div className="featured-browser">
-              <div className="featured-browser-bar" aria-hidden="true"><span /><span /><span /><small>staccato.ai / dashboard</small></div>
-              {showcaseProject.screenshots[0] && <ImageWithFallback src={showcaseProject.screenshots[0].src} alt={showcaseProject.screenshots[0].alt} loading="lazy" fallbackLabel="STACCATO 프로젝트 화면" />}
+              <div className="featured-browser-bar" aria-hidden="true">
+                <span /><span /><span />
+                <small><i /> staccato.ai / dashboard</small>
+              </div>
+              {showcaseScreenshot && <ImageWithFallback src={showcaseScreenshot.src} alt={showcaseScreenshot.alt} loading="lazy" fallbackLabel="STACCATO 프로젝트 화면" />}
             </div>
             <div className="featured-showcase-copy">
               <span className="section-number">FEATURED / 01</span>
               <h3>{showcaseProject.name}</h3>
               <p className="featured-tagline">{showcaseProject.tagline}</p>
               <dl className="featured-facts">
-                <div><dt>PROBLEM</dt><dd>{showcaseProject.background}</dd></div>
                 <div><dt>ROLE</dt><dd>{showcaseProject.resumeHighlight?.role ?? showcaseProject.role[0]}</dd></div>
-                <div><dt>RESULT</dt><dd>{showcaseProject.resumeHighlight?.achievement ?? showcaseProject.retrospective}</dd></div>
               </dl>
               <div className="chip-row featured-tech">
                 {(showcaseProject.techHighlights ?? showcaseProject.techStack).slice(0, 6).map((tech) => <TechChip label={tech} key={tech} />)}
               </div>
+              <dl className="featured-facts featured-result">
+                <div><dt>RESULT</dt><dd>{showcaseProject.resumeHighlight?.achievement ?? showcaseProject.retrospective}</dd></div>
+              </dl>
               <div className="featured-actions">
                 <Link className="button primary" to={`/projects/${showcaseProject.slug}`}>VIEW CASE STUDY <span>↗</span></Link>
                 {showcaseProject.deploy.url && <a className="button secondary" href={showcaseProject.deploy.url} target="_blank" rel="noreferrer">LIVE SERVICE <span>↗</span></a>}

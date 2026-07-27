@@ -28,7 +28,7 @@ export default function HeroSection() {
         </div>
         <AIPipelinePanel />
       </div>
-      <Link className="hero-scroll-indicator" to="/#core-competencies-title" aria-label="핵심 역량 섹션으로 이동">
+      <Link className="hero-scroll-indicator" to="/#core-competencies-title" aria-label="SCROLL · 핵심 역량 섹션으로 이동">
         <span>SCROLL</span><i aria-hidden="true"><b /></i>
       </Link>
     </section>
