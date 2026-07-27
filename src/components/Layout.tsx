@@ -24,9 +24,8 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="site-shell">
       <header className="site-header">
         <div className="container header-inner">
-          <Link className="brand" to="/" onClick={() => setOpen(false)} aria-label="DOHA KIM 홈으로 이동">
-            <span className="brand-mark">D.</span>
-            <span>DOHA KIM</span>
+          <Link className="brand" to="/" onClick={() => setOpen(false)}>
+            <img src="/images/LOGO-header.png" alt="DOHA 홈으로 이동" />
           </Link>
           <div className="header-actions">
             <nav className={open ? 'nav open' : 'nav'} aria-label="주요 메뉴">

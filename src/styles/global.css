@@ -60,8 +60,8 @@ main { flex: 1; padding-top: 72px; animation: page-fade-in .55s cubic-bezier(.16
 .section { padding: 112px 0; }
 .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 20; border-bottom: 1px solid var(--line); background: var(--header-bg); backdrop-filter: blur(16px); }
 .header-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; }
-.brand { display: flex; align-items: center; gap: 10px; font-size: .8rem; font-weight: 800; letter-spacing: .18em; }
-.brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; color: var(--on-primary); background: var(--primary); letter-spacing: 0; font-size: 1rem; }
+.brand { display: flex; align-items: center; }
+.brand img { width: 123px; height: 38px; object-fit: contain; object-position: left center; }
 .header-actions { display: flex; align-items: center; gap: 26px; }
 .theme-switcher { display: flex; align-items: center; gap: 8px; }
 .theme-switcher button { position: relative; width: 20px; height: 20px; padding: 0; border: 2px solid transparent; border-radius: 50%; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(127,137,160,.35); transition: transform .15s, border-color .15s; }
@@ -199,7 +199,7 @@ main { flex: 1; padding-top: 72px; animation: page-fade-in .55s cubic-bezier(.16
 .home-hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,.98fr) minmax(500px,1.02fr); align-items: center; gap: clamp(36px,4vw,56px); }
 .home-hero-copy { min-width: 0; }
 .home-hero-copy .eyebrow { display: block; margin-bottom: 24px; animation: home-stagger-in .42s cubic-bezier(.16,.84,.44,1) both; }
-.home-hero h1 { max-width: 760px; margin: 0; font-size: clamp(4.4rem,7.7vw,8rem); line-height: .92; letter-spacing: -.045em; overflow-wrap: anywhere; }
+.home-hero h1 { max-width: 760px; margin: 0; font-size: clamp(3.9rem,5.5vw,5.6rem); line-height: .92; letter-spacing: -.045em; overflow-wrap: anywhere; }
 .hero-title-line { display: block; }.home-hero h1 .hero-title-accent{color:var(--primary)}
 .home-hero-description { max-width: 570px; margin: 36px 0 0; color: var(--muted-strong); font-size: 1rem; line-height: 1.8; animation: hero-fade-in .42s ease-out .1s both; }
 @keyframes hero-fade-in { from { opacity: 0; } to { opacity: 1; } }
