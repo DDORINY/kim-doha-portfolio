@@ -33,7 +33,6 @@ export default function ProjectCaseStudy({ project, index, featured = false }: {
         </div>
         <h3>{project.name}</h3>
         {listing.subtitle && <p className="case-study-subtitle">{listing.subtitle}</p>}
-        <p className="case-study-tagline">{project.tagline}</p>
         <dl className="case-study-facts">
           <div><dt>WHAT</dt><dd>{listing.what}</dd></div>
           <div><dt>MY ROLE</dt><dd>{listing.role}</dd></div>
@@ -41,7 +40,7 @@ export default function ProjectCaseStudy({ project, index, featured = false }: {
         </dl>
         <div className="case-study-tech">
           <span className="meta-label">CORE TECH</span>
-          <div className="chip-row">{(project.techHighlights ?? project.techStack).slice(0, 6).map((tech) => <TechChip label={tech} key={tech} />)}</div>
+          <div className="chip-row">{(project.techHighlights ?? project.techStack).slice(0, 4).map((tech) => <TechChip label={tech} key={tech} />)}</div>
         </div>
         <div className="case-study-actions">
           <Link className="case-study-primary" to={`/projects/${project.slug}`}>VIEW CASE STUDY <span>→</span></Link>

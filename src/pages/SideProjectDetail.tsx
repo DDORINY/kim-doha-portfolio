@@ -41,7 +41,7 @@ export default function SideProjectDetail() {
       <div className="container side-detail-layout">
         <div className="detail-content">
           {project.image && (
-            <Reveal as="div" className="side-detail-image"><img src={project.image} alt={`${project.name} 대표 이미지`} /></Reveal>
+            <Reveal as="div" className="side-detail-image"><img src={project.image} alt={`${project.name} 대표 이미지`} loading="lazy" decoding="async" /></Reveal>
           )}
           {project.note && (
             <Reveal as="section" id="background" className="detail-section"><span className="section-number">{num('background')} / BACKGROUND</span><h2>개발 배경</h2><p>{project.note}</p></Reveal>

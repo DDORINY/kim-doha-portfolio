@@ -19,5 +19,5 @@ export default function ImageWithFallback({ src, alt, className, loading, fallba
     )
   }
 
-  return <img src={src} alt={alt} className={className} loading={loading} onError={() => setFailed(true)} />
+  return <img src={src} alt={alt} className={className} loading={loading} decoding="async" onError={() => setFailed(true)} />
 }

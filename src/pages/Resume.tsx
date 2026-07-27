@@ -11,7 +11,6 @@ import {
   resumeCompetencies,
   resumeMetrics,
   resumeSkillGroups,
-  serviceExperience,
 } from '../data/resume'
 
 function PrintProject({ project }: { project: (typeof projects)[number] }) {
@@ -51,7 +50,7 @@ export default function Resume() {
               </div>
             </Reveal>
             <Reveal className="resume-web-profile" delay={80}>
-              <div className="resume-web-photo"><img src={profile.photo} alt={`${profile.name} 증명사진`} width="960" height="1280" /></div>
+              <div className="resume-web-photo"><img src={profile.photo} alt={`${profile.name} 증명사진`} width="960" height="1280" loading="eager" fetchPriority="high" decoding="async" /></div>
               <div className="resume-web-contact">
                 <span>CONTACT / AVAILABLE</span>
                 <strong>{profile.availability}</strong>
@@ -67,7 +66,7 @@ export default function Resume() {
           <div className="container">
             <SectionHeading id="resume-summary-title" eyebrow="02 / PROFILE SUMMARY" title="PROFILE SUMMARY" description="운영 경험에서 발견한 문제를 데이터·AI·서비스 구조로 연결하는 개발자입니다." />
             <div className="resume-metric-grid">{resumeMetrics.map((metric, index) => <Reveal className="resume-metric" delay={index * 60} key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><p>{metric.description}</p></Reveal>)}</div>
-            <Reveal className="resume-summary-copy"><p>{profile.intro}</p><p>{profile.coreCompetencies[0]}</p></Reveal>
+            <Reveal className="resume-summary-copy"><p>{profile.intro}</p></Reveal>
           </div>
         </section>
 
@@ -94,7 +93,7 @@ export default function Resume() {
           <div className="container">
             <SectionHeading id="resume-experience-title" eyebrow="05 / WORK EXPERIENCE" title="WORK EXPERIENCE" description="5년 8개월의 온라인 마케팅·운영 경험을 사용자 흐름과 데이터 문제를 이해하는 기반으로 연결했습니다." />
             <Reveal className="resume-career-bar"><div><span>TOTAL EXPERIENCE</span><strong>{profile.careerSummary[0].value}</strong></div><div><span>FIELD</span><strong>온라인 마케팅·운영</strong></div><div><span>FOCUS</span><strong>상품 데이터 · 쇼핑몰 · 콘텐츠 · 교육</strong></div></Reveal>
-            <div className="resume-timeline">{profile.workExperience.map((job, index) => <Reveal as="article" className="resume-job" delay={index * 65} key={job.role}><div className="resume-job-marker" aria-hidden="true"><i /><span>{String(index + 1).padStart(2, '0')}</span></div><div className="resume-job-period">{job.period}</div><div className="resume-job-body"><h3>{job.role}</h3><p>{job.description}</p><ul>{job.tasks.slice(0, 3).map((task) => <li key={task}>{task}</li>)}</ul><strong>{job.takeaway}</strong></div></Reveal>)}</div>
+            <div className="resume-timeline">{profile.workExperience.map((job, index) => <Reveal as="article" className="resume-job" delay={index * 65} key={job.role}><div className="resume-job-marker" aria-hidden="true"><i /><span>{String(index + 1).padStart(2, '0')}</span></div><div className="resume-job-period">{job.period}</div><div className="resume-job-body"><h3>{job.role}</h3><p>{job.description}</p><ul>{job.tasks.slice(0, 2).map((task) => <li key={task}>{task}</li>)}</ul><strong>{job.takeaway}</strong></div></Reveal>)}</div>
           </div>
         </section>
 
@@ -105,16 +104,9 @@ export default function Resume() {
           </div>
         </section>
 
-        <section className="section" aria-labelledby="resume-service-title">
-          <div className="container">
-            <SectionHeading id="resume-service-title" eyebrow="07 / SERVICE & INFRASTRUCTURE" title="SERVICE & DEPLOYMENT EXPERIENCE" description="AI 모델에서 끝내지 않고 API·데이터베이스·프론트엔드·배포 환경의 연결 상태를 점검합니다." />
-            <div className="resume-service-grid">{serviceExperience.map((step, index) => <Reveal as="article" className="resume-service-step" delay={index * 50} key={step.code}><div><span>{step.code}</span><b>{step.scope}</b></div><h3>{step.title}</h3><div className="resume-service-tags">{step.environment.map((item) => <span key={item}>{item}</span>)}</div><p>{step.contribution}</p></Reveal>)}</div>
-          </div>
-        </section>
-
         <section className="section resume-education-section" aria-labelledby="resume-education-title">
           <div className="container">
-            <SectionHeading id="resume-education-title" eyebrow="08 / EDUCATION & CERTIFICATIONS" title="EDUCATION & CERTIFICATIONS" description="교육 과정과 자격·수상 상태를 텍스트 중심으로 구분하고, 증빙은 필요할 때 새 창에서 확인할 수 있습니다." />
+            <SectionHeading id="resume-education-title" eyebrow="07 / EDUCATION & CERTIFICATIONS" title="EDUCATION & CERTIFICATIONS" description="교육 과정과 자격·수상 상태를 텍스트 중심으로 구분하고, 증빙은 필요할 때 새 창에서 확인할 수 있습니다." />
             <div className="resume-education-grid">
               <Reveal className="resume-education-column"><h3>EDUCATION & TRAINING</h3>{profile.education.map((item) => <article key={item.title}><div><span>{item.period}</span><b>{educationStatus(item.period)}</b></div><h4>{item.title}</h4><p>{item.description}</p></article>)}</Reveal>
               <Reveal className="resume-education-column" delay={80}><h3>CERTIFICATIONS</h3>{profile.certifications.map((cert) => <article key={cert.title}><div><span>{cert.date}</span><b>{certificationStatus(cert.title)}</b></div><h4>{cert.title}</h4><p>{cert.issuer}</p>{cert.image && <a href={cert.image} target="_blank" rel="noreferrer" aria-label={`${cert.title} 증빙 이미지 새 창에서 열기`}>VIEW CREDENTIAL <span>↗</span></a>}</article>)}</Reveal>
@@ -123,7 +115,7 @@ export default function Resume() {
         </section>
 
         <section className="section resume-contact-section" aria-labelledby="resume-contact-title">
-          <div className="container"><Reveal className="resume-contact-panel"><div><span className="eyebrow">09 / CONTACT</span><h2 id="resume-contact-title">AI 모델을 실제 서비스로 연결하는<br />AI Service Developer 김도하입니다.</h2><p>프로젝트 상세 구현과 역할은 각 프로젝트 페이지에서 확인할 수 있습니다.</p></div><div className="resume-contact-actions"><a className="button primary" href={`mailto:${profile.email}`}>EMAIL <span>→</span></a><a className="button secondary" href={profile.github} target="_blank" rel="noreferrer" aria-label="김도하 GitHub 새 창에서 열기">GITHUB <span>↗</span></a><Link className="button secondary" to="/projects">VIEW PROJECTS <span>→</span></Link><PrintButton className="button secondary" /><a className="resume-notion-link" href={profile.notion} target="_blank" rel="noreferrer" aria-label="김도하 학습 기록 Notion 새 창에서 열기">NOTION LEARNING LOG ↗</a></div></Reveal></div>
+          <div className="container"><Reveal className="resume-contact-panel"><div><span className="eyebrow">08 / CONTACT</span><h2 id="resume-contact-title">AI 모델을 실제 서비스로 연결하는<br />AI Service Developer 김도하입니다.</h2><p>프로젝트 상세 구현과 역할은 각 프로젝트 페이지에서 확인할 수 있습니다.</p></div><div className="resume-contact-actions"><a className="button primary" href={`mailto:${profile.email}`}>EMAIL <span>→</span></a><a className="button secondary" href={profile.github} target="_blank" rel="noreferrer" aria-label="김도하 GitHub 새 창에서 열기">GITHUB <span>↗</span></a><Link className="button secondary" to="/projects">VIEW PROJECTS <span>→</span></Link><PrintButton className="button secondary" /><a className="resume-notion-link" href={profile.notion} target="_blank" rel="noreferrer" aria-label="김도하 학습 기록 Notion 새 창에서 열기">NOTION LEARNING LOG ↗</a></div></Reveal></div>
         </section>
       </div>
 

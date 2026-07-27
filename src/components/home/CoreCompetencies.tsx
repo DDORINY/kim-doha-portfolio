@@ -86,6 +86,7 @@ function DetectionPreview() {
           src="/images/staccato-11-cctv-bbox.png"
           alt="STACCATO CCTV 관제 화면의 차량 객체 탐지 결과"
           loading="lazy"
+          decoding="async"
         />
         <span className="detection-image-badge">YOLO11s · CVAT BALANCED</span>
       </figure>

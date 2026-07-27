@@ -29,9 +29,9 @@ export const sideProjectListingMeta: Record<string, { proof: string; currentStat
 
 export const projectListingMeta: Record<Project['slug'], ProjectListingMeta> = {
   staccato: {
-    what: 'YOLOv11 기반 CCTV 차량 탐지 결과를 Flask API, MySQL, Socket.IO 관제 화면으로 연결한 AI 관제 MVP',
-    role: '프론트엔드 MVP 정리, Flask API 연동 검증, BBOX metadata 확인, 4개 VM 연결·운영 점검',
-    evidence: ['AI·Flask·Frontend·DB 4개 VM 연동', '주요 화면 8개 이상 QA', '탐지·DB 저장·실시간 알림·리플레이 연결'],
+    what: 'YOLO11 기반 CCTV 차량 탐지 결과를 Flask API, MySQL, Socket.IO 관제 화면으로 연결한 AI 관제 MVP',
+    role: 'Keras·YOLO·RT-DETR 모델 실험 및 비교, 프론트엔드 MVP, Flask API 일부 개발, BBOX 연동, 4개 VM 통합·QA',
+    evidence: ['20,000장 데이터셋', 'mAP50 0.9290 · F1 0.8932', 'AI·Backend·DB·Frontend 4개 VM 통합'],
     maturity: 'completed',
   },
   erp: {

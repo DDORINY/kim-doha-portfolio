@@ -15,8 +15,8 @@ export default function HeroSection() {
             <span className="hero-title-line hero-title-accent">DEVELOPER</span>
           </h1>
           <p className="home-hero-description">
-            객체탐지 모델과 LLM을 실제 서비스에 연결하고,<br />
-            Python 기반 API부터 데이터베이스와 배포까지 구현하는<br />
+            객체탐지 모델과 LLM을 만드는 데서 끝내지 않고,<br />
+            Python API·데이터베이스·배포까지 연결해 실제 서비스를 구현하는<br />
             AI 서비스 개발자 김도하입니다.
           </p>
           <div className="home-hero-tech" aria-label="핵심 기술">

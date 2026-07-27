@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <header className="site-header">
         <div className="container header-inner">
           <Link className="brand" to="/" onClick={() => setOpen(false)}>
-            <img src="/images/LOGO-header.png" alt="DOHA 홈으로 이동" />
+            <img src="/images/LOGO-header.png" alt="DOHA 홈으로 이동" decoding="async" />
           </Link>
           <div className="header-actions">
             <nav className={open ? 'nav open' : 'nav'} aria-label="주요 메뉴">

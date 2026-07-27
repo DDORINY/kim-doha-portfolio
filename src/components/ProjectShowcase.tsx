@@ -21,9 +21,9 @@ export default function ProjectShowcase() {
   return (
     <div className="hero-backdrop" onMouseEnter={() => (pausedRef.current = true)} onMouseLeave={() => (pausedRef.current = false)}>
       <div className="hero-backdrop-track" style={{ transform: `translateX(-${index * 100}%)` }}>
-        {heroImages.map((image) => (
+        {heroImages.map((image, imageIndex) => (
           <div className="hero-backdrop-slide" key={image.src}>
-            <img src={image.src} alt={image.alt} loading="lazy" />
+            <img src={image.src} alt={image.alt} loading={imageIndex === 0 ? 'eager' : 'lazy'} fetchPriority={imageIndex === 0 ? 'high' : 'auto'} decoding="async" />
           </div>
         ))}
       </div>

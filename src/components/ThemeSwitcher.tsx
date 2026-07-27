@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 const themes = [
   { key: 'dark', label: '다크', swatch: 'linear-gradient(135deg, #0a0e19 50%, #8c83ff 50%)' },
-  { key: 'white', label: '화이트', swatch: 'linear-gradient(135deg, #ffffff 50%, #6c63ff 50%)' },
-  { key: 'pink', label: '핑크', swatch: 'linear-gradient(135deg, #fff2f7 50%, #ec4899 50%)' },
-  { key: 'green', label: '그린', swatch: 'linear-gradient(135deg, #f1faf4 50%, #1ea36b 50%)' },
+  { key: 'white', label: '화이트', swatch: 'linear-gradient(135deg, #ffffff 50%, #5d54e8 50%)' },
+  { key: 'pink', label: '핑크', swatch: 'linear-gradient(135deg, #fff2f7 50%, #c42f78 50%)' },
+  { key: 'green', label: '그린', swatch: 'linear-gradient(135deg, #f1faf4 50%, #167a50 50%)' },
   { key: 'blue', label: '블루', swatch: 'linear-gradient(135deg, #f1f6ff 50%, #2f6fed 50%)' },
 ] as const
 
