@@ -114,8 +114,8 @@ function ExperienceCard({ item, index }: { item: VisionProjectView; index: numbe
         </dl>
         <div className="cv-card-actions">
           <Link to={`/projects/${project.slug}`}>DETAIL <span>→</span></Link>
-          {project.github.url && <a href={project.github.url} target="_blank" rel="noreferrer">GITHUB <span>↗</span></a>}
-          {project.deploy.url && <a href={project.deploy.url} target="_blank" rel="noreferrer">LIVE <span>↗</span></a>}
+          {project.slug === 'staccato' && project.github.url && <a href={project.github.url} target="_blank" rel="noreferrer">GITHUB <span>↗</span></a>}
+          {project.slug === '404rnf' && project.deploy.url && <a href={project.deploy.url} target="_blank" rel="noreferrer">LIVE <span>↗</span></a>}
         </div>
       </div>
       {item.image ? (
