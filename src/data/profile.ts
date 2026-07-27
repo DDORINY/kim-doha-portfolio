@@ -44,7 +44,7 @@ export const profile = {
     '객체 탐지 모델을 훈련하는 과정에서는 데이터의 중요성을 직접 체감했습니다. 미니 프로젝트와 파이널 프로젝트 모두에서 직접 데이터를 수집하고 라벨링을 진행했으며, 중간 학습 결과를 확인하면서 부족한 클래스의 데이터를 추가로 확보하고 문제가 되는 데이터는 제거하는 방식으로 데이터셋을 개선했습니다. 특히 파이널 프로젝트에서는 AI허브 데이터 약 2만 장, 직접 수집한 데이터 약 2천 장, 그리고 두 데이터를 결합해 클래스 밸런스를 조정한 데이터셋까지 총 3가지 데이터셋을 구성해 훈련 결과를 비교했습니다.',
     '모델 실험에서는 YOLOv8부터 YOLO11까지 다양한 버전을 적용했고, RT-DETR 모델도 함께 훈련하며 객체 탐지 성능을 비교했습니다. 이 과정에서 옵티마이저, 이미지 해상도, 사전 학습 가중치 등 학습 조건을 바꿔가며 결과 차이를 확인했고, GPU와 CPU 환경 차이에 따른 실행 및 학습 환경도 비교했습니다. 또한 Keras를 활용해 직접 구성한 모델 구조와 YOLO 기반 구조를 실험해보며, Keras는 구조를 이해하고 실험하는 데에는 도움이 되었지만 실제 객체 탐지 서비스에 적용하기에는 구현과 성능 측면에서 어려움이 크다는 점을 경험했습니다.',
     '미니 프로젝트가 객체를 탐지하고 바운딩 박스로 표시하는 수준이었다면, 파이널 프로젝트에서는 탐지 결과를 후처리해 실제 서비스 이벤트로 연결하는 데 집중했습니다. 탐지된 객체를 추적하고, 일정 시간 동안 움직임이 없을 경우 정차 이벤트를 발생시키는 로직을 구현했으며, ROI 구역을 지정해 해당 영역 안에 차량이 정차하는 경우 별도의 이벤트가 발생하도록 구성했습니다. 이를 통해 객체 탐지는 모델 결과를 출력하는 것에서 끝나는 것이 아니라, 서비스 목적에 맞는 후처리와 판단 로직이 결합되어야 실제 사용자에게 의미 있는 기능이 된다는 점을 배웠습니다.',
-    '또한 서비스 운영 안정성을 높이기 위해 보안 점검과 패치에도 참여했습니다. 위험 가능성이 있는 API 접근, 내부 서비스 노출, 인증·권한 검증 흐름을 점검하고 개선 방향을 정리했으며, 현재는 일일 점검 체크리스트를 통해 서버 연결 상태, API 응답, DB 연동, AI 서버 상태 등을 확인하고 있습니다. 이 경험을 통해 AI 개발자는 모델 성능뿐 아니라 데이터 품질, 서비스 연결 구조, 보안, 운영 안정성까지 함께 고려해야 한다는 점을 배웠습니다.',
+    '또한 프론트엔드 MVP와 Flask API 일부를 개발하고 객체 탐지 결과의 BBOX metadata를 서비스 화면에 연결했습니다. AI·Backend·DB·Frontend 4개 VM의 데이터 흐름을 통합하고 QA와 통합 테스트를 수행하면서, AI 개발자는 모델 성능뿐 아니라 데이터 품질과 서비스 연결 구조, 운영 안정성까지 함께 고려해야 한다는 점을 배웠습니다.',
     '프로젝트를 진행하며 서버 연결 오류, API 응답 문제, DB 연동 문제, 배포 환경 차이 등 여러 이슈를 마주했습니다. 처음에는 오류 메시지를 단순히 해결해야 할 문제로만 봤지만, 점차 로그를 확인하고 요청 흐름을 따라가며 원인을 좁혀가는 방식으로 접근하게 되었습니다. 이를 통해 문제 해결은 감으로 판단하는 것이 아니라, 데이터와 흐름을 근거로 원인을 검증하는 과정이라는 점을 배웠습니다.',
     '또한 운영·마케팅 업무 경험을 바탕으로, 실제 현장에서는 반복적인 확인 작업과 수작업 관리가 많다는 것을 알고 있었습니다. 부트캠프 프로젝트를 거치며 이러한 운영 문제를 개발로 자동화할 수 있다는 가능성을 확인했고, 단순한 기능 구현보다 사용자의 업무 흐름을 개선하는 서비스 개발에 더 큰 관심을 갖게 되었습니다.',
     '저는 앞으로도 AI를 단순히 기능으로 붙이는 개발자가 아니라, 실제 문제를 이해하고 이를 서비스 구조 안에서 안정적으로 연결하는 개발자로 성장하고 싶습니다. Python, Flask, Spring Boot, Next.js 기반의 프로젝트 경험을 바탕으로 운영 문제를 발견하고, 데이터를 연결하며, 사용자가 체감할 수 있는 AI 연동 서비스를 만드는 SW 개발자가 되겠습니다.',
@@ -52,7 +52,7 @@ export const profile = {
   /** 이력서 본문용 3문단 압축 자기소개 (상세 내용은 about 전체 배열 · AI Learning 페이지 참고) */
   aboutShort: [
     '온라인 마케팅·운영 직무에서 5년 8개월간 반복적인 확인 작업과 수작업 관리를 겪으며 데이터 기반 자동화의 필요성을 느꼈고, 컴퓨터공학 전공과 AI/데이터 분석 부트캠프를 거쳐 AI 개발자로 전환을 준비했습니다.',
-    '파이널 프로젝트 STACCATO에서는 Frontend·Flask API·AI·DB 서버가 분리된 구조에서 YOLO 기반 CCTV 차량 탐지 결과를 API와 DB에 저장하고 관제 화면에 실시간으로 연결했습니다. 데이터 수집·라벨링부터 YOLOv8~v11·RT-DETR 모델 비교 실험, 보안 점검과 운영 체크리스트 작성까지 AI 결과를 실제 서비스로 완성하는 과정을 경험했습니다.',
+    '파이널 프로젝트 STACCATO에서는 Keras 객체 탐지 실험과 YOLO·RT-DETR 학습·성능 비교에 참여하고, 프론트엔드 MVP와 Flask API 일부를 개발했습니다. BBOX metadata를 서비스에 연결하고 AI·Backend·DB·Frontend 4개 VM 통합과 QA를 수행하며 AI 결과를 실제 서비스로 완성하는 과정을 경험했습니다.',
     '입사 후에는 AI 모델을 기능으로 붙이는 데 그치지 않고, 운영 문제를 이해하고 데이터를 연결해 사용자가 체감할 수 있는 AI 연동 서비스를 안정적으로 만드는 개발자로 기여하고 싶습니다.',
   ],
   desiredRoles: ['AI 서비스 개발자', 'Python·Flask/FastAPI 백엔드 개발자', 'Computer Vision·객체탐지 서비스 개발자'],
@@ -364,9 +364,9 @@ export const learningProjectMap = [
   { title: 'Keras / CNN', learning: '이미지 분류와 딥러닝 학습 흐름 이해', project: 'STACCATO', applied: 'YOLO 탐지 결과를 사용하기 전 Keras로 직접 CNN을 학습시켜 입력 → 출력 → confidence로 이어지는 흐름을 확인' },
   { title: 'OpenCV / Computer Vision', learning: 'CCTV 영상과 이미지 처리 흐름 이해', project: 'STACCATO', applied: 'CCTV 프레임 크기와 bbox 좌표를 percentage로 변환해 관제 화면에 BBOX overlay를 정확한 위치에 표시' },
   { title: 'YOLO / Object Detection', learning: '객체 탐지 모델과 confidence, bbox 결과 이해', project: 'STACCATO, 404 R·N·F AI', applied: 'STACCATO 정차 차량 탐지(YOLO11), 404RNF 낙하물 탐지(YOLOv8·RT-DETR)에서 confidence·bbox 기준 이벤트 판단 로직 구현' },
-  { title: 'Flask / FastAPI API Integration', learning: 'AI 모델 결과를 API 응답으로 전달하는 구조 학습', project: 'STACCATO, 404 R·N·F AI', applied: 'AI VM(FastAPI) → Flask VM(API Gateway) → MySQL 저장 → Socket.IO 알림까지 이어지는 API 계약을 설계하고 pytest로 검증' },
-  { title: 'Database / Metadata', learning: '탐지 결과, 신고, 이벤트 metadata 저장 구조 이해', project: 'STACCATO, CommerceOps ERP', applied: '탐지 로그·신고·알림·주문 데이터를 MySQL 테이블로 설계하고 SQLAlchemy Repository 계층으로 접근을 분리' },
-  { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'STACCATO, AI Developer Portfolio Hub', applied: 'STACCATO는 4개 VM의 SSH 접속·방화벽·health check 점검, 포트폴리오 허브는 GitHub Pages + 커스텀 도메인 배포 파이프라인 구축' },
+  { title: 'Flask / FastAPI API Integration', learning: 'AI 모델 결과를 API 응답으로 전달하는 구조 학습', project: 'STACCATO, 404 R·N·F AI', applied: 'STACCATO에서 Flask API 일부 개발과 AI 연동, BBOX metadata 데이터 흐름 검증 및 통합 QA 수행' },
+  { title: 'Database / Metadata', learning: '탐지 결과, 신고, 이벤트 metadata 저장 구조 이해', project: 'STACCATO, CommerceOps ERP', applied: 'STACCATO의 BBOX metadata 저장·조회 연동을 검증하고 CommerceOps ERP의 운영 데이터 스키마를 설계' },
+  { title: 'Linux / Deployment', learning: 'Linux, VM, 배포, health check, DNS/도메인 설정 경험', project: 'STACCATO, AI Developer Portfolio Hub', applied: 'STACCATO는 AI·Backend·DB·Frontend 4개 VM 통합과 QA, 포트폴리오 허브는 GitHub Pages + 커스텀 도메인 배포 파이프라인 구축' },
 ]
 
 type FaqRelatedLink = { label: string; to?: string; url?: string }

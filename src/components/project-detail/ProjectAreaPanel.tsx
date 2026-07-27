@@ -23,11 +23,17 @@ export default function ProjectAreaPanel({ area }: { area: ProjectArea }) {
         </div>
       </ProjectAreaSection>
 
-      <ProjectAreaSection index={3} title="담당 구현 범위">
+      <ProjectAreaSection index={3} title="담당 역할">
         <ul className="check-list">{area.responsibilities.map((item) => <li key={item}>{item}</li>)}</ul>
       </ProjectAreaSection>
 
-      <ProjectAreaSection index={4} title="핵심 구조">
+      <ProjectAreaSection index={4} title="핵심 기능">
+        <div className="feature-grid">
+          {area.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}
+        </div>
+      </ProjectAreaSection>
+
+      <ProjectAreaSection index={5} title="구현 포인트">
         <div className="architecture-diagram project-area-architecture">
           {area.architecture.map((node, index) => (
             <div className="architecture-node" key={node.label}>
@@ -36,34 +42,25 @@ export default function ProjectAreaPanel({ area }: { area: ProjectArea }) {
             </div>
           ))}
         </div>
-      </ProjectAreaSection>
-
-      <ProjectAreaSection index={5} title="주요 기능">
-        <div className="feature-grid">
-          {area.features.map((item, index) => <div key={item}><span>0{index + 1}</span><h3>{item}</h3></div>)}
-        </div>
-      </ProjectAreaSection>
-
-      <ProjectAreaSection index={6} title="구현 포인트">
         <ul className="check-list">{area.implementationPoints.map((item) => <li key={item}>{item}</li>)}</ul>
       </ProjectAreaSection>
 
-      <ProjectAreaSection index={7} title="문제 해결">
+      <ProjectAreaSection index={6} title="문제 해결">
         <div className="trouble-list project-area-trouble-list">
           {area.troubleshooting.map((item) => (
             <div className="trouble-card" key={item.title}>
               <h3>{item.title}</h3>
               <dl>
-                <div><dt>Problem</dt><dd>{item.problem}</dd></div>
-                <div><dt>Cause & Fix</dt><dd>{item.solution}</dd></div>
-                <div><dt>Result</dt><dd>{item.result}</dd></div>
+                <div><dt>문제</dt><dd>{item.problem}</dd></div>
+                <div><dt>원인과 해결</dt><dd>{item.solution}</dd></div>
+                <div><dt>결과</dt><dd>{item.result}</dd></div>
               </dl>
             </div>
           ))}
         </div>
       </ProjectAreaSection>
 
-      <ProjectAreaSection index={8} title="구현 증거">
+      <ProjectAreaSection index={7} title="구현 증거">
         <div className="evidence-grid project-area-evidence-grid">
           {area.evidence.map((item) => (
             <div className="evidence-card" key={item.label}>

@@ -26,6 +26,13 @@ export const sideProjects: SideProject[] = [
     name: 'AI Developer Portfolio Hub',
     description: '프로젝트·이력서·학습 기록을 데이터 기반 구조로 통합한 개인 포트폴리오 사이트 (지금 보고 계신 이 사이트입니다)',
     note: 'AI 개발자로 전환하는 과정을 보여주기 위해 React + Vite + TypeScript로 직접 설계·구현했습니다. 프로젝트·프로필 정보를 데이터 파일로 분리해, 새 프로젝트를 추가할 때 화면 코드를 건드리지 않고도 카드·상세·이력서에 동시에 반영되도록 만들었습니다.',
+    role: [
+      'React·Vite·TypeScript 기반 포트폴리오 UI 설계 및 구현',
+      '프로젝트·프로필 데이터를 화면 코드와 분리해 카드·상세·이력서에서 재사용',
+      'HashRouter·GitHub Pages·custom domain 배포 구성',
+    ],
+    features: ['프로젝트·이력서·학습 기록 통합', '데이터 기반 카드·상세페이지 구성', 'HashRouter 기반 페이지 라우팅', '다크모드와 반응형 UI'],
+    retrospective: '프로젝트 정보를 데이터로 분리하면서 같은 내용을 여러 화면에서 일관되게 재사용하는 구조의 중요성을 확인했습니다. HashRouter와 GitHub Pages, custom domain을 연결하며 구현 이후의 라우팅과 배포 검증까지 서비스 품질의 일부라는 점을 배웠습니다.',
     image: '/images/portfolio-hub-01.png',
     url: 'https://ddoriny.com/',
     github: 'https://github.com/DDORINY/kim-doha-portfolio',

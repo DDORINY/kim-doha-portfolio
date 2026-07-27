@@ -141,7 +141,6 @@ export const projects: Project[] = [
       { title: 'Socket.IO 알림과 DB 저장 순서 정합성', situation: 'AI 이벤트 발생 시 DB 저장과 실시간 알림을 동시에 처리하면, DB 저장이 실패해도 관제 화면에는 이벤트가 표시되는 정합성 문제가 있었습니다.', solution: 'DB 저장이 완료된 이후에만 Socket.IO emit이 수행되도록 순서를 강제해 데이터 정합성을 확보했습니다.', result: '저장되지 않은 이벤트가 관제 화면에 노출되는 문제를 방지했습니다.' },
       { title: 'HTTPS 환경에서 AI 영상 접근 경로 문제', situation: 'HTTPS로 전환한 뒤 브라우저가 AI VM의 주소를 직접 호출하면서 스냅샷·영상 미리보기가 차단되는 문제가 발생했습니다.', solution: '/ai-media 프록시 경로를 통해 Frontend·Flask VM을 경유하도록 구조를 변경하고, API 응답의 media URL을 HTTPS 경로로 변환했습니다.', result: 'HTTPS 환경에서도 스냅샷과 영상 재생이 정상적으로 동작하도록 안정화했습니다.' },
       { title: 'API 응답 계약 검증', situation: 'Flask API와 프론트엔드·DB 간 데이터 구조가 어긋나면 관제 화면이 깨질 위험이 있었습니다.', solution: 'pytest 기반으로 API 응답 스키마와 분석 상태(QUEUED·RUNNING·COMPLETED·FAILED) 전이를 검증하는 테스트를 작성했습니다.', result: '연동 안정성을 높이고 배포 전 문제를 조기에 발견할 수 있었습니다.' },
-      { title: 'GPU 실행 환경 구성과 인프라 연결 점검', situation: 'AI VM에서 객체탐지 모델을 실행하려면 GPU 드라이버와 실행 환경이 서버 조건에 맞게 구성돼야 했고, VM 간 방화벽·DB 연결 상태도 확인이 필요했습니다.', solution: 'SSH로 각 VM에 접속해 방화벽 포트를 열고 MySQL 연결을 설정했으며, GPU 드라이버와 관련 실행 환경을 구성해 모델이 서버에서 정상 동작하도록 조정했습니다.', result: '로컬 개발 환경과 서버 환경의 차이로 인한 실행 문제를 해결하고 안정적으로 서비스를 구동할 수 있었습니다.' },
       { title: '최종 MVP 범위 정리', situation: '개발 과정에서 Map API, GPS 기반 위치 표시, LLM/Chatbot, Docker Compose 배포, 강화학습 기반 자동 재학습 등 다양한 아이디어가 논의되었지만, 발표 일정 안에 안정적으로 구현·검증 가능한 범위를 정할 필요가 있었습니다.', solution: '핵심 흐름(CCTV 관제, AI 탐지, API Gateway, DB 저장, 실시간 알림, 스냅샷·영상 replay)에 집중하고, 나머지 기능은 최종 MVP 범위에서 제외하기로 팀과 합의했습니다.', result: '한정된 기간 안에 안정적으로 동작하는 MVP를 완성하고, 발표와 시연 범위를 명확히 할 수 있었습니다.' },
     ],
     extraSections: [
@@ -202,7 +201,7 @@ export const projects: Project[] = [
     aiPipelineNote: 'YOLO로 탐지한 차량을 ByteTrack으로 프레임 간 추적하고, bbox 하단 중심점(bottom_center)의 위치 변화를 ROI 기준으로 분석해 갓길 정차·급감속 같은 위험 상황을 이벤트로 생성합니다.',
     aiPipelineImage: { src: '/images/staccato-13-detection-stopped-vehicle-2.png', alt: 'STACCATO 정차 차량 객체 탐지 결과', caption: '실제 탐지 결과 · STOPPED_VEHICLE 3.0s 지속 판단, confidence 0.86·0.89' },
     modelExperiments: [
-      { model: 'RT-DETR-L', precision: '0.8989', recall: '0.8558', f1: '0.8768', map50: '0.9107', map5095: '0.7681', note: '정확도 최고' },
+      { model: 'RT-DETR-L', precision: '0.8989', recall: '0.8558', f1: '0.8768', map50: '0.9107', map5095: '0.7681', note: 'mAP50-95 최고' },
       { model: 'YOLO11s 640 stage2', precision: '0.8850', recall: '0.8456', f1: '0.8648', map50: '0.9089', map5095: '0.7587', note: '경량·실시간 후보' },
       { model: 'YOLO11s CVAT balanced', precision: '0.9210', recall: '0.8670', f1: '0.8932', map50: '0.9290', map5095: '0.7680', note: '최종 선정 모델' },
       { model: 'YOLO11n stage2', precision: '0.8839', recall: '0.8246', f1: '0.8532', map50: '0.8949', map5095: '0.7329', note: '경량 후보' },
@@ -210,14 +209,12 @@ export const projects: Project[] = [
     ],
     modelEvidenceNote: '최종 적용 모델은 YOLO11s CVAT balanced입니다. RT-DETR-L은 mAP50-95 기준으로 높은 성능을 보였지만, 실시간 CCTV 스트림 처리, ByteTrack 추적, ROI 기반 이벤트 판단, 관제 화면 연동까지 고려했을 때 YOLO11s CVAT balanced가 가장 안정적인 균형을 보였습니다.',
     datasetSummary: {
-      title: 'YOLO11s CVAT balanced Dataset',
+      title: '최종 20,000장 Balanced Dataset',
       items: [
-        '20,000 images',
+        'AIHub 및 직접 수집 데이터를 활용해 car·truck·bus 3개 클래스로 재구성',
         'train 16,000 · val 2,000 · test 2,000 (80% · 10% · 10%)',
-        'car / truck / bus 3-class relabeling',
-        'highway CCTV vehicle detection',
-        'balanced dataset for real-time detection',
-        'connected with ByteTrack, bottom_center, ROI event logic',
+        'YOLO11s CVAT balanced 모델 학습·평가에 사용',
+        'ByteTrack · bottom_center · ROI 이벤트 로직 연동',
       ],
     },
     operationChecks: [
@@ -243,9 +240,9 @@ export const projects: Project[] = [
         ],
         responsibilities: [
           '프론트엔드 MVP 화면 정리 및 관제 UI(CCTV 스트림·BBOX overlay·이벤트 목록) 구성',
-          'Flask API 연동 점검 및 프론트-백엔드 데이터 흐름 확인',
-          '이벤트 상세 화면(스냅샷·탐지 정보·MP4 replay) 확인 흐름 점검',
-          'AI 탐지 결과가 BBOX overlay로 정확히 표시되도록 metadata(bbox·frame 크기) 구조 검토',
+          'Flask API 일부 개발 및 AI 연동',
+          '객체 탐지 결과(BBOX Metadata) 서비스 연동',
+          'QA 및 통합 테스트',
         ],
         features: [
           'CCTV 스트림 · BBOX overlay · 이벤트 목록 확인 (관제 화면)',
@@ -293,10 +290,9 @@ export const projects: Project[] = [
           { label: 'MySQL', description: 'SQLAlchemy 모델 기반 영속 저장' },
         ],
         responsibilities: [
-          'Flask API 연동 점검 및 프론트-백엔드 데이터 흐름 확인',
-          'AI 이벤트 수신(AI Gateway) 및 DB 저장 연동 점검',
-          'HTTPS/Nginx 리버스 프록시, Socket.IO, AI media proxy 연결 구조 점검',
-          'pytest 기반 API 응답 계약 테스트 작성 및 검증',
+          'Flask API 일부 개발 및 AI 연동',
+          '객체 탐지 결과(BBOX Metadata)의 API·DB 데이터 흐름 검증',
+          'pytest 기반 API 응답 계약 검증을 포함한 QA 및 통합 테스트',
         ],
         features: [
           'Flask API Gateway를 통한 AI 이벤트 수신 및 DB 저장',
@@ -345,9 +341,11 @@ export const projects: Project[] = [
           { label: 'Relay Client', description: 'Flask VM으로 이벤트 payload 전달' },
         ],
         responsibilities: [
-          'AI 탐지 결과가 BBOX overlay로 정확히 표시되도록 metadata(bbox·frame 크기) 구조 검토',
           'Keras 기반 AI 모델 실험 수행 (데이터 전처리, 모델 학습, 예측 결과 확인)',
-          'GPU 실행 환경 구성과 인프라 연결 점검',
+          'YOLO 계열 모델 및 RT-DETR 모델 학습',
+          'Precision·Recall·F1·mAP 기반 모델 성능 비교',
+          '최종 모델 선정 과정 참여',
+          '객체 탐지 결과(BBOX Metadata) 서비스 연동',
         ],
         features: [
           'YOLO11 기반 차량 탐지',
@@ -396,9 +394,9 @@ export const projects: Project[] = [
           { label: 'Migration', description: 'Flask-Migrate 기반 스키마 변경 이력 관리' },
         ],
         responsibilities: [
-          'MySQL 기반 사고·탐지 로그·알림·파일 metadata 저장 구조 점검',
-          'DB 연결 상태 점검 및 SSH 기반 방화벽·포트 설정',
-          '보안 로그, DB 연결 상태 등 운영 점검 문서화',
+          'AI·Backend·DB·Frontend 4개 VM 통합 과정에서 DB 연결과 데이터 흐름 검증',
+          '객체 탐지 결과(BBOX Metadata)의 저장·조회 연동 확인',
+          'QA 및 통합 테스트',
         ],
         features: [
           'MySQL 기반 사고·탐지 로그·알림·파일 metadata 저장',
@@ -437,10 +435,9 @@ export const projects: Project[] = [
           { label: 'DB VM', description: 'MySQL 직접 설치, 스키마 import' },
         ],
         responsibilities: [
-          'Frontend VM·Flask VM·AI VM·DB VM 간 연결 상태 점검 및 문제 해결',
-          'HTTPS/Nginx 리버스 프록시 연결 구조 점검',
-          'SSH 기반 원격 서버 접속, 방화벽 포트 및 환경변수 설정',
-          'VM별 역할 분리, 배포 기준, 점검 체크리스트 정리',
+          'AI·Backend·DB·Frontend 4개 VM 통합',
+          'VM 간 객체 탐지 결과와 서비스 데이터 흐름 검증',
+          'QA 및 통합 테스트',
         ],
         features: [
           'VM 4대 분리 운영 (Frontend·Flask·AI·DB)',
@@ -463,18 +460,12 @@ export const projects: Project[] = [
             solution: '서비스를 역할별 VM으로 구분하고 요청·응답과 데이터 저장 흐름을 다이어그램 및 체크리스트로 정리했습니다.',
             result: '시연 전 검증 순서와 문제 추적 경로가 명확해졌습니다.',
           },
-          {
-            title: 'GPU 실행 환경 구성과 인프라 연결 점검',
-            problem: 'AI VM에서 객체탐지 모델을 실행하려면 GPU 드라이버와 실행 환경이 서버 조건에 맞게 구성돼야 했고, VM 간 방화벽·DB 연결 상태도 확인이 필요했습니다.',
-            solution: 'SSH로 각 VM에 접속해 방화벽 포트를 열고 MySQL 연결을 설정했으며, GPU 드라이버와 관련 실행 환경을 구성해 모델이 서버에서 정상 동작하도록 조정했습니다.',
-            result: '로컬 개발 환경과 서버 환경의 차이로 인한 실행 문제를 해결하고 안정적으로 서비스를 구동할 수 있었습니다.',
-          },
         ],
         evidence: [
           { label: 'VM 구성', value: 'Frontend · Flask · AI · DB 4대 분리' },
           { label: '배포', value: 'Nginx HTTPS reverse proxy + systemd 서비스 제어' },
           { label: '네트워크', value: '포트 기반 접근 제한 (3306 · 5000)' },
-          { label: '점검', value: 'SSH 기반 방화벽 · 헬스체크 · GPU 환경 구성' },
+          { label: '점검', value: '4개 VM 연결 · 서비스 데이터 흐름 · 통합 QA' },
         ],
       },
     ],
