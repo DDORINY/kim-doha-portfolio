@@ -37,15 +37,18 @@ export default function FeaturedProjects() {
               <span className="section-number">FEATURED / 01</span>
               <h3>{showcaseProject.name}</h3>
               <p className="featured-tagline">{showcaseProject.tagline}</p>
-              <dl className="featured-facts">
-                <div><dt>ROLE</dt><dd>{showcaseProject.resumeHighlight?.role ?? showcaseProject.role[0]}</dd></div>
-              </dl>
-              <div className="chip-row featured-tech">
-                {(showcaseProject.techHighlights ?? showcaseProject.techStack).slice(0, 6).map((tech) => <TechChip label={tech} key={tech} />)}
-              </div>
               <dl className="featured-facts featured-result">
                 <div><dt>RESULT</dt><dd>{showcaseProject.resumeHighlight?.achievement ?? showcaseProject.retrospective}</dd></div>
               </dl>
+              <dl className="featured-facts featured-role">
+                <div><dt>ROLE</dt><dd>{showcaseProject.resumeHighlight?.role ?? showcaseProject.role[0]}</dd></div>
+              </dl>
+              <div className="featured-tech-block">
+                <span className="meta-label">TECH STACK</span>
+                <div className="chip-row featured-tech">
+                  {(showcaseProject.techHighlights ?? showcaseProject.techStack).slice(0, 6).map((tech) => <TechChip label={tech} key={tech} />)}
+                </div>
+              </div>
               <div className="featured-actions">
                 <Link className="button primary" to={`/projects/${showcaseProject.slug}`}>VIEW CASE STUDY <span>↗</span></Link>
                 {showcaseProject.deploy.url && <a className="button secondary" href={showcaseProject.deploy.url} target="_blank" rel="noreferrer">LIVE SERVICE <span>↗</span></a>}
@@ -62,25 +65,37 @@ export default function FeaturedProjects() {
               style={{ '--accent': project.accent } as CSSProperties}
               key={project.slug}
             >
-              <div className="card-topline"><span>0{index + 2}</span><span>{project.type}</span></div>
-              <h3>{project.name}</h3>
-              <p className="tagline">{project.tagline}</p>
-              <div className="card-meta">
-                <div>
-                  <span className="meta-label">ROLE</span>
-                  <p>{project.resumeHighlight?.role ?? project.role.slice(0, 2).join(' · ')}</p>
+              {project.screenshots[0] && (
+                <div className="home-project-preview">
+                  <ImageWithFallback
+                    src={project.screenshots[0].src}
+                    alt={project.screenshots[0].alt}
+                    loading="lazy"
+                    fallbackLabel={`${project.name} 프로젝트 화면`}
+                  />
                 </div>
-                <div>
-                  <span className="meta-label">CORE TECH</span>
-                  <div className="chip-row">
-                    {(project.techHighlights ?? project.techStack).slice(0, 5).map((tech) => <TechChip label={tech} key={tech} />)}
+              )}
+              <div className="home-project-card-body">
+                <div className="card-topline"><span>0{index + 2}</span><span>{project.type}</span></div>
+                <h3>{project.name}</h3>
+                <p className="tagline">{project.tagline}</p>
+                <div className="card-meta">
+                  <div>
+                    <span className="meta-label">ROLE</span>
+                    <p>{project.resumeHighlight?.role ?? project.role.slice(0, 2).join(' · ')}</p>
+                  </div>
+                  <div>
+                    <span className="meta-label">CORE TECH</span>
+                    <div className="chip-row">
+                      {(project.techHighlights ?? project.techStack).slice(0, 5).map((tech) => <TechChip label={tech} key={tech} />)}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="card-footer">
-                <Link className="text-link" to={`/projects/${project.slug}`} aria-label={`${project.name} 상세 보기`}>
-                  VIEW PROJECT <span>↗</span>
-                </Link>
+                <div className="card-footer">
+                  <Link className="text-link" to={`/projects/${project.slug}`} aria-label={`${project.name} 상세 보기`}>
+                    VIEW PROJECT <span>↗</span>
+                  </Link>
+                </div>
               </div>
             </Reveal>
           ))}
