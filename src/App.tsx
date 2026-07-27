@@ -2,7 +2,9 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Contact from './pages/Contact'
 import AILearning from './pages/AILearning'
+import ComputerVision from './pages/ComputerVision'
 import Home from './pages/Home'
+import LLM from './pages/LLM'
 import NotFound from './pages/NotFound'
 import ProjectDetail from './pages/ProjectDetail'
 import Projects from './pages/Projects'
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/side-projects/:slug" element={<SideProjectDetail />} />
+        <Route path="/computer-vision" element={<ComputerVision />} />
+        <Route path="/llm" element={<LLM />} />
         <Route path="/ai-learning" element={<AILearning />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/contact" element={<Contact />} />

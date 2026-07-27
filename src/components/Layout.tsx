@@ -1,16 +1,9 @@
 import { type ReactNode, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { navigationItems, pageTitles } from '../data/navigation'
 import { profile } from '../data/profile'
 import ScrollTopButton from './ScrollTopButton'
 import ThemeSwitcher from './ThemeSwitcher'
-
-const navItems = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/projects', label: 'Projects' },
-  { to: '/ai-learning', label: 'AI Learning' },
-  { to: '/resume', label: 'Resume' },
-  { to: '/contact', label: 'Contact' },
-]
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -22,6 +15,11 @@ export default function Layout({ children }: { children: ReactNode }) {
     else window.scrollTo(0, 0)
   }, [location.pathname, location.hash])
 
+  useEffect(() => {
+    document.title = pageTitles[location.pathname]
+      ?? (location.pathname.startsWith('/projects/') ? pageTitles['/projects'] : 'Kim DoHa | AI Service Developer')
+  }, [location.pathname])
+
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -32,9 +30,10 @@ export default function Layout({ children }: { children: ReactNode }) {
           </Link>
           <div className="header-actions">
             <nav className={open ? 'nav open' : 'nav'} aria-label="주요 메뉴">
-              {navItems.map((item) => (
-                <NavLink key={item.to} to={item.to} end={item.end} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>
-                  {item.label}
+              {navigationItems.map((item) => (
+                <NavLink key={item.path} to={item.path} end={item.path === '/'} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>
+                  {item.icon && <span aria-hidden="true">{item.icon}</span>}
+                  {item.title}
                 </NavLink>
               ))}
             </nav>
