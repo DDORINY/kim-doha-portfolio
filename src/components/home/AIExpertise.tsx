@@ -4,6 +4,13 @@ import Reveal from '../Reveal'
 import SectionHeading from '../SectionHeading'
 import { TechChip } from '../TechIcon'
 
+function ExpertiseVisual({ type }: { type: 'vision' | 'llm' }) {
+  if (type === 'vision') {
+    return <div className="expertise-visual expertise-vision" aria-hidden="true"><span className="expertise-frame"><i /><i /><small>vehicle 0.94</small></span><b>FRAME → DETECT → EVENT</b></div>
+  }
+  return <div className="expertise-visual expertise-llm" aria-hidden="true"><span>DOC</span><i /><span>PROMPT</span><i /><span>JSON</span></div>
+}
+
 export default function AIExpertise() {
   return (
     <section className="section home-expertise" aria-labelledby="ai-expertise-title">
@@ -16,10 +23,11 @@ export default function AIExpertise() {
         />
         <div className="home-expertise-grid">
           {aiExpertiseAreas.map((area, index) => (
-            <Reveal as="article" className="home-expertise-card" delay={index * 70} key={area.title}>
+            <Reveal as="article" className={`home-expertise-card expertise-side-${index + 1}`} delay={index * 70} key={area.title}>
               <span className="section-number">0{index + 1}</span>
               <h3>{area.title}</h3>
               <p>{area.description}</p>
+              <ExpertiseVisual type={index === 0 ? 'vision' : 'llm'} />
               <div className="chip-row">
                 {area.keywords.map((keyword) => <TechChip label={keyword} key={keyword} />)}
               </div>

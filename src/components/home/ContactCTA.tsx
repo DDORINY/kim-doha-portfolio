@@ -11,7 +11,7 @@ export default function ContactCTA() {
             <h2 id="contact-cta-title">LET'S BUILD AI SERVICES</h2>
             <p>AI 서비스 개발, Python 백엔드, Computer Vision과<br />LLM 애플리케이션 직무를 목표로 하고 있습니다.</p>
           </div>
-          <Link className="button light" to="/contact">CONTACT ME</Link>
+          <Link className="button light cta-arrow-button" to="/contact">CONTACT ME <span aria-hidden="true">→</span></Link>
         </Reveal>
       </div>
     </section>

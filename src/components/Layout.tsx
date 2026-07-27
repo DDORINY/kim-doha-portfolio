@@ -44,7 +44,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <main key={location.pathname}>{children}</main>
+      <main key={location.pathname} className={location.pathname === '/' ? 'home-main' : undefined}>{children}</main>
       <footer className="site-footer">
         <div className="container footer-inner">
           <p>© {new Date().getFullYear()} {profile.name}. AI Developer Portfolio.</p>
