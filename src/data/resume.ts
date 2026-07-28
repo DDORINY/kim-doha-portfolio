@@ -13,6 +13,12 @@ export const resumeMetrics = [
   { value: 'COMPUTER VISION', label: 'MODEL TO SERVICE', description: 'YOLO 학습·평가·서비스 연동' },
 ] as const
 
+export const resumeProfileSummary = [
+  profile.intro,
+  `지원 직무: ${profile.positioning.statement}`,
+  profile.careerSummary.find((item) => item.label === '핵심 강점')!.value,
+] as const
+
 export const resumeCompetencies = [
   {
     id: 'model',
@@ -74,12 +80,12 @@ const erp = representativeResumeProjects.find((project) => project.slug === 'erp
 
 export const serviceExperience = [
   {
-    code: '01', title: 'Model Result', scope: 'PROJECT ENVIRONMENT',
-    environment: (staccato.highlights ?? []).slice(0, 3), contribution: staccato.role.find((item) => item.includes('metadata'))!,
+    code: '01', title: 'Model Development', scope: 'MY CONTRIBUTION',
+    environment: selectSkills(['Python', 'YOLO', 'OpenCV', 'Keras']), contribution: staccato.role.slice(0, 3).join(' · '),
   },
   {
     code: '02', title: 'API Integration', scope: 'MY CONTRIBUTION',
-    environment: selectSkills(['Flask', 'FastAPI', 'REST API', 'Socket.IO']), contribution: staccato.role.find((item) => item.includes('Flask API 연동'))!,
+    environment: selectSkills(['Flask', 'FastAPI', 'REST API', 'Socket.IO']), contribution: staccato.role.find((item) => item.includes('Flask API 일부'))!,
   },
   {
     code: '03', title: 'Database', scope: 'MY CONTRIBUTION',
@@ -90,7 +96,7 @@ export const serviceExperience = [
     environment: selectSkills(['Docker', 'Linux', 'Nginx', 'AWS EC2']), contribution: erp.resumeHighlight!.achievement,
   },
   {
-    code: '05', title: 'Operation Check', scope: 'MY CONTRIBUTION',
+    code: '05', title: 'Monitoring', scope: 'MY CONTRIBUTION',
     environment: profile.infra.categories[3].items, contribution: '서버·API·DB 연결 상태와 주요 사용자 흐름을 배포 후 점검하고 운영 기준을 문서화했습니다.',
   },
 ] as const
