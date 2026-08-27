@@ -217,10 +217,10 @@ export default function Resume() {
 
         <section className="section resume-skills-section" aria-labelledby="resume-skills-title">
           <div className="container">
-            <SectionHeading id="resume-skills-title" eyebrow="06 / TECHNICAL SKILLS" title="TECHNICAL SKILLS" description="지원 직무에서 빠르게 확인할 수 있도록 4개 기술 영역과 실제 프로젝트 사용 기술만 선별했습니다." />
+            <SectionHeading id="resume-skills-title" eyebrow="06 / TECHNICAL SKILLS" title="TECHNICAL SKILLS" description="LLM, AI Backend, Computer Vision과 실제 서비스 구현에 사용한 기술을 역할별로 정리했습니다." />
             <div className="resume-skill-grid">
               {resumeSkillGroups.map((group, index) => (
-                <Reveal as="article" className="resume-skill-group" delay={index * 55} key={group.label}>
+                <Reveal as="article" className={`resume-skill-group${group.featured ? ' is-featured' : ''}`} delay={index * 55} key={group.label}>
                   <span>{group.label}</span>
                   <h3>{group.description}</h3>
                   <div className="chip-row">
@@ -236,7 +236,7 @@ export default function Resume() {
 
         <section className="section resume-service-section" aria-labelledby="resume-service-title">
           <div className="container">
-            <SectionHeading id="resume-service-title" eyebrow="07 / SERVICE & INFRASTRUCTURE" title="SERVICE & DEPLOYMENT EXPERIENCE" description="AI 모델을 학습하는 데서 끝내지 않고, API·데이터베이스·프론트엔드·배포 환경까지 실제 담당 범위 안에서 연결합니다." />
+            <SectionHeading id="resume-service-title" eyebrow="07 / SERVICE & INFRASTRUCTURE" title="SERVICE & DEPLOYMENT EXPERIENCE" description="LLM/CV 모델을 추론 Runtime, Backend API, Database와 사용자 기능까지 연결한 경험입니다." />
             <div className="resume-service-grid">
               {serviceExperience.map((item, index) => (
                 <Reveal as="article" className="resume-service-step" delay={index * 50} key={item.code}>
