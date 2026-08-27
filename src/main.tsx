@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import App from './App'
 import './styles/global.css'
 import './styles/project-detail.css'
+import './styles/responsive-foundations.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
