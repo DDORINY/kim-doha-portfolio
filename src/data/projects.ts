@@ -214,9 +214,16 @@ const newProjects: Project[] = [
       { title: 'LLM 출력을 게시판 폼에 안정적으로 연결', situation: '자유 형식 LLM 응답은 제목·요약·본문을 안정적으로 분리하기 어렵고 서비스 입력값을 임의로 바꿀 위험이 있었습니다.', solution: 'JSON 복구와 PydanticOutputParser를 사용하고 grounded 사실 보존 후처리를 적용해 구조화된 BoardDraft만 서비스에 전달하도록 구성했습니다.', result: 'Frontend에서 title·summary·content를 예측 가능한 계약으로 사용할 수 있게 했습니다.' },
       { title: '챗봇의 화면 이동을 안전하게 제한', situation: 'LLM이 임의 URL을 반환하면 존재하지 않거나 허용하지 않은 화면으로 이동할 수 있었습니다.', solution: 'LangGraph의 NAVIGATION 분기에서 실제 Frontend route allowlist만 사용하도록 하고 action.type/path/href를 구조화했습니다.', result: '자연어 요청을 서비스 화면 이동으로 연결하면서도 이동 범위를 통제했습니다.' },
     ],
-    screenshots: [],
+    screenshots: [
+      {
+        src: '/images/HAWK-ai.png',
+        alt: 'HAWK-AI 해안 폐기물 AI 점검 서비스 홈 화면',
+        caption: '해안 폐기물 탐지 결과와 현장 점검 흐름을 제공하는 HAWK-AI 서비스 홈',
+        category: 'SERVICE',
+      },
+    ],
     documents: [],
-    deploy: { label: '배포 사이트', placeholder: true },
+    deploy: { label: '배포 사이트', url: 'https://hawk-ai.ejjang2030.kr/' },
     github: { label: 'GitHub Organization', url: 'https://github.com/hawk-ai-project' },
     retrospective: 'LLM을 별도 데모로 두는 것이 아니라 실제 게시판과 서비스 컨텍스트에 연결하면서, 모델보다 입력 문맥·출력 계약·fallback·UI 연결이 제품 품질에 중요하다는 점을 확인했습니다.',
     accent: '#43d19e',
