@@ -101,9 +101,9 @@ export default function AIExpertise() {
       <div className="container">
         <SectionHeading
           id="ai-expertise-title"
-          eyebrow="03 / AI FOCUS"
-          title="AI EXPERTISE"
-          description="실제 서비스 구현 경험을 중심으로 확장하고 있는 AI 전문 영역입니다."
+          eyebrow="04 / ENGINEERING EXPERIENCE"
+          title="EVIDENCE FROM MODEL TO SERVICE"
+          description="검증 이미지와 실제 모델 지표, 구조화 출력 흐름으로 모델 실험이 서비스 기능까지 이어진 과정을 보여줍니다."
         />
         <div className="home-expertise-grid">
           {aiExpertiseAreas.map((area, index) => (

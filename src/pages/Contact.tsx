@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import TechIcon, { TechChip } from '../components/TechIcon'
-import { profile } from '../data/profile'
+import { contactFaq, profile } from '../data/profile'
 import { representativeResumeProjects } from '../data/resume'
 
 const coreStack = ['Python', 'FastAPI', 'Flask', 'Qwen / LoRA', 'MySQL', 'React / Next.js', 'Docker / Linux', 'YOLO']
@@ -184,23 +184,31 @@ export default function Contact() {
       <section className="contact-selected-links" aria-labelledby="contact-links-title">
         <div className="container">
           <div className="contact-selected-head">
-            <span className="eyebrow">03 / SELECTED LINKS</span>
-            <h2 id="contact-links-title">추가 자료</h2>
+            <span className="eyebrow">03 / SELECTED PROJECTS</span>
+            <h2 id="contact-links-title">대표 프로젝트</h2>
           </div>
           <nav className="contact-link-list" aria-label="Contact 추가 자료">
-            <a href={profile.notion} target="_blank" rel="noreferrer" aria-label="AI Learning Notion 새 창에서 열기">
-              AI Learning Notion <span>↗</span>
-            </a>
-            <Link to="/computer-vision">
-              Computer Vision Experience <span>→</span>
-            </Link>
-            <Link to="/llm">
-              LLM &amp; AI <span>→</span>
-            </Link>
+            {representativeResumeProjects.slice(0, 3).map((project) => <Link to={`/projects/${project.slug}`} key={project.slug}>{project.name} <span>→</span></Link>)}
             <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub Profile 새 창에서 열기">
               GitHub Profile <span>↗</span>
             </a>
           </nav>
+        </div>
+      </section>
+
+      <section className="contact-section contact-compact-faq" aria-labelledby="contact-faq-title">
+        <div className="container">
+          <SectionHeading eyebrow="04 / QUICK ANSWERS" title="지원 전 확인할 내용" description="희망 직무와 입사 가능 조건을 짧게 정리했습니다." id="contact-faq-title" />
+          <div className="contact-compact-faq-grid">
+            {contactFaq.slice(0, 2).map((item, index) => <Reveal as="article" delay={index * 60} key={item.q}><span>0{index + 1}</span><h3>{item.q}</h3><p>{item.a}</p></Reveal>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="contact-final-cta" aria-labelledby="contact-final-title">
+        <div className="container contact-final-cta-inner">
+          <div><span className="eyebrow">LET'S CONNECT</span><h2 id="contact-final-title">AI 기능을 실제 서비스로 연결하는 역할을 찾고 있습니다.</h2></div>
+          <div><a className="button primary" href={`mailto:${profile.email}`}>EMAIL ME <span>→</span></a><Link className="button secondary" to="/resume">VIEW RESUME <span>→</span></Link></div>
         </div>
       </section>
     </div>

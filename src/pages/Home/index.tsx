@@ -1,4 +1,5 @@
 import CareerSummary from '../../components/home/CareerSummary'
+import AIExpertise from '../../components/home/AIExpertise'
 import ContactCTA from '../../components/home/ContactCTA'
 import CoreCompetencies from '../../components/home/CoreCompetencies'
 import DohaStudioOverview from '../../components/home/DohaStudioOverview'
@@ -14,6 +15,7 @@ export default function Home() {
       <FeaturedProjects />
       <CoreCompetencies />
       <DohaStudioOverview />
+      <AIExpertise />
       <CareerSummary />
       <ContactCTA />
     </>

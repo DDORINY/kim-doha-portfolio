@@ -1,9 +1,10 @@
 const pipelineNodes = [
-  { label: 'LLM / CV', detail: 'Model & Inference' },
-  { label: 'AI Serving', detail: 'FastAPI / Flask' },
-  { label: 'Python Backend', detail: 'API & Business Logic' },
-  { label: 'Database', detail: 'MySQL / SQLAlchemy' },
-  { label: 'Web Service', detail: 'Frontend Integration' },
+  { label: 'MODEL', detail: 'Qwen · LoRA · YOLO', stage: 'LLM / CV MODEL' },
+  { label: 'RUNTIME', detail: 'Transformers · OpenCV', stage: 'TRAIN / INFERENCE' },
+  { label: 'SERVING', detail: 'FastAPI · Flask', stage: 'AI SERVING' },
+  { label: 'BACKEND', detail: 'Python · Business Logic', stage: 'SERVICE BACKEND' },
+  { label: 'DATA', detail: 'MySQL · SQLAlchemy', stage: 'DATABASE' },
+  { label: 'PRODUCT', detail: 'React · Next.js', stage: 'FRONTEND PRODUCT' },
 ]
 
 export default function AIPipelinePanel() {
@@ -14,7 +15,7 @@ export default function AIPipelinePanel() {
         {pipelineNodes.map((node, index) => (
           <li key={node.label}>
             <span>{String(index + 1).padStart(2, '0')}</span>
-            <div><strong>{node.label}</strong><small>{node.detail}</small></div>
+            <div><strong>{node.stage}</strong><small><b>{node.label}</b>{node.detail}</small></div>
             {index < pipelineNodes.length - 1 && <i aria-hidden="true">↓</i>}
           </li>
         ))}

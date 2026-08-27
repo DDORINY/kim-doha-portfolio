@@ -18,8 +18,9 @@ export default function CoreCompetencies() {
             <Reveal as="article" className={`home-capability-card${index === 1 ? ' is-primary' : ''}`} delay={index * 60} key={competency.title}>
               <span>0{index + 1}</span>
               <h3>{competency.title}</h3>
-              <p>{competency.description}</p>
-              <div className="chip-row">{competency.keywords.map((keyword) => <TechChip label={keyword} key={keyword} />)}</div>
+              <div className="home-capability-block"><b>WHAT I DO</b><p>{competency.description}</p></div>
+              <div className="home-capability-block"><b>PROJECT EVIDENCE</b><div className="home-capability-evidence">{competency.evidence.map((item) => <span key={item}>{item}</span>)}</div></div>
+              <div className="home-capability-block"><b>TECH</b><div className="chip-row">{competency.keywords.map((keyword) => <TechChip label={keyword} key={keyword} />)}</div></div>
             </Reveal>
           ))}
         </div>
