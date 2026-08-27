@@ -1,137 +1,366 @@
 /* Final readability and responsive layout pass. Keep cross-page corrections centralized. */
-html { font-size: 16px; }
-body { overflow-x: clip; }
-p, li, dd { overflow-wrap: anywhere; word-break: normal; }
-.container, main, section, article, header, footer,
-.home-hero-copy, .home-service-diagram, .project-card, .projects-case-study,
-.case-study-body, .projects-compact-body, .detail-content, .detail-section,
-.engineering-decision-grid > article, .engineering-trouble-list > article,
-.engineering-verification-grid > article, .engineering-code-grid a,
-.llm-portfolio-page article, .cv2-page article, .resume-web article { min-width: 0; }
-
-body p { font-size: max(1rem, 1em); }
-.section-heading p, .home-hero-description, .projects-hero-copy > p,
-.detail-hero-copy > p, .llm-portfolio-hero-copy > p { max-width: 68ch; font-size: clamp(1rem, 1.2vw, 1.125rem); }
-.section-heading h2, .projects-page h2, .llm-portfolio-page h2,
-.cv2-page h2, .resume-web h2 { text-wrap: balance; }
-.home-hero h1, .projects-hero-copy h1, .detail-hero-copy h1,
-.llm-portfolio-hero-copy h1, .cv2-hero-copy h1, .resume-web-hero-copy h1 {
-  text-wrap: balance; overflow-wrap: normal; word-break: normal;
+html {
+  font-size: 16px;
+}
+body {
+  overflow-x: clip;
+}
+p,
+li,
+dd {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.container,
+main,
+section,
+article,
+header,
+footer,
+.home-hero-copy,
+.home-service-diagram,
+.project-card,
+.projects-case-study,
+.case-study-body,
+.projects-compact-body,
+.detail-content,
+.detail-section,
+.engineering-decision-grid > article,
+.engineering-trouble-list > article,
+.engineering-verification-grid > article,
+.engineering-code-grid a,
+.llm-portfolio-page article,
+.cv2-page article,
+.resume-web article {
+  min-width: 0;
 }
 
-html body :is(.eyebrow, .chip, .highlight-chip, .status-badge, .project-state-badge,
-  .project-preview-status, .side-project-tag, .case-study-subtitle, .case-study-actions a,
-  .compact-project-actions a, .projects-side-actions a, .projects-result-count,
-  .projects-page .project-filter button, .detail-status-line, .detail-hero-meta dt,
-  .detail-nav-label, .engineering-status, .engineering-decision-grid dt,
-  .engineering-decision-grid > article > span, .engineering-scope-grid article > span,
-  .engineering-trouble-list dt, .engineering-code-grid a > span, .engineering-code-grid b,
-  .engineering-discussion-section article span, .llm-status, .llm-panel-title span,
-  .llm-contribution-list span, .llm-evidence-card span, .llm-tech-flow-item span,
-  .llm-tech-flow-item strong, .llm-phase-card li, .cv2-page small,
-  .cv2-page .chip, .resume-web small, .resume-web .chip) {
-  font-size: .75rem;
+body p {
+  font-size: max(1rem, 1em);
+}
+.section-heading p,
+.home-hero-description,
+.projects-hero-copy > p,
+.detail-hero-copy > p,
+.llm-portfolio-hero-copy > p {
+  max-width: 68ch;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+}
+.section-heading h2,
+.projects-page h2,
+.llm-portfolio-page h2,
+.cv2-page h2,
+.resume-web h2 {
+  text-wrap: balance;
+}
+.home-hero h1,
+.projects-hero-copy h1,
+.detail-hero-copy h1,
+.llm-portfolio-hero-copy h1,
+.cv2-hero-copy h1,
+.resume-web-hero-copy h1 {
+  text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+html body :is(.eyebrow, .chip, .highlight-chip, .status-badge, .project-state-badge, .project-preview-status, .side-project-tag, .case-study-subtitle, .case-study-actions a, .compact-project-actions a, .projects-side-actions a, .projects-result-count, .projects-page .project-filter button, .detail-status-line, .detail-hero-meta dt, .detail-nav-label, .engineering-status, .engineering-decision-grid dt, .engineering-decision-grid > article > span, .engineering-scope-grid article > span, .engineering-trouble-list dt, .engineering-code-grid a > span, .engineering-code-grid b, .engineering-discussion-section article span, .llm-status, .llm-panel-title span, .llm-contribution-list span, .llm-evidence-card span, .llm-tech-flow-item span, .llm-tech-flow-item strong, .llm-phase-card li, .cv2-page small, .cv2-page .chip, .resume-web small, .resume-web .chip) {
+  font-size: 0.75rem;
   line-height: 1.35;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
 }
-html body :is(.card-meta p, .tagline, .case-study-tagline, .case-study-facts dd,
-  .compact-project-facts dd, .project-progress-facts dd, .projects-side-description,
-  .side-project-proof p, .detail-hero-meta dd, .detail-overview-scope li,
-  .detail-feature-grid p, .engineering-decision-grid dd, .engineering-trouble-list dd,
-  .engineering-verification-grid p, .engineering-code-grid p,
-  .llm-scope-compare p, .llm-contribution-list p, .llm-structured-panel > p,
-  .resume-web p, .resume-project-evidence dd, .resume-job-body li) {
-  font-size: .875rem;
+html body :is(.card-meta p, .tagline, .case-study-tagline, .case-study-facts dd, .compact-project-facts dd, .project-progress-facts dd, .projects-side-description, .side-project-proof p, .detail-hero-meta dd, .detail-overview-scope li, .detail-feature-grid p, .engineering-decision-grid dd, .engineering-trouble-list dd, .engineering-verification-grid p, .engineering-code-grid p, .llm-scope-compare p, .llm-contribution-list p, .llm-structured-panel > p, .resume-web p, .resume-project-evidence dd, .resume-job-body li) {
+  font-size: 0.875rem;
   line-height: 1.65;
 }
-html body :is(.pipeline-node-copy strong, .service-flow-node strong,
-  .llm-workflow-step strong, .cv2-pipeline-item strong) { font-size: .875rem; line-height: 1.4; }
-html body :is(.pipeline-node-copy span, .service-flow-node small,
-  .llm-workflow-step span, .cv2-pipeline-item small) { font-size: .75rem; line-height: 1.4; }
-html body :is(.cv2-table-wrap th, .cv2-table-wrap td, .cv2-table-wrap thead th,
-  .cv2-table-wrap > p, .cv2-final-model dt, .cv2-final-model dd,
-  .resume-web dt, .resume-web time, .resume-job-period, .resume-job-marker span,
-  .resume-project-main > span, .resume-project-link, .resume-skill-group > span,
-  .resume-service-step > div:first-child span, .resume-service-step > div:first-child b,
-  .resume-education-column > h3, .resume-education-column article > div span,
-  .resume-education-column article > div b, .resume-education-column article > a) {
-  font-size: .75rem;
+html body :is(.pipeline-node-copy strong, .service-flow-node strong, .llm-workflow-step strong, .cv2-pipeline-item strong) {
+  font-size: 0.875rem;
   line-height: 1.4;
 }
-.cv2-table-wrap th, .cv2-table-wrap td { white-space: nowrap; }
-.resume-web :is(dd, h3, h4, strong, a) { overflow-wrap: anywhere; }
+html body :is(.pipeline-node-copy span, .service-flow-node small, .llm-workflow-step span, .cv2-pipeline-item small) {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+html body :is(.cv2-table-wrap th, .cv2-table-wrap td, .cv2-table-wrap thead th, .cv2-table-wrap > p, .cv2-final-model dt, .cv2-final-model dd, .resume-web dt, .resume-web time, .resume-job-period, .resume-job-marker span, .resume-project-main > span, .resume-project-link, .resume-skill-group > span, .resume-service-step > div:first-child span, .resume-service-step > div:first-child b, .resume-education-column > h3, .resume-education-column article > div span, .resume-education-column article > div b, .resume-education-column article > a) {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.cv2-table-wrap th,
+.cv2-table-wrap td {
+  white-space: nowrap;
+}
+.resume-web :is(dd, h3, h4, strong, a) {
+  overflow-wrap: anywhere;
+}
+.resume-project-focus {
+  display: block;
+  margin: -2px 0 10px;
+  color: var(--primary);
+  font:
+    600 0.75rem/1.4 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+}
 
-.chip-row, .side-project-tags, .projects-hero-keywords, .home-hero-tech,
-.resume-service-tags, .competency-tags { display: flex; flex-wrap: wrap; min-width: 0; }
-.chip, .highlight-chip, .side-project-tag, .projects-hero-keywords span,
-.resume-service-tags span, .competency-tags span { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
-.button, .resource-link { min-height: 44px; max-width: 100%; white-space: normal; text-align: center; }
-.detail-actions, .home-hero-actions, .home-project-actions, .case-study-actions,
-.compact-project-actions, .projects-side-actions, .llm-portfolio-actions,
-.cv2-hero-actions, .cv2-featured-actions, .resume-contact-actions { flex-wrap: wrap; }
+.chip-row,
+.side-project-tags,
+.projects-hero-keywords,
+.home-hero-tech,
+.resume-service-tags,
+.competency-tags {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.chip,
+.highlight-chip,
+.side-project-tag,
+.projects-hero-keywords span,
+.resume-service-tags span,
+.competency-tags span {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.button,
+.resource-link {
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+.detail-actions,
+.home-hero-actions,
+.home-project-actions,
+.case-study-actions,
+.compact-project-actions,
+.projects-side-actions,
+.llm-portfolio-actions,
+.cv2-hero-actions,
+.cv2-featured-actions,
+.resume-contact-actions {
+  flex-wrap: wrap;
+}
 
-.project-card, .projects-case-study, .projects-compact-card, .projects-side-card,
-.engineering-decision-grid > article { height: 100%; }
-.case-study-actions, .compact-project-actions, .projects-side-actions,
-.card-footer, .engineering-code-grid b { margin-top: auto; }
-.engineering-decision-grid dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.engineering-decision-grid dl > div { min-width: 0; padding-right: 12px; }
-.engineering-code-grid a { overflow: hidden; }
-.engineering-code-grid :is(h3, p, b) { overflow-wrap: anywhere; }
-.engineering-status { min-height: 26px; display: inline-flex; align-items: center; padding: 5px 8px; }
+.project-card,
+.projects-case-study,
+.projects-compact-card,
+.projects-side-card,
+.engineering-decision-grid > article {
+  height: 100%;
+}
+.case-study-actions,
+.compact-project-actions,
+.projects-side-actions,
+.card-footer,
+.engineering-code-grid b {
+  margin-top: auto;
+}
+.engineering-decision-grid dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.engineering-decision-grid dl > div {
+  min-width: 0;
+  padding-right: 12px;
+}
+.engineering-code-grid a {
+  overflow: hidden;
+}
+.engineering-code-grid :is(h3, p, b) {
+  overflow-wrap: anywhere;
+}
+.engineering-status {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+}
 
-.cv2-table-wrap, .experiment-table-wrap, .table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.cv2-table-wrap table, .experiment-table { min-width: 640px; }
+.cv2-table-wrap,
+.experiment-table-wrap,
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cv2-table-wrap table,
+.experiment-table {
+  min-width: 640px;
+}
 
 @media (max-width: 1180px) {
-  .home-hero { min-height: auto; padding-block: 72px 88px; }
-  .home-hero-inner { grid-template-columns: 1fr; gap: 48px; }
-  .home-hero-copy { max-width: 760px; }
-  .home-service-diagram, .ai-pipeline-panel { width: min(100%, 760px); min-height: 0; }
-  .projects-hero-grid, .llm-portfolio-hero-grid { grid-template-columns: 1fr; gap: 44px; }
-  .projects-summary-panel { width: min(100%, 620px); }
-  .llm-scope-compare { grid-template-columns: 1fr; }
-  .llm-scope-compare > i { transform: rotate(90deg); padding-block: 8px; }
-  .projects-case-study.is-featured { grid-template-columns: 1fr; }
+  .home-hero {
+    min-height: auto;
+    padding-block: 72px 88px;
+  }
+  .home-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .home-hero-copy {
+    max-width: 760px;
+  }
+  .home-service-diagram,
+  .ai-pipeline-panel {
+    width: min(100%, 760px);
+    min-height: 0;
+  }
+  .projects-hero-grid,
+  .llm-portfolio-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .projects-summary-panel {
+    width: min(100%, 620px);
+  }
+  .llm-scope-compare {
+    grid-template-columns: 1fr;
+  }
+  .llm-scope-compare > i {
+    transform: rotate(90deg);
+    padding-block: 8px;
+  }
+  .projects-case-study.is-featured {
+    grid-template-columns: 1fr;
+  }
+  .resume-web-hero-grid,
+  .contact-hero-grid,
+  .cv2-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .resume-web-profile,
+  .contact-availability,
+  .cv2-hero-visual {
+    width: min(100%, 720px);
+  }
 }
 
 @media (max-width: 900px) {
-  .section { padding-block: clamp(4.5rem, 10vw, 6.25rem); }
-  .section-heading { grid-template-columns: 1fr; align-items: start; gap: 18px; }
-  .project-grid, .projects-case-layout, .projects-progress-grid,
-  .home-secondary-projects, .llm-hawk-grid, .llm-integration-grid,
-  .llm-governance-stack-grid, .engineering-decision-grid,
-  .engineering-verification-grid { grid-template-columns: 1fr; }
-  .engineering-decision-grid > article:last-child { grid-column: auto; }
-  .llm-tech-flow { display: grid; gap: 8px; overflow: visible; }
-  .llm-tech-flow-item { display: grid; grid-template-columns: 1fr; }
-  .llm-tech-flow-item > div { min-width: 0; }
-  .llm-tech-flow-item > i { justify-self: center; transform: rotate(90deg); padding: 5px; }
-  .resume-project-row { grid-template-columns: 1fr; }
-  .resume-project-index, .resume-project-main, .resume-project-evidence,
-  .resume-project-link { grid-column: auto; border-right: 0; }
-  .resume-project-index { flex-direction: row; border-bottom: 1px solid var(--line); }
-  .resume-project-index > b { writing-mode: horizontal-tb; }
+  .section {
+    padding-block: clamp(4.5rem, 10vw, 6.25rem);
+  }
+  .section-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+  }
+  .project-grid,
+  .projects-case-layout,
+  .projects-progress-grid,
+  .home-secondary-projects,
+  .llm-hawk-grid,
+  .llm-integration-grid,
+  .llm-governance-stack-grid,
+  .engineering-decision-grid,
+  .engineering-verification-grid {
+    grid-template-columns: 1fr;
+  }
+  .engineering-decision-grid > article:last-child {
+    grid-column: auto;
+  }
+  .llm-tech-flow {
+    display: grid;
+    gap: 8px;
+    overflow: visible;
+  }
+  .llm-tech-flow-item {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .llm-tech-flow-item > div {
+    min-width: 0;
+  }
+  .llm-tech-flow-item > i {
+    justify-self: center;
+    transform: rotate(90deg);
+    padding: 5px;
+  }
+  .resume-project-row {
+    grid-template-columns: 1fr;
+  }
+  .resume-project-index,
+  .resume-project-main,
+  .resume-project-evidence,
+  .resume-project-link {
+    grid-column: auto;
+    border-right: 0;
+  }
+  .resume-project-index {
+    flex-direction: row;
+    border-bottom: 1px solid var(--line);
+  }
+  .resume-project-index > b {
+    writing-mode: horizontal-tb;
+  }
 }
 
 @media (max-width: 640px) {
-  .container { width: min(100% - 32px, 1180px); }
-  .section { padding-block: 3.75rem; }
-  .home-hero h1, .projects-hero-copy h1, .detail-hero-copy h1,
-  .llm-portfolio-hero-copy h1, .cv2-hero-copy h1, .resume-web-hero-copy h1 {
-    font-size: clamp(2.4rem, 12vw, 3.5rem); line-height: 1.02;
+  .container {
+    width: min(100% - 32px, 1180px);
   }
-  .home-hero-actions, .home-project-actions, .cv2-hero-actions,
-  .cv2-featured-actions, .resume-contact-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
-  .home-hero-actions .button, .home-project-actions .button, .cv2-hero-actions .button,
-  .cv2-featured-actions .button, .resume-contact-actions .button { width: 100%; }
-  .engineering-decision-grid dl, .engineering-scope-grid,
-  .engineering-trouble-list, .engineering-verification-grid,
-  .engineering-code-grid, .llm-evidence-grid, .llm-phase-grid,
-  .cv2-stack-grid, .resume-skill-grid, .resume-education-grid { grid-template-columns: 1fr; }
-  .engineering-decision-grid > article, .engineering-trouble-list > article,
-  .llm-contribution-panel, .llm-structured-panel, .llm-langgraph-panel,
-  .llm-model-boundary, .llm-stack-panel { padding: 20px; }
-  .footer-inner { min-height: 0; align-items: flex-start; flex-direction: column; gap: 12px; padding-block: 24px; }
-  .footer-inner nav { display: flex; flex-wrap: wrap; gap: 12px 18px; }
+  .section {
+    padding-block: 3.75rem;
+  }
+  .home-hero h1,
+  .projects-hero-copy h1,
+  .detail-hero-copy h1,
+  .llm-portfolio-hero-copy h1,
+  .cv2-hero-copy h1,
+  .resume-web-hero-copy h1 {
+    font-size: clamp(2.4rem, 12vw, 3.5rem);
+    line-height: 1.02;
+  }
+  .home-hero-actions,
+  .home-project-actions,
+  .contact-hero-actions,
+  .cv2-hero-actions,
+  .cv2-featured-actions,
+  .resume-contact-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .home-hero-actions .button,
+  .home-project-actions .button,
+  .contact-hero-actions .button,
+  .cv2-hero-actions .button,
+  .cv2-featured-actions .button,
+  .resume-contact-actions .button {
+    width: 100%;
+  }
+  .engineering-decision-grid dl,
+  .engineering-scope-grid,
+  .engineering-trouble-list,
+  .engineering-verification-grid,
+  .engineering-code-grid,
+  .llm-evidence-grid,
+  .llm-phase-grid,
+  .cv2-stack-grid,
+  .resume-skill-grid,
+  .resume-education-grid {
+    grid-template-columns: 1fr;
+  }
+  .engineering-decision-grid > article,
+  .engineering-trouble-list > article,
+  .llm-contribution-panel,
+  .llm-structured-panel,
+  .llm-langgraph-panel,
+  .llm-model-boundary,
+  .llm-stack-panel {
+    padding: 20px;
+  }
+  .footer-inner {
+    min-height: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding-block: 24px;
+  }
+  .footer-inner nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
 }
