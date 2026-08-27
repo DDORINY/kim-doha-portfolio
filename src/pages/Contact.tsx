@@ -2,13 +2,27 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
-import TechIcon, { TechChip } from '../components/TechIcon'
-import { contactFaq, profile } from '../data/profile'
-import { representativeResumeProjects } from '../data/resume'
+import TechIcon from '../components/TechIcon'
+import { profile } from '../data/profile'
 
-const coreStack = ['Python', 'FastAPI', 'Flask', 'Qwen / LoRA', 'MySQL', 'React / Next.js', 'Docker / Linux', 'YOLO']
+const workReasons = [
+  { index: '01', title: 'AI → SERVICE', flow: ['Model', 'API', 'DB', 'Product'], description: '모델 호출에서 끝내지 않고 Backend API, DB, 사용자 기능까지 연결합니다.', evidence: 'HAWK-AI · STACCATO' },
+  { index: '02', title: 'MODEL & RUNTIME', flow: ['LLM', 'CV', 'Training', 'Runtime'], description: 'LLM Fine-Tuning·Runtime과 Computer Vision 모델 학습 경험을 갖고 있습니다.', evidence: 'DohaLM · STACCATO' },
+  { index: '03', title: 'PRODUCT THINKING', flow: ['Operations', 'User Flow', 'AI Service'], description: '운영 경험을 바탕으로 기술 구현과 실제 사용자 흐름, 업무 프로세스를 함께 봅니다.', evidence: '5Y 8M OPERATIONS EXPERIENCE' },
+]
 
-const coreExperience = ['LLM 추론 서비스와 Backend 연동', 'Structured Output / Validation', 'FastAPI·Flask AI API 통합', 'MySQL 서비스 데이터 연결', 'Frontend AI 기능 연동', 'Computer Vision 모델·서비스 통합']
+const selectedWork = [
+  { name: 'HAWK-AI', label: 'LLM SERVICE INTEGRATION', slug: 'hawk-ai' },
+  { name: 'DohaLM', label: 'MODEL & RUNTIME', slug: 'dohalm' },
+  { name: 'STACCATO', label: 'CV → SERVICE', slug: 'staccato' },
+]
+
+const recruiterFaq = [
+  { q: '어떤 포지션을 찾고 있나요?', a: 'AI Service Developer를 중심으로 AI Backend, LLM Integration, Computer Vision Service 포지션을 찾고 있습니다.' },
+  { q: 'LLM과 Computer Vision 중 어느 쪽이 주력인가요?', a: '현재 주력은 LLM 기반 AI 서비스 통합이며, Computer Vision 모델 학습과 서비스 연결 경험도 보유하고 있습니다.' },
+  { q: '팀 프로젝트에서 어떤 역할을 맡았나요?', a: 'HAWK-AI에서는 게시판과 LLM 추론 서비스 연동을, STACCATO에서는 모델 비교와 Flask API 일부, 화면 연동 및 통합 QA를 담당했습니다.' },
+  { q: '언제부터 근무할 수 있나요?', a: profile.availability + '합니다.' },
+]
 
 function copyWithFallback(value: string) {
   const textarea = document.createElement('textarea')
@@ -51,11 +65,10 @@ export default function Contact() {
           <Reveal className="contact-hero-copy">
             <span className="eyebrow">CONTACT</span>
             <h1 id="contact-page-title">
-              함께 서비스로 연결되는 <br />
-              AI를 만들고 싶습니다.
+              AI를 실제 서비스로 <br />
+              연결하는 개발자입니다.
             </h1>
             <p className="contact-hero-lead">LLM · AI Backend · AI Service Integration 기반 개발 포지션의 채용 및 협업 연락을 기다립니다.</p>
-            <p className="contact-hero-support">LLM 추론 서비스를 Python Backend, 데이터베이스, Frontend 기능과 연결하고 Computer Vision 모델을 실제 서비스까지 통합한 경험이 있습니다.</p>
             <a className="contact-email-address" href={`mailto:${profile.email}`} aria-label={`${profile.email}로 이메일 보내기`}>
               {profile.email}
             </a>
@@ -81,33 +94,14 @@ export default function Contact() {
           <Reveal as="aside" className="contact-availability" delay={80} aria-label="희망 직무와 입사 가능 정보">
             <div className="contact-panel-head">
               <span>AVAILABLE FOR</span>
-              <small>CAREER INFO</small>
+              <small>OPEN TO WORK</small>
             </div>
-            <div className="contact-availability-block">
-              <span>POSITION</span>
-              <ul>
-                {profile.desiredRoles.map((role) => (
-                  <li key={role}>{role}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="contact-status-row">
-              <div>
-                <span>STATUS</span>
-                <strong>
-                  <i aria-hidden="true" />
-                  {profile.availability}
-                </strong>
-              </div>
-            </div>
-            <div className="contact-stack">
-              <span>CORE STACK</span>
-              <div>
-                {coreStack.map((tech) => (
-                  <TechChip label={tech} key={tech} />
-                ))}
-              </div>
-            </div>
+            <dl className="contact-availability-list">
+              <div><dt>PRIMARY ROLE</dt><dd>AI SERVICE DEVELOPER</dd></div>
+              <div><dt>FOCUS</dt><dd>LLM · AI Backend<br />Service Integration</dd></div>
+              <div><dt>AVAILABILITY</dt><dd className="is-available"><i aria-hidden="true" />{profile.availability}</dd></div>
+              <div><dt>LOCATION / TYPE</dt><dd>정규직 선호 · 근무 조건 협의</dd></div>
+            </dl>
           </Reveal>
         </div>
       </section>
@@ -133,8 +127,8 @@ export default function Contact() {
             </Reveal>
             <Reveal as={Link} to="/projects" delay={120}>
               <span>03 / PROJECTS</span>
-              <h2>주요 구현 사례</h2>
-              <p>{representativeResumeProjects.map((project) => project.name).join(' · ')}</p>
+              <h2>구현과 검증 근거</h2>
+              <p>프로젝트별 역할 · 설계 · Evidence</p>
               <strong>→</strong>
             </Reveal>
             <Reveal as={Link} to="/resume" delay={180}>
@@ -147,36 +141,15 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="contact-section contact-position" aria-labelledby="contact-position-title">
+      <section className="contact-section contact-why" aria-labelledby="contact-why-title">
         <div className="container">
-          <SectionHeading eyebrow="02 / CAREER FIT" title="POSITION & AVAILABILITY" description="지원 직무와 현재 근무 가능 조건을 정리했습니다." id="contact-position-title" />
-          <div className="contact-position-grid">
-            <Reveal as="article">
-              <span>A / POSITION</span>
-              <h3>희망 직무</h3>
-              <ul>
-                {profile.desiredRoles.map((role) => (
-                  <li key={role}>{role}</li>
-                ))}
-              </ul>
-            </Reveal>
-            <Reveal as="article" delay={70}>
-              <span>B / AVAILABILITY</span>
-              <h3>근무 조건</h3>
-              <ul>
-                <li>정규직 선호</li>
-                <li>{profile.availability}</li>
-              </ul>
-            </Reveal>
-            <Reveal as="article" delay={140}>
-              <span>C / EXPERIENCE</span>
-              <h3>핵심 경험</h3>
-              <ul>
-                {coreExperience.map((experience) => (
-                  <li key={experience}>{experience}</li>
-                ))}
-              </ul>
-            </Reveal>
+          <SectionHeading eyebrow="02 / CAREER FIT" title="WHY WORK WITH ME" description="모델을 이해하고, 서비스 구조와 사용자 흐름까지 연결합니다." id="contact-why-title" />
+          <div className="contact-why-grid">
+            {workReasons.map((reason, index) => <Reveal as="article" delay={index * 70} key={reason.title}>
+              <span>{reason.index}</span><h3>{reason.title}</h3>
+              <div className="contact-why-flow">{reason.flow.map((step) => <b key={step}>{step}</b>)}</div>
+              <p>{reason.description}</p><small>{reason.evidence}</small>
+            </Reveal>)}
           </div>
         </div>
       </section>
@@ -184,31 +157,28 @@ export default function Contact() {
       <section className="contact-selected-links" aria-labelledby="contact-links-title">
         <div className="container">
           <div className="contact-selected-head">
-            <span className="eyebrow">03 / SELECTED PROJECTS</span>
-            <h2 id="contact-links-title">대표 프로젝트</h2>
+            <span className="eyebrow">03 / SELECTED WORK</span>
+            <h2 id="contact-links-title">SELECTED WORK</h2>
           </div>
-          <nav className="contact-link-list" aria-label="Contact 추가 자료">
-            {representativeResumeProjects.slice(0, 3).map((project) => <Link to={`/projects/${project.slug}`} key={project.slug}>{project.name} <span>→</span></Link>)}
-            <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub Profile 새 창에서 열기">
-              GitHub Profile <span>↗</span>
-            </a>
+          <nav className="contact-link-list" aria-label="대표 프로젝트">
+            {selectedWork.map((project) => <Link to={`/projects/${project.slug}`} key={project.slug}><span><b>{project.name}</b><small>{project.label}</small></span><i>→</i></Link>)}
           </nav>
         </div>
       </section>
 
       <section className="contact-section contact-compact-faq" aria-labelledby="contact-faq-title">
         <div className="container">
-          <SectionHeading eyebrow="04 / QUICK ANSWERS" title="지원 전 확인할 내용" description="희망 직무와 입사 가능 조건을 짧게 정리했습니다." id="contact-faq-title" />
+          <SectionHeading eyebrow="04 / QUICK ANSWERS" title="채용 전 확인할 내용" description="포지션과 프로젝트 역할, 근무 가능 조건을 짧게 답했습니다." id="contact-faq-title" />
           <div className="contact-compact-faq-grid">
-            {contactFaq.slice(0, 2).map((item, index) => <Reveal as="article" delay={index * 60} key={item.q}><span>0{index + 1}</span><h3>{item.q}</h3><p>{item.a}</p></Reveal>)}
+            {recruiterFaq.map((item, index) => <Reveal as="article" delay={index * 50} key={item.q}><span>0{index + 1}</span><h3>{item.q}</h3><p>{item.a}</p></Reveal>)}
           </div>
         </div>
       </section>
 
       <section className="contact-final-cta" aria-labelledby="contact-final-title">
         <div className="container contact-final-cta-inner">
-          <div><span className="eyebrow">LET'S CONNECT</span><h2 id="contact-final-title">AI 기능을 실제 서비스로 연결하는 역할을 찾고 있습니다.</h2></div>
-          <div><a className="button primary" href={`mailto:${profile.email}`}>EMAIL ME <span>→</span></a><Link className="button secondary" to="/resume">VIEW RESUME <span>→</span></Link></div>
+          <div><span className="eyebrow">LET'S CONNECT</span><h2 id="contact-final-title">LET'S BUILD AI INTO PRODUCTS.</h2><p>채용 또는 프로젝트 관련 문의는 이메일로 가장 빠르게 확인합니다.</p></div>
+          <div><a className="button primary" href={`mailto:${profile.email}`}>EMAIL ME <span>→</span></a></div>
         </div>
       </section>
     </div>
