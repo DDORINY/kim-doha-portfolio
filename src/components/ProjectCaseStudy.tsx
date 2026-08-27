@@ -27,16 +27,7 @@ export default function ProjectCaseStudy({ project, index, featured = false }: {
       style={{ '--accent': project.accent } as CSSProperties}
       delay={index * 80}
     >
-      <div className={`case-study-visual${preview ? ' has-preview' : ' has-flow'}`}>
-        {preview ? (
-          <div className="case-study-preview">
-            <div className="case-study-window-bar" aria-hidden="true"><span /><span /><span /><small>PROJECT / {String(index + 1).padStart(2, '0')}</small></div>
-            <ImageWithFallback src={preview.src} alt={preview.alt} loading={featured ? 'eager' : 'lazy'} fallbackLabel={`${project.name} 프로젝트 화면`} />
-          </div>
-        ) : <ProjectFlow project={project} compact />}
-        {featured && <ProjectFlow project={project} compact />}
-      </div>
-      <div className="case-study-body">
+      <div className="case-study-body case-study-intro">
         <div className="case-study-topline">
           <span>{featured ? 'TEAM PROJECT' : project.type}</span>
           <strong className={`case-study-status is-${architectureStatus ? 'architecture' : listing.maturity}`}>{statusLabel}</strong>
@@ -44,14 +35,31 @@ export default function ProjectCaseStudy({ project, index, featured = false }: {
         {featured && <p className="case-study-period">{project.period.replace(' ~ ', ' — ')}</p>}
         <h3>{project.name}</h3>
         {listing.subtitle && <p className="case-study-subtitle">{listing.subtitle}</p>}
+        <p className="case-study-selected-summary">{listing.what}</p>
+      </div>
+      <div className={`case-study-visual${preview ? ' has-preview' : ' has-flow'}`}>
+        {preview ? (
+          <div className="case-study-preview">
+            <div className="case-study-window-bar" aria-hidden="true"><span /><span /><span /><small>PROJECT / {String(index + 1).padStart(2, '0')}</small></div>
+            <ImageWithFallback src={preview.src} alt={preview.alt} loading={featured ? 'eager' : 'lazy'} fallbackLabel={`${project.name} 프로젝트 화면`} />
+          </div>
+        ) : <ProjectFlow project={project} compact />}
+        {featured && <div className="case-study-service-flow"><span>SERVICE FLOW</span><ProjectFlow project={project} /></div>}
+      </div>
+      <div className="case-study-body case-study-details">
         {featured ? (
           <dl className="case-study-facts">
             <div><dt>SERVICE</dt><dd>{listing.what}</dd></div>
             <div><dt>MY CONTRIBUTION</dt><dd className="case-study-contributions">{project.role.slice(0, 6).map((item) => <span key={item}>{item}</span>)}</dd></div>
             <div><dt>EVIDENCE</dt><dd className="case-study-evidence">{listing.evidence.map((item) => <span key={item}>{item}</span>)}</dd></div>
           </dl>
-        ) : <p className="case-study-selected-summary">{listing.what}</p>}
-        {interviewEvidence && <div className="case-study-decision"><span>KEY DECISION</span><strong>{interviewEvidence.keyDecision}</strong></div>}
+        ) : (
+          <dl className="case-study-selected-facts">
+            <div><dt>MY ROLE / FOCUS</dt><dd>{listing.role}</dd></div>
+            <div><dt>KEY EVIDENCE</dt><dd className="case-study-evidence">{listing.evidence.map((item) => <span key={item}>{item}</span>)}</dd></div>
+          </dl>
+        )}
+        {featured && interviewEvidence && <div className="case-study-decision"><span>KEY DECISION</span><strong>{interviewEvidence.keyDecision}</strong></div>}
         <div className="case-study-tech">
           <span className="meta-label">CORE TECH</span>
           <div className="chip-row">{(project.techHighlights ?? project.techStack).slice(0, 4).map((tech) => <TechChip label={tech} key={tech} />)}</div>
