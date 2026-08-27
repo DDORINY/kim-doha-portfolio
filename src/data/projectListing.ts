@@ -20,10 +20,9 @@ export const sideProjectListingMeta: Record<string, { proof: string; currentStat
   'portfolio-hub': { proof: '데이터 기반 화면 구조와 HashRouter, GitHub Pages, custom domain 배포 구성' },
   tarot: { proof: 'Supabase Auth·PostgreSQL 기록 저장과 Next.js API를 Vercel 배포까지 연결' },
   'mafia-msw': {
-    proof: '3인 팀의 게임 콘셉트·세계관·협업 규칙과 로비·매칭 UI 설계 진행',
-    currentStatus: 'UI DESIGN / PLANNING',
-    currentScope: '프로젝트 기획 총괄, 협업 규칙 정리, 로비·방 만들기·매칭 UI 설계',
-    nextMilestone: '경찰·의사·마피아 역할 기반 낮·밤 진행 시스템 설계',
+    proof: '3인 팀의 게임 콘셉트·세계관·협업 규칙과 로비·매칭 UI를 설계하고 MapleStory Worlds 공모전 출품 완료',
+    currentStatus: 'CONTEST SUBMISSION COMPLETE',
+    currentScope: '프로젝트 기획 총괄, 협업 규칙 정리, 로비·방 만들기·매칭 UI 설계 및 공모전 출품',
   },
 }
 
