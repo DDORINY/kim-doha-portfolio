@@ -99,6 +99,14 @@ const legacyProjects: Project[] = [
     accent: '#55c2ff',
     proofCompetencies: ['Computer Vision', 'AI Service Integration', 'Multi-VM Integration'],
     proofEvidence: ['YOLO11·RT-DETR 비교', 'mAP50 0.9290 · F1 0.8932', '4개 VM 통합'],
+    modelExperiments: [
+      { model: 'RT-DETR-L', precision: '0.8989', recall: '0.8558', f1: '0.8768', map50: '0.9107', map5095: '0.7681', note: 'mAP50-95 최고' },
+      { model: 'YOLO11s 640 stage2', precision: '0.8850', recall: '0.8456', f1: '0.8648', map50: '0.9089', map5095: '0.7587', note: '경량·실시간 후보' },
+      { model: 'YOLO11s CVAT balanced', precision: '0.9210', recall: '0.8670', f1: '0.8932', map50: '0.9290', map5095: '0.7680', note: '최종 선정 모델' },
+      { model: 'YOLO11n stage2', precision: '0.8839', recall: '0.8246', f1: '0.8532', map50: '0.8949', map5095: '0.7329', note: '경량 후보' },
+      { model: 'YOLO11n baseline', precision: '0.8714', recall: '0.7766', f1: '0.8213', map50: '0.8647', map5095: '0.7144', note: '기준 모델' },
+    ],
+    modelEvidenceNote: '최종 적용 모델은 YOLO11s CVAT balanced입니다. RT-DETR-L은 mAP50-95 기준으로 높은 성능을 보였지만, 실시간 CCTV 스트림 처리, ByteTrack 추적, ROI 기반 이벤트 판단, 관제 화면 연동까지 고려했을 때 YOLO11s CVAT balanced가 가장 안정적인 균형을 보였습니다.',
   },
   {
     slug: 'erp',
