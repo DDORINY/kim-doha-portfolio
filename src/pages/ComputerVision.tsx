@@ -38,11 +38,15 @@ const evidenceImages = [
   ['/images/ai-learning/staccato-yolo11s-training-results.png', 'YOLO11s 학습 결과', 'YOLO TRAINING'],
   ['/images/ai-learning/staccato-rtdetr-l-early-run-results.png', 'RT-DETR-L 학습 결과', 'RT-DETR TRAINING'],
 ] as const
+const featuredRoleGroups = [
+  { label: 'MODEL', items: ['Keras Experiment', 'YOLO / RT-DETR Training', 'Model Comparison'] },
+  { label: 'SERVICE', items: ['Frontend MVP', 'Flask API', 'BBOX Integration', '4 VM Integration / QA'] },
+] as const
 const techGroups = [
-  ['MODEL', ['YOLO11', 'YOLOv8', 'RT-DETR', 'Keras']],
-  ['VISION', ['OpenCV', 'ByteTrack']],
-  ['BACKEND', ['Python', 'Flask', 'FastAPI']],
-  ['DATA / SERVICE', ['MySQL', 'SQLAlchemy', 'Socket.IO']],
+  { label: 'MODEL', description: '객체 탐지 모델 학습과 후보 비교', items: ['YOLO11', 'YOLOv8', 'RT-DETR', 'Keras'] },
+  { label: 'VISION / LOGIC', description: '탐지 결과 추적과 화면 좌표 정합성', items: ['OpenCV', 'ByteTrack', 'BBOX', 'Tracking'] },
+  { label: 'BACKEND', description: 'AI 결과를 서비스 계약으로 전달', items: ['Python', 'Flask', 'FastAPI'] },
+  { label: 'DATA / REALTIME', description: '이벤트 영속화와 실시간 관제 전달', items: ['MySQL', 'SQLAlchemy', 'Socket.IO', 'Realtime Event'] },
 ] as const
 
 export default function ComputerVision() {
@@ -135,20 +139,18 @@ export default function ComputerVision() {
                 <span>AI HIGHWAY CONTROL · TEAM PROJECT</span>
                 <b>{statusLabel(staccato)}</b>
               </div>
-              <h3>
-                Detection
-                <br />
-                to realtime control.
-              </h3>
+              <h3>Detection → Event → Realtime Control</h3>
               <p>YOLO11s 탐지 결과와 BBOX metadata를 Flask API·MySQL·Socket.IO 관제 화면까지 연결했습니다.</p>
               <div className="cv2-role-block">
                 <span>MY ROLE</span>
-                <div>
-                  {['Keras Experiment', 'YOLO / RT-DETR Training', 'Model Comparison', 'Frontend MVP', 'Flask API Integration', 'BBOX Integration', '4 VM Integration / QA'].map((role) => (
-                    <b key={role}>{role}</b>
-                  ))}
-                </div>
+                <div>{featuredRoleGroups.map((group) => <section key={group.label}><strong>{group.label}</strong><div>{group.items.map((role) => <b key={role}>{role}</b>)}</div></section>)}</div>
               </div>
+              <dl className="cv2-featured-evidence">
+                <div><dt>DATASET</dt><dd>20,000 images</dd></div>
+                <div><dt>FINAL MODEL</dt><dd>YOLO11s</dd></div>
+                <div><dt>mAP50</dt><dd>0.9290</dd></div>
+                <div><dt>F1</dt><dd>0.8932</dd></div>
+              </dl>
               <div className="cv2-featured-actions">
                 <Link className="button primary" to="/projects/staccato">
                   VIEW PROJECT DETAIL
@@ -166,27 +168,9 @@ export default function ComputerVision() {
                 <figcaption>Realtime control dashboard</figcaption>
               </figure>
               <figure>
-                <ImageWithFallback src="/images/staccato-12-detection-stopped-vehicle.png" alt="STACCATO 정차 차량 탐지 화면" loading="lazy" />
-                <figcaption>Stopped vehicle event detection</figcaption>
+                <ImageWithFallback src="/images/staccato-11-cctv-bbox.png" alt="STACCATO CCTV 관제 BBOX 탐지 화면" loading="lazy" />
+                <figcaption>Realtime CCTV bounding-box detection</figcaption>
               </figure>
-            </div>
-          </Reveal>
-          <Reveal className="cv2-featured-evidence">
-            <div>
-              <span>DATASET</span>
-              <strong>20,000 images</strong>
-            </div>
-            <div>
-              <span>FINAL MODEL</span>
-              <strong>YOLO11s</strong>
-            </div>
-            <div>
-              <span>mAP50</span>
-              <strong>0.9290</strong>
-            </div>
-            <div>
-              <span>F1</span>
-              <strong>0.8932</strong>
             </div>
           </Reveal>
         </div>
@@ -222,19 +206,10 @@ export default function ComputerVision() {
       </section>
 
       {staccatoEvidence && (
-        <section className="section cv2-decision-section" aria-label="STACCATO engineering decisions">
+        <section className="section cv2-decision-section" aria-labelledby="cv-decisions-title">
           <div className="container">
-            <Reveal className="cv2-decision-strip">
-              <span>ENGINEERING DECISIONS</span>
-              <div>
-                {staccatoEvidence.decisions.map((decision) => (
-                  <article key={decision.title}>
-                    <b>{decision.title}</b>
-                    <p>{decision.decision}</p>
-                  </article>
-                ))}
-              </div>
-            </Reveal>
+            <SectionHeading id="cv-decisions-title" eyebrow="04 / ENGINEERING DECISIONS" title="DECISIONS BEHIND THE SERVICE" description="모델 결과가 실제 관제 기능으로 이어지도록 부하, 좌표 계약, 데이터 정합성을 설계했습니다." />
+            <div className="cv2-decision-grid">{staccatoEvidence.decisions.map((decision, index) => <Reveal as="article" delay={index * 60} key={decision.title}><span>0{index + 1}</span><h3>{decision.title}</h3><dl><div><dt>PROBLEM</dt><dd>{decision.problem}</dd></div><div><dt>DECISION</dt><dd>{decision.decision}</dd></div><div><dt>WHY</dt><dd>{decision.why}</dd></div></dl></Reveal>)}</div>
           </div>
         </section>
       )}
@@ -242,7 +217,7 @@ export default function ComputerVision() {
       <section className="section cv2-evidence-section" aria-labelledby="cv-model-title">
         <div className="container">
           <div className="cv2-evidence-heading">
-            <span className="eyebrow">04 / MODEL EVIDENCE</span>
+            <span className="eyebrow">05 / MODEL EVIDENCE</span>
             <h2 id="cv-model-title">FINAL MODEL &amp; COMPARISON</h2>
             <p>동일 최종 비교 조건으로 검증한 STACCATO 모델 성능과 학습 근거입니다.</p>
           </div>
@@ -316,7 +291,7 @@ export default function ComputerVision() {
 
       <section className="section cv2-training-section" aria-labelledby="cv-training-title">
         <div className="container">
-          <SectionHeading id="cv-training-title" eyebrow="05 / TRAINING PROCESS" title="COMPACT MODEL DEVELOPMENT" description="데이터 준비부터 후보 모델 비교와 최종 선정까지의 검증 흐름입니다." />
+          <SectionHeading id="cv-training-title" eyebrow="06 / TRAINING PROCESS" title="COMPACT MODEL DEVELOPMENT" description="데이터 준비부터 후보 모델 비교와 최종 선정까지의 검증 흐름입니다." />
           <Reveal className="cv2-training-flow">
             {trainingSteps.map(([code, title, description], index) => (
               <div key={code}>
@@ -332,13 +307,13 @@ export default function ComputerVision() {
 
       <section className="section cv2-stack-section" aria-labelledby="cv-stack-title">
         <div className="container">
-          <SectionHeading id="cv-stack-title" eyebrow="06 / TECH STACK" title="VISION SERVICE TOOLKIT" description="모델 학습, 후처리, Backend와 실시간 서비스 연결에 사용한 기술입니다." />
+          <SectionHeading id="cv-stack-title" eyebrow="07 / TECH STACK" title="VISION SERVICE TOOLKIT" description="모델 학습, 후처리, Backend와 실시간 서비스 연결에 사용한 기술입니다." />
           <div className="cv2-stack-grid">
-            {techGroups.map(([label, items], index) => (
-              <Reveal as="article" delay={index * 50} key={label}>
-                <span>{label}</span>
+            {techGroups.map((group, index) => (
+              <Reveal as="article" delay={index * 50} key={group.label}>
+                <span>{group.label}</span><p>{group.description}</p>
                 <div>
-                  {items.map((item) => (
+                  {group.items.map((item) => (
                     <TechChip label={item} key={item} />
                   ))}
                 </div>
@@ -351,8 +326,8 @@ export default function ComputerVision() {
         <div className="container">
           <Reveal className="cv2-cta">
             <div>
-              <span className="eyebrow">MODEL TO SERVICE / CTA</span>
-              <h2>프로젝트 구현 근거를 확인하세요.</h2>
+              <span className="eyebrow">08 / MODEL TO SERVICE</span>
+              <h2>설계·구현·검증 근거를 프로젝트에서 확인하세요.</h2>
               <p>모델 성능, 시스템 구조, 실제 서비스 화면과 담당 범위를 상세 페이지에서 확인할 수 있습니다.</p>
             </div>
             <div>
