@@ -34,7 +34,7 @@ function PrintButton({ className = 'button primary' }: { className?: string }) {
 
 const resumeProjectFocus: Record<string, string> = {
   'hawk-ai': 'LLM SERVICE INTEGRATION',
-  dohalm: 'MODEL / TRAINING / RUNTIME',
+  'doha-studio': 'PERSONAL AI PRODUCT / SYSTEM ARCHITECTURE',
   staccato: 'COMPUTER VISION → SERVICE',
 }
 

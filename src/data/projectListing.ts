@@ -11,7 +11,7 @@ export type ProjectListingMeta = {
   nextMilestone?: string
 }
 
-export const selectedCaseStudySlugs: Project['slug'][] = ['hawk-ai', 'dohalm', 'dohamusic', 'staccato']
+export const selectedCaseStudySlugs: Project['slug'][] = ['hawk-ai', 'doha-studio', 'staccato']
 
 export const sideProjectOrder = ['wildfire-pulsemap', 'portfolio-hub', 'mafia-msw', 'tarot'] as const
 
@@ -54,6 +54,16 @@ export const projectListingMeta: Record<Project['slug'], ProjectListingMeta> = {
     currentStatus: 'TEAM PROJECT / INTEGRATION',
     currentScope: '게시판 및 LLM AI 서비스 통합, 구조화 응답·서비스 화면 연동 검증',
     nextMilestone: '2026.09.08 팀 프로젝트 마무리 및 통합 검증',
+  },
+  'doha-studio': {
+    what: 'LLM·Audio·Vocal AI Provider를 Music Product Workspace와 Job·Artifact 계약으로 연결하는 multi-repository 개인 AI 제품',
+    role: 'DohaMusic Product·Orchestration, DohaLM Model·Runtime, Audio·Vocal Provider architecture 설계 및 개발',
+    evidence: ['Workspace·Job·Artifact 제품 흐름', 'Qwen·QLoRA·REST/SSE LLM Runtime', 'Audio·Vocal Provider Architecture'],
+    maturity: 'in-progress',
+    subtitle: 'AI Music Creation Product Ecosystem',
+    currentStatus: 'PERSONAL PROJECT / IN PROGRESS',
+    currentScope: 'Product Workspace, Job Orchestration, Model·Runtime과 Provider 경계 개발',
+    nextMilestone: 'Provider 통합 계약 검증과 공개 운영 조건 강화',
   },
   dohamusic: {
     what: '가사·음악 생성·Stem·Voice·Mix·Export를 Workspace와 Job Orchestration으로 연결하는 개인 AI 음악 제작 플랫폼',

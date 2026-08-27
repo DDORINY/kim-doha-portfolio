@@ -155,13 +155,14 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       },
     ],
   },
-  dohamusic: {
-    keyDecision: '긴 AI 작업을 Workspace·Job·Artifact로 분리하고 Provider contract 뒤에 격리',
-    verificationSummary: 'Pipeline API tests · cancel/retry state · provider benchmark and workspace validation',
+  'doha-studio': {
+    keyDecision: '제품 Workflow와 Model·Audio·Vocal Provider의 lifecycle을 repository 계약으로 분리',
+    verificationSummary: 'Workspace·Job contract · Dataset·Artifact validation · Provider boundary evidence',
     decisions: [
       { title: 'Async Job Orchestration', problem: 'Music·Stem·Voice 작업을 동기 API로 묶으면 장시간 요청과 부분 실패를 관리하기 어렵습니다.', decision: 'Pipeline Job과 worker, 단계별 상태·cancel·retry를 분리했습니다.', why: '진행 상태와 실패 지점을 저장하고 긴 AI 작업을 재시도하기 위해서입니다.' },
       { title: 'Provider Abstraction', problem: '제품 코드가 특정 Music·Stem·Voice 모델 runtime에 직접 의존하면 교체와 mock test가 어렵습니다.', decision: 'Provider interface와 adapter/factory로 runtime을 제품 domain에서 분리했습니다.', why: '실제 provider와 mock을 같은 contract로 교체하기 위해서입니다.' },
       { title: 'Workspace / Artifact Lifecycle', problem: '파일 path만 저장하면 어느 job·workspace·사용자 선택에서 생성됐는지 추적하기 어렵습니다.', decision: 'Workspace, Job, Artifact와 Result를 독립 domain으로 관리합니다.', why: '생성 lineage와 사용자 선택, export 재현성을 유지하기 위해서입니다.' },
+      { title: 'Model / Runtime Separation', problem: 'Base model과 Adapter, serving 설정을 한 artifact로 취급하면 조합과 release identity가 불명확합니다.', decision: 'DohaLM에서 Base·Adapter·Manifest·Runtime 계약을 분리했습니다.', why: '제품과 독립적으로 모델 조합을 검증하고 version을 추적하기 위해서입니다.', tradeoff: 'Repository 간 호환성 및 release contract 관리가 추가됩니다.' },
     ],
     troubleshooting: [
       { title: 'Pipeline 부분 실패와 재시도', problem: '여러 provider 단계 중 하나가 실패하면 전체 결과와 중간 artifact 상태가 불명확해졌습니다.', decision: 'Pipeline step과 job status를 저장하고 cancel/retry API를 분리했습니다.', verification: 'pipeline API와 file access test, cancel/retry migration으로 확인했습니다.', result: '실패 지점과 재시도 가능한 작업 경계가 명확해졌습니다.' },
@@ -173,6 +174,7 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       { label: 'Provider adapters', detail: 'ACE-Step·Demucs·Seed-VC adapter와 benchmark', status: 'implemented' },
       { label: 'Workspace contract', detail: 'Workspace REST와 artifact domain validation', status: 'validated' },
       { label: 'External provider family', detail: 'DohaLM·DohaAudio·DohaVocal 연동 고도화 중', status: 'in-progress' },
+      { label: 'LLM lifecycle', detail: 'Dataset governance·evaluation artifact·REST/SSE Runtime 계약', status: 'implemented' },
     ],
     codeEvidence: [
       { label: 'Pipeline Service', description: 'Pipeline job orchestration과 상태 전이', url: blob('DohaStudio/DohaMusic', 'main', 'backend/services/pipeline_service.py') },
@@ -180,6 +182,11 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       { label: 'Provider Factory', description: '실제·mock AI provider 선택 경계', url: blob('DohaStudio/DohaMusic', 'main', 'backend/ai/factory.py') },
       { label: 'Workspace Model ADR', description: 'Workspace·Job·Artifact domain 결정', url: blob('DohaStudio/DohaMusic', 'main', 'docs/11-decisions/ADR-029-dohamusic-workspace-artifact-domain.md') },
       { label: 'Pipeline Tests', description: 'Pipeline API와 상태 계약 검증', url: blob('DohaStudio/DohaMusic', 'main', 'backend/tests/test_pipeline_api.py') },
+      { label: 'Dataset Governance', description: 'DohaLM dataset review·approval 상태와 전이', url: blob('DohaStudio/DohaLM', 'develop', 'src/data/dataset_governance.py') },
+      { label: 'Evaluation Runner', description: 'DohaLM 설정 기반 모델 평가 실행', url: blob('DohaStudio/DohaLM', 'develop', 'scripts/evaluation/run_evaluation.py') },
+      { label: 'Adapter Runtime', description: 'DohaLM Adapter와 REST/SSE Runtime 계약', url: blob('DohaStudio/DohaLM', 'develop', 'docs/service/dohalm-adapter-runtime.md') },
+      { label: 'Audio Provider', description: 'DohaAudio Provider architecture와 책임 경계', url: 'https://github.com/DohaStudio/DohaAudio' },
+      { label: 'Vocal Provider', description: 'DohaVocal 권리·Asset lineage Provider 경계', url: 'https://github.com/DohaStudio/DohaVocal' },
     ],
     scope: { mine: ['제품 architecture', 'FastAPI Backend', 'Pipeline orchestration', 'Provider abstraction', 'Workspace·Artifact domain', 'Studio·Result UI'] },
     discussionPoints: [
@@ -197,6 +204,12 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
         question: '왜 Workspace · Job · Artifact를 분리했나요?',
         answer: 'Workspace는 사용자의 제작 문맥과 선택 상태, Job은 실행과 상태 전이, Artifact는 생성 파일과 lineage를 담당합니다. 파일 path 하나로 축약하지 않아 어떤 작업이 어떤 입력으로 결과를 만들었는지 추적하고 Result·Export를 재현할 수 있습니다.',
         tradeoff: '각 entity의 수명 주기와 삭제·재시도 시 참조 정합성을 별도로 관리해야 합니다.',
+      },
+      {
+        question: '하나의 monorepo 대신 여러 repository로 분리한 trade-off는 무엇인가요?',
+        answer: '제품, LLM 모델, Audio와 Vocal Provider의 실행 환경과 변경 주기를 독립적으로 관리할 수 있지만 통합 contract를 별도로 유지해야 합니다. 현재는 Job·Artifact·Manifest 경계를 문서와 코드 증거로 맞추는 데 집중하고 있습니다.',
+        tradeoff: '공통 타입 변경과 통합 테스트가 단일 repository보다 느리고 version 호환성 관리가 필요합니다.',
+        next: '운영 확장 전에는 실제 변경 빈도를 기준으로 공통 contract package 범위와 자동 통합 검증을 우선 정리하겠습니다.',
       },
     ],
   },

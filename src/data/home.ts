@@ -15,19 +15,19 @@ export const coreCompetencies = [
   {
     title: 'LLM Engineering',
     description: 'Qwen 기반 Fine-Tuning, LoRA/QLoRA, Dataset Pipeline, Structured Output, Inference Runtime을 다룹니다.',
-    evidence: ['HAWK-AI', 'DohaLM'],
+    evidence: ['HAWK-AI', 'DOHA STUDIO / DohaLM'],
     keywords: ['Qwen', 'LoRA / QLoRA', 'Transformers', 'PEFT', 'Prompt', 'Structured Output'],
   },
   {
     title: 'AI Service Integration',
     description: 'AI 모델의 추론 결과를 Backend API, Database, Frontend 기능으로 연결합니다.',
-    evidence: ['HAWK-AI', 'STACCATO', 'DohaMusic'],
+    evidence: ['HAWK-AI', 'STACCATO', 'DOHA STUDIO'],
     keywords: ['FastAPI', 'Flask', 'REST API', 'AI Serving', 'Service Integration'],
   },
   {
     title: 'Backend & Data',
     description: 'Python Backend에서 서비스 API, 비즈니스 로직, 인증과 데이터를 연결합니다.',
-    evidence: ['HAWK-AI', 'DohaMusic', 'CommerceOps ERP'],
+    evidence: ['HAWK-AI', 'DOHA STUDIO', 'CommerceOps ERP'],
     keywords: ['Python', 'FastAPI', 'Flask', 'MySQL', 'SQLAlchemy'],
   },
   {
@@ -38,7 +38,7 @@ export const coreCompetencies = [
   },
 ]
 
-export const featuredProjectSlugs: Project['slug'][] = ['hawk-ai', 'dohalm', 'dohamusic', 'staccato']
+export const featuredProjectSlugs: Project['slug'][] = ['hawk-ai', 'doha-studio', 'staccato']
 
 export const aiExpertiseAreas = [
   {

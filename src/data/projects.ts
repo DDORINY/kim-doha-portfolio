@@ -29,7 +29,7 @@ export type ProjectArea = {
 }
 
 export type Project = {
-  slug: 'staccato' | 'erp' | '404rnf' | 'hawk-ai' | 'dohamusic' | 'dohalm' | 'dohaaudio' | 'dohavocal'
+  slug: 'staccato' | 'erp' | '404rnf' | 'hawk-ai' | 'doha-studio' | 'dohamusic' | 'dohalm' | 'dohaaudio' | 'dohavocal'
   name: string
   type: string
   period: string
@@ -67,6 +67,7 @@ export type Project = {
   aiPipelineImage?: { src: string; alt: string; caption: string }
   projectAreas?: ProjectArea[]
   evidenceOverview?: { label: string; value: string; description: string }[]
+  repositories?: { name: string; role: string; status: string; description: string; github: string; tech: string[] }[]
 }
 
 const legacyProjects: Project[] = [
@@ -471,5 +472,73 @@ const newProjects: Project[] = [
   },
 ]
 
-export const projects: Project[] = [...legacyProjects, ...newProjects]
+const dohaMusic = newProjects.find((project) => project.slug === 'dohamusic')!
+const dohaStudio: Project = {
+  ...dohaMusic,
+  slug: 'doha-studio',
+  name: 'DOHA STUDIO',
+  type: 'Personal Project · AI Product / AI System Architecture',
+  period: '2026.07.23 ~ PRESENT',
+  tagline: 'LLM·Audio·Vocal AI Provider를 Music Product Workspace와 연결하는 multi-repository 개인 AI 제작 플랫폼 프로젝트',
+  teamNote: '개인 프로젝트 · Product / Model / Provider 전체 설계·개발',
+  categories: ['Full-stack', 'Infra / Deployment'],
+  highlights: ['AI Product', 'Job Orchestration', 'LLM Runtime', 'Provider Architecture', 'Artifact Lifecycle'],
+  techHighlights: ['Python', 'FastAPI', 'React', 'PyTorch', 'QLoRA', 'Provider Pattern'],
+  resumeHighlight: {
+    role: 'DohaMusic Product·Orchestration, DohaLM Model·Runtime, Audio·Vocal Provider architecture 설계 및 개발',
+    contribution: '개인 AI Product Ecosystem 전체 설계·구현',
+    achievement: 'Workspace·Job·Artifact 제품 흐름과 Dataset·Model·Runtime, Audio·Vocal Provider 책임을 4개 repository 계약으로 분리',
+  },
+  summary: '음악 제작 Workspace를 중심으로 LLM, Audio, Vocal AI 기능을 독립 Provider로 분리하고 Job·Artifact 계약으로 연결하는 개인 AI 시스템 프로젝트입니다. DohaMusic은 제품과 orchestration을, DohaLM은 LLM 모델 생명주기와 Runtime을 담당하며 DohaAudio·DohaVocal은 architecture bootstrap 단계의 Provider 경계를 정의합니다.',
+  background: '음악 생성 도구와 모델 Runtime을 한 코드베이스에 결합하면 제품 Workflow, 장시간 AI Job, 모델 실험과 Artifact 생명주기가 함께 변경됩니다. 사용자 제작 경험은 하나로 유지하면서 각 AI 책임을 독립적으로 개발·검증하기 위해 multi-repository 구조로 분리했습니다.',
+  role: ['DohaMusic Workspace·Job·Artifact·Mix/Export 제품 구조 설계', '비동기 Pipeline과 Provider Adapter 구현', 'DohaLM Dataset Governance·Training·Evaluation·Manifest 구현', 'Qwen·QLoRA Adapter와 FastAPI REST/SSE Runtime 구현', 'DohaAudio·DohaVocal Provider 책임·Job·Artifact 계약 설계', 'Repository 간 구현 상태와 통합 경계 검증'],
+  features: ['Music Product Workspace', 'Async Job Orchestration', 'Artifact·Result Lifecycle', 'LLM Dataset·Training·Runtime', 'Audio AI Provider Architecture', 'Vocal AI Rights·Lineage Architecture'],
+  techStack: ['Python', 'FastAPI', 'SQLAlchemy', 'React', 'TypeScript', 'PyTorch', 'Transformers', 'PEFT', 'LoRA / QLoRA', 'Pydantic', 'FFmpeg', 'Demucs', 'Seed-VC', 'ACE-Step', 'SQLite'],
+  systemFlow: [{ label: 'DohaMusic', description: 'Product·Workspace·Orchestration' }, { label: 'Provider Contract', description: 'Job·Artifact 경계' }, { label: 'DohaLM', description: 'LLM Model·Runtime' }, { label: 'DohaAudio / Vocal', description: 'Architecture·In Progress' }, { label: 'Result', description: 'Mix·Export·History' }],
+  architectureDiagram: {
+    chart: `flowchart TB
+  USER["User / Creator"]
+  subgraph PRODUCT["DohaMusic · ACTIVE DEVELOPMENT"]
+    UI["Studio UI"] --> API["Product API"]
+    API --> WS["Workspace"]
+    WS --> JOB["Job Orchestration"]
+    JOB --> ART["Artifact Management"]
+    ART --> MIX["Mix / Export"]
+  end
+  subgraph PROVIDERS["AI PROVIDERS"]
+    LM["DohaLM<br/>Model & Runtime · ACTIVE"]
+    AUDIO["DohaAudio<br/>Architecture / In Progress"]
+    VOCAL["DohaVocal<br/>Architecture / In Progress"]
+  end
+  USER --> UI
+  JOB --> LM
+  JOB -. "provider contract" .-> AUDIO
+  JOB -. "provider contract" .-> VOCAL
+  LM --> ART
+  AUDIO -.-> ART
+  VOCAL -.-> ART
+  classDef planned stroke-dasharray: 6 4,fill:#ffffff00
+  class AUDIO,VOCAL planned`,
+    summary: 'DohaMusic의 제품 Workflow와 세 AI Provider의 변경 주기·Runtime 책임을 repository 계약으로 분리한 구조입니다.',
+    keyFlow: 'Creator → DohaMusic Workspace → Job Orchestration → AI Provider → Artifact → Mix / Export',
+    notes: [
+      { label: 'PRODUCT', text: 'DohaMusic이 Studio UI, Workspace, Job, Artifact와 Mix·Export 사용자 흐름을 관리합니다.' },
+      { label: 'MODEL & RUNTIME', text: 'DohaLM이 Dataset Governance, 학습·평가, Adapter Manifest와 REST·SSE Runtime을 담당합니다.' },
+      { label: 'STATUS BOUNDARY', text: 'DohaAudio·DohaVocal은 architecture bootstrap 단계이며 완료된 Runtime처럼 표시하지 않습니다.' },
+    ],
+  },
+  github: { label: 'GitHub Organization', url: 'https://github.com/DohaStudio' },
+  retrospective: '제품과 Provider를 나누는 것 자체보다 Workspace·Job·Artifact와 Model Runtime 사이의 계약, 실패 처리와 version identity를 명확히 하는 일이 multi-repository 구조의 핵심임을 확인했습니다.',
+  proofCompetencies: ['AI Product Architecture', 'LLM Model & Runtime', 'Provider Integration'],
+  proofEvidence: ['DohaMusic Workspace·Job Pipeline', 'DohaLM QLoRA·REST/SSE Runtime', 'Audio·Vocal Provider Architecture'],
+  repositories: [
+    { name: 'DohaMusic', role: 'Product / Workspace / Orchestrator', status: 'ACTIVE DEVELOPMENT', description: 'Studio UI, Workspace, Job, Artifact, Provider Integration, Mix와 Export를 담당합니다.', github: 'https://github.com/DohaStudio/DohaMusic', tech: ['FastAPI', 'React', 'SQLAlchemy', 'FFmpeg'] },
+    { name: 'DohaLM', role: 'LLM Model & Runtime Provider', status: 'ACTIVE DEVELOPMENT', description: 'Dataset Governance, Training, Evaluation, Adapter Manifest와 REST/SSE Runtime을 담당합니다.', github: 'https://github.com/DohaStudio/DohaLM/tree/develop', tech: ['PyTorch', 'Transformers', 'PEFT', 'FastAPI'] },
+    { name: 'DohaAudio', role: 'Audio AI Provider', status: 'ARCHITECTURE / IN PROGRESS', description: 'Audio processing·generation Job, Dataset, Model Manifest와 Artifact Provider 경계를 설계합니다.', github: 'https://github.com/DohaStudio/DohaAudio', tech: ['Python', 'Audio AI', 'Provider Contract'] },
+    { name: 'DohaVocal', role: 'Vocal AI Provider', status: 'ARCHITECTURE / IN PROGRESS', description: 'Vocal processing Job, consent·rights와 원본 불변 Asset lineage 경계를 설계합니다.', github: 'https://github.com/DohaStudio/DohaVocal', tech: ['Python', 'Vocal AI', 'Asset Lineage'] },
+  ],
+}
+
+const legacyDohaSlugs = new Set<Project['slug']>(['dohamusic', 'dohalm', 'dohaaudio', 'dohavocal'])
+export const projects: Project[] = [...legacyProjects, ...newProjects.filter((project) => !legacyDohaSlugs.has(project.slug)), dohaStudio]
 export const getProject = (slug?: string) => projects.find((project) => project.slug === slug)

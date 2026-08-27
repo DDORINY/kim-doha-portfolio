@@ -10,7 +10,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
   const isInProgress = project.status === 'in-progress'
   const isArchitecture = listing.currentStatus?.includes('ARCHITECTURE')
   const stateLabel = isArchitecture ? 'ARCHITECTURE' : isInProgress ? 'IN PROGRESS' : 'COMPLETED'
-  const category = project.slug === 'hawk-ai' || project.slug === 'dohalm' || project.slug === 'dohamusic'
+  const category = project.slug === 'hawk-ai' || project.slug === 'doha-studio'
     ? 'LLM / AI SERVICE'
     : project.categories?.[0] ?? project.type.split(' · ')[0]
 
