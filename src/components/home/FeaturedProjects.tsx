@@ -19,7 +19,7 @@ const projectCategory = (slug: string) => {
 
 export default function FeaturedProjects() {
   return (
-    <section className="section projects-preview home-featured-work" aria-labelledby="featured-projects-title">
+    <section className="section projects-preview home-featured-work" id="featured-work" aria-labelledby="featured-projects-title">
       <div className="container">
         <SectionHeading id="featured-projects-title" eyebrow="01 / FEATURED WORK" title="CURRENT DIRECTION" description="LLM 모델, Python Backend, 실제 사용자 기능을 연결한 현재 대표 작업입니다." />
         {hawkAi && (
@@ -31,16 +31,16 @@ export default function FeaturedProjects() {
               <p className="home-project-summary">Qwen + LoRA 기반 게시글 생성 모델을 FastAPI AI Serving, Backend, 실제 게시판 UI까지 연결한 LLM 서비스 통합 프로젝트</p>
               <dl className="home-hawk-facts">
                 <div><dt>WHAT</dt><dd>{projectListingMeta[hawkAi.slug].what}</dd></div>
-                <div><dt>MY ROLE</dt><dd>{projectListingMeta[hawkAi.slug].role}</dd></div>
+                <div><dt>MY ROLE</dt><dd className="home-hawk-role">{projectListingMeta[hawkAi.slug].role.split(/,\s*/).map((item) => <span key={item}>{item}</span>)}</dd></div>
                 <div><dt>KEY DECISION</dt><dd>Frontend → Backend Gateway → FastAPI AI Serving으로 책임을 분리했습니다.</dd></div>
-                <div><dt>VERIFICATION</dt><dd>{projectListingMeta[hawkAi.slug].evidence.map((item) => <span key={item}>{item}</span>)}</dd></div>
+                <div><dt>VERIFICATION</dt><dd className="home-hawk-verification">{projectListingMeta[hawkAi.slug].evidence.map((item, index) => <span key={item}><b>{['MODEL', 'API', 'INTEGRATION'][index]}</b>{item}</span>)}</dd></div>
               </dl>
-              <div className="chip-row">{(hawkAi.techHighlights ?? hawkAi.techStack).slice(0, 5).map((tech) => <TechChip label={tech} key={tech} />)}</div>
+              <div className="home-hawk-tech"><span>TECH</span><div className="chip-row">{(hawkAi.techHighlights ?? hawkAi.techStack).slice(0, 5).map((tech) => <TechChip label={tech} key={tech} />)}</div></div>
               <div className="home-project-actions"><Link className="button primary" to={`/projects/${hawkAi.slug}`}>VIEW CASE STUDY</Link>{hawkAi.deploy.url && <a className="button secondary" href={hawkAi.deploy.url} target="_blank" rel="noreferrer">LIVE SERVICE</a>}</div>
             </div>
             <div className="home-hawk-visual">
               {hawkAi.screenshots[0] && <ImageWithFallback src={hawkAi.screenshots[0].src} alt={hawkAi.screenshots[0].alt} loading="eager" fallbackLabel="HAWK-AI 프로젝트 화면" />}
-              <ProjectFlow project={hawkAi} compact />
+              <div className="home-hawk-flow"><span>SERVICE FLOW</span><ProjectFlow project={hawkAi} /></div>
             </div>
           </Reveal>
         )}
