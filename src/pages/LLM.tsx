@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { projects } from '../data/projects'
+import { projectInterviewEvidence } from '../data/interviewEvidence'
 import {
   dohaLmArchitecture,
   dohaLmPhases,
@@ -87,6 +88,7 @@ export default function LLM() {
               </Reveal>
               <div className="llm-evidence-grid">{hawkEvidence.map((item, index) => <Reveal className="llm-evidence-card" delay={(index % 3) * 50} key={item.label}><span>{item.label}</span><strong>{item.value}</strong></Reveal>)}</div>
             </div>
+            <Reveal className="llm-decision-strip"><span>ENGINEERING DECISIONS</span><div>{projectInterviewEvidence['hawk-ai']?.decisions.map((item) => <b key={item.title}>{item.title}</b>)}</div></Reveal>
           </div>
         </section>
       )}
@@ -113,6 +115,7 @@ export default function LLM() {
             <Reveal className="llm-dohalm-meta"><span>PERSONAL PROJECT</span><strong>{dohaLm.period.replace(' ~ ', ' — ').replace('진행 중', 'PRESENT')}</strong><StatusBadge status="in-progress" /><a href={repositoryUrl} target="_blank" rel="noreferrer">GITHUB <span>↗</span></a></Reveal>
             <TechnicalFlow items={dohaLmArchitecture} label="DohaLM model and runtime architecture" />
             <div className="llm-phase-grid">{dohaLmPhases.map((phase, index) => <Reveal as="article" className="llm-phase-card" delay={index * 60} key={phase.phase}><div><span>{phase.phase}</span><StatusBadge status={phase.status} /></div><h3>{phase.title}</h3><ul>{phase.items.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>)}</div>
+            <Reveal className="llm-decision-strip"><span>ENGINEERING DECISIONS</span><div>{projectInterviewEvidence.dohalm?.decisions.map((item) => <b key={item.title}>{item.title}</b>)}</div></Reveal>
           </div>
         </section>
       )}
