@@ -17,6 +17,58 @@ export const statusLabels: Record<DevelopmentStatus, string> = {
   blocked: 'BLOCKED',
 }
 
+export const hawkServiceFlow = ['Dataset', 'Qwen Base', 'LoRA Fine-Tuning', 'FastAPI AI Serving', 'Backend AI Client', 'Board / Chat Frontend'] as const
+
+export const hawkContributions = [
+  '게시판 기능 구현',
+  '게시판 Frontend ↔ Backend 연결',
+  'Backend ↔ FastAPI AI Serving 연결',
+  'Qwen + LoRA 게시글 생성 서비스 연동',
+  '구조화 응답 처리',
+  'Chat API / Navigation Action 연동',
+  'AI 추천 결과 Frontend UI 연결',
+] as const
+
+export const hawkEvidence = [
+  { label: 'MODEL', value: 'Qwen + LoRA' },
+  { label: 'INFERENCE', value: 'FastAPI' },
+  { label: 'BOARD API', value: 'POST /api/ai/board' },
+  { label: 'CHAT API', value: 'POST /api/ai/chat' },
+  { label: 'ORCHESTRATION', value: 'LangChain / LangGraph' },
+  { label: 'SERVICE PATH', value: 'Frontend → Backend → AI Serving' },
+] as const
+
+export const structuredOutputFlow = ['LLM Output', 'JSON Recovery', 'Pydantic Parser', 'Validation', 'title / summary / content'] as const
+
+export const langGraphNodes = [
+  { label: 'START', detail: 'Request' },
+  { label: 'validate_input', detail: 'Schema & context' },
+  { label: 'classify_intent', detail: 'Intent routing' },
+  { label: 'NAVIGATION', detail: 'create_navigation_action' },
+  { label: 'OTHER', detail: 'generate_answer' },
+  { label: 'format_response', detail: 'Structured response' },
+  { label: 'END', detail: 'Board / Chat UI' },
+] as const
+
+export const langGraphIntents = ['GENERAL', 'INSPECTION', 'BOARD', 'STATISTICS', 'NAVIGATION'] as const
+
+export const dohaLmArchitecture = ['Dataset Governance', 'Tokenizer / Dataset', 'Foundation Training', 'Evaluation', 'Model / Adapter Artifact', 'Inference Runtime', 'REST / SSE API'] as const
+
+export const dohaLmPhases = [
+  { phase: 'PHASE 1', title: 'FOUNDATION MODEL', status: 'in-progress' as DevelopmentStatus, items: ['DohaLM-Tiny · VERIFIED', 'Candidate evaluation · IN PROGRESS', 'Dataset governance · IN PROGRESS', 'Training readiness · VERIFIED'] },
+  { phase: 'PHASE 2', title: 'REUSABLE MODEL', status: 'in-progress' as DevelopmentStatus, items: ['Qwen', 'LoRA / QLoRA Adapter', 'Model Manifest', 'Validator / Loader'] },
+  { phase: 'PHASE 3', title: 'RUNTIME & DISTRIBUTION', status: 'in-progress' as DevelopmentStatus, items: ['FastAPI REST · IMPLEMENTED', 'SSE MVP · IMPLEMENTED', 'Versioned release · IN PROGRESS', 'Python SDK · PLANNED'] },
+] as const
+
+export const trainingPipeline = ['Raw Dataset', 'Validation', 'Split', 'Tokenizer', 'Training', 'Checkpoint', 'Evaluation', 'Artifact / Manifest'] as const
+
+export const llmStackGroups = [
+  { label: 'MODEL / TRAINING', items: ['Qwen', 'Transformers', 'PEFT', 'LoRA', 'QLoRA', 'PyTorch'] },
+  { label: 'SERVING', items: ['FastAPI', 'SSE', 'Pydantic', 'HuggingFace Pipeline'] },
+  { label: 'ORCHESTRATION', items: ['LangChain', 'LangGraph', 'Structured Output'] },
+  { label: 'DATA / EVALUATION', items: ['JSONL', 'Dataset Validation', 'Evaluation Pipeline', 'Model Manifest'] },
+] as const
+
 export const overviewCards = [
   { code: 'TOKENIZER', title: 'Korean Tokenizer', description: '한국어 말뭉치를 기반으로 SentencePiece Unigram 토크나이저를 학습하고 운영 Bundle로 검증했습니다.' },
   { code: 'MODEL', title: 'Transformer From Scratch', description: 'Embedding, Causal Attention, Feed Forward Network, Pre-LayerNorm과 LM Head를 PyTorch로 직접 구현했습니다.' },

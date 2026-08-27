@@ -6,55 +6,54 @@ import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import SectionScrollButton from '../components/SectionScrollButton'
 import SideProjectCard from '../components/SideProjectCard'
-import { selectedCaseStudySlugs, sideProjectOrder } from '../data/projectListing'
-import { projects } from '../data/projects'
+import { projectListingMeta, sideProjectOrder } from '../data/projectListing'
+import { projects, type Project } from '../data/projects'
 import { sideProjects } from '../data/sideProjects'
 
 type ProjectFilter = 'all' | 'ai-service' | 'computer-vision' | 'full-stack' | 'infrastructure' | 'in-progress'
 
 const filters: { key: ProjectFilter; label: string }[] = [
   { key: 'all', label: 'ALL' },
-  { key: 'ai-service', label: 'AI SERVICE' },
+  { key: 'ai-service', label: 'LLM / AI SERVICE' },
   { key: 'computer-vision', label: 'COMPUTER VISION' },
   { key: 'full-stack', label: 'FULL STACK' },
-  { key: 'infrastructure', label: 'INFRASTRUCTURE' },
+  { key: 'infrastructure', label: 'INFRA / SYSTEM' },
   { key: 'in-progress', label: 'IN PROGRESS' },
 ]
 
-const SIDE_PAGE_SIZE = 6
 const isDefined = <T,>(value: T | undefined): value is T => value !== undefined
-const completedProjects = projects.filter((project) => project.status !== 'in-progress')
-const inProgressProjects = projects.filter((project) => project.status === 'in-progress')
-const completedSideProjects = sideProjectOrder
-  .map((slug) => sideProjects.find((project) => project.slug === slug))
-  .filter(isDefined)
-  .filter((project) => project.status !== 'in-progress')
-const inProgressSideProjects = sideProjectOrder
-  .map((slug) => sideProjects.find((project) => project.slug === slug))
-  .filter(isDefined)
-  .filter((project) => project.status === 'in-progress')
-const selectedCaseStudies = selectedCaseStudySlugs.map((slug) => projects.find((project) => project.slug === slug)).filter(isDefined)
+const getProjectBySlug = (slug: Project['slug']) => projects.find((project) => project.slug === slug)
+const featuredProject = getProjectBySlug('hawk-ai')
+const selectedProjects = (['dohalm', 'dohamusic', 'staccato'] as Project['slug'][]).map(getProjectBySlug).filter(isDefined)
+const dohaStudioProjects = (['dohamusic', 'dohalm', 'dohaaudio', 'dohavocal'] as Project['slug'][]).map(getProjectBySlug).filter(isDefined)
+const orderedSideProjects = sideProjectOrder.map((slug) => sideProjects.find((project) => project.slug === slug)).filter(isDefined)
+const aiServiceSlugs = new Set<Project['slug']>(['hawk-ai', 'dohalm', 'dohamusic', 'dohaaudio', 'dohavocal'])
 
 function filterProjects(filter: ProjectFilter) {
-  if (filter === 'in-progress') return inProgressProjects
-  if (filter === 'all' || filter === 'ai-service') return completedProjects
-  if (filter === 'computer-vision') return completedProjects.filter((project) => project.categories?.includes('AI / Computer Vision'))
-  if (filter === 'full-stack') return completedProjects.filter((project) => project.categories?.includes('Full-stack'))
-  return completedProjects.filter((project) => project.categories?.includes('Infra / Deployment'))
+  if (filter === 'all') return projects
+  if (filter === 'ai-service') return projects.filter((project) => aiServiceSlugs.has(project.slug))
+  if (filter === 'in-progress') return projects.filter((project) => project.status === 'in-progress')
+  if (filter === 'computer-vision') return projects.filter((project) => project.categories?.includes('AI / Computer Vision'))
+  if (filter === 'full-stack') return projects.filter((project) => project.categories?.includes('Full-stack'))
+  return projects.filter((project) => project.categories?.includes('Infra / Deployment'))
+}
+
+function getStudioStatus(project: Project) {
+  const currentStatus = projectListingMeta[project.slug].currentStatus ?? ''
+  return currentStatus.includes('ARCHITECTURE') ? 'ARCHITECTURE' : 'ACTIVE DEVELOPMENT'
 }
 
 export default function Projects() {
   const [filter, setFilter] = useState<ProjectFilter>('all')
-  const [sidePage, setSidePage] = useState(0)
   const filteredProjects = useMemo(() => filterProjects(filter), [filter])
-  const sideTotalPages = Math.ceil(completedSideProjects.length / SIDE_PAGE_SIZE)
-  const pagedSideProjects = completedSideProjects.slice(sidePage * SIDE_PAGE_SIZE, sidePage * SIDE_PAGE_SIZE + SIDE_PAGE_SIZE)
-  const liveServices = completedProjects.filter((project) => project.deploy.url && !project.deploy.placeholder).length + completedSideProjects.filter((project) => project.url).length
+  const completedCount = projects.filter((project) => project.status !== 'in-progress').length
+  const inProgressCount = projects.length - completedCount
+  const liveServices = projects.filter((project) => project.deploy.url && !project.deploy.placeholder).length + orderedSideProjects.filter((project) => project.url).length
   const summaryMetrics = [
-    { label: 'COMPLETED', value: completedProjects.length },
-    { label: 'SIDE PROJECTS', value: completedSideProjects.length },
+    { label: 'MAIN PROJECTS', value: projects.length },
+    { label: 'COMPLETED', value: completedCount },
     { label: 'LIVE SERVICES', value: liveServices },
-    { label: 'IN PROGRESS', value: inProgressProjects.length + inProgressSideProjects.length },
+    { label: 'IN PROGRESS', value: inProgressCount },
   ]
 
   return (
@@ -62,13 +61,13 @@ export default function Projects() {
       <section className="projects-page-hero page-section" aria-labelledby="projects-page-title">
         <div className="container projects-hero-grid">
           <Reveal className="projects-hero-copy">
-            <span className="eyebrow">AI SERVICE PROJECTS</span>
-            <h1 id="projects-page-title">모델과 서비스를 연결한 프로젝트</h1>
-            <p>AI 모델 실험에서 끝나지 않고,<br />API·데이터베이스·사용자 화면·배포 환경까지 연결한 프로젝트를 정리했습니다.</p>
+            <span className="eyebrow">PROJECTS</span>
+            <h1 id="projects-page-title">AI 모델을 학습하고,<br />Backend와 사용자 서비스까지 연결한 프로젝트</h1>
+            <p>모델 실험부터 API, 데이터베이스, 사용자 화면과 배포 환경까지 이어지는 구현 기록입니다.</p>
             <div className="projects-hero-keywords" aria-label="프로젝트 기술 영역">
-              {['COMPUTER VISION', 'LLM & AGENT', 'BACKEND API', 'DATABASE', 'DEPLOYMENT'].map((keyword) => <span key={keyword}>{keyword}</span>)}
+              {['LLM', 'AI SERVICE', 'BACKEND', 'COMPUTER VISION'].map((keyword) => <span key={keyword}>{keyword}</span>)}
             </div>
-            <SectionScrollButton className="projects-hero-link" targetId="selected-case-studies">VIEW CASE STUDIES <span>↓</span></SectionScrollButton>
+            <SectionScrollButton className="projects-hero-link" targetId="featured-project">VIEW PROJECTS <span>↓</span></SectionScrollButton>
           </Reveal>
           <Reveal className="projects-summary-panel" delay={100} aria-label="프로젝트 현황">
             <div className="projects-summary-head"><span>PROJECT INDEX</span><small>LIVE DATA</small></div>
@@ -77,23 +76,59 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="section projects-case-section" id="selected-case-studies" aria-labelledby="selected-case-studies-title">
+      {featuredProject && (
+        <section className="section projects-featured-section" id="featured-project" aria-labelledby="featured-project-title">
+          <div className="container">
+            <SectionHeading id="featured-project-title" eyebrow="01 / FEATURED PROJECT" title="HAWK-AI" description="게시판과 LLM 추론 서비스를 실제 제품 흐름에 연결한 현재 핵심 팀 프로젝트입니다." />
+            <ProjectCaseStudy project={featuredProject} index={0} featured />
+          </div>
+        </section>
+      )}
+
+      <section className="section projects-selected-section" aria-labelledby="selected-projects-title">
         <div className="container">
-          <SectionHeading id="selected-case-studies-title" eyebrow="01 / SELECTED WORK" title="SELECTED CASE STUDIES" description="서비스 전체 구조와 개인 역할, 검증 가능한 구현 근거를 중심으로 정리한 대표 프로젝트입니다." />
-          <div className="projects-case-layout">
-            {selectedCaseStudies.map((project, index) => <ProjectCaseStudy project={project} index={index} featured={index === 0} key={project.slug} />)}
+          <SectionHeading id="selected-projects-title" eyebrow="02 / SELECTED PROJECTS" title="SELECTED PROJECTS" description="모델 연구, 제품 파이프라인, 운영형 AI 시스템의 구현 범위를 빠르게 비교할 수 있습니다." />
+          <div className="projects-selected-grid">
+            {selectedProjects.map((project, index) => <ProjectCaseStudy project={project} index={index + 1} key={project.slug} />)}
+          </div>
+        </div>
+      </section>
+
+      <section className="section doha-studio-section" aria-labelledby="doha-studio-title">
+        <div className="container">
+          <div className="doha-studio-heading">
+            <SectionHeading id="doha-studio-title" eyebrow="03 / PRODUCT FAMILY" title="DOHA STUDIO" description="하나의 Workspace 제품과 세 개의 재사용 AI Provider를 분리해 개발하는 개인 AI 생태계입니다." />
+            <p>2026.07.23 — PRESENT · PERSONAL PROJECT</p>
+          </div>
+          <Reveal className="doha-studio-map" aria-label="DohaStudio repository relationship">
+            <div className="studio-product"><span>PRODUCT / WORKSPACE</span><strong>DohaMusic</strong></div>
+            <i aria-hidden="true">↓</i>
+            <div className="studio-providers">
+              {['DohaLM', 'DohaAudio', 'DohaVocal'].map((name) => <div key={name}><span>PROVIDER</span><strong>{name}</strong></div>)}
+            </div>
+          </Reveal>
+          <div className="doha-studio-grid">
+            {dohaStudioProjects.map((project, index) => (
+              <Reveal as="article" className="studio-project-card" delay={index * 60} key={project.slug}>
+                <div className="studio-card-topline"><span>0{index + 1}</span><b>{getStudioStatus(project)}</b></div>
+                <h3>{project.name}</h3>
+                <p>{projectListingMeta[project.slug].what}</p>
+                <div className="studio-card-footer">
+                  <span>{(project.techHighlights ?? project.techStack).slice(0, 3).join(' · ')}</span>
+                  <Link to={`/projects/${project.slug}`} aria-label={`${project.name} 상세 보기`}>VIEW <span>→</span></Link>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="section projects-all-section" id="all-projects" aria-labelledby="all-projects-title">
         <div className="container">
-          <SectionHeading id="all-projects-title" eyebrow="02 / PROJECT INDEX" title="ALL PROJECTS" description="역할과 구현 근거를 빠르게 비교할 수 있도록 핵심 정보만 압축했습니다." />
+          <SectionHeading id="all-projects-title" eyebrow="04 / PROJECT INDEX" title="ALL PROJECTS" description="전체 메인 프로젝트를 상태와 기술 영역으로 필터링해 비교할 수 있습니다." />
           <Reveal className="projects-filter-wrap">
             <div className="project-filter" aria-label="프로젝트 카테고리 필터">
-              {filters.map((item) => (
-                <button type="button" className={filter === item.key ? 'active' : ''} aria-pressed={filter === item.key} onClick={() => setFilter(item.key)} key={item.key}>{item.label}</button>
-              ))}
+              {filters.map((item) => <button type="button" className={filter === item.key ? 'active' : ''} aria-pressed={filter === item.key} onClick={() => setFilter(item.key)} key={item.key}>{item.label}</button>)}
               <SectionScrollButton className="projects-side-scroll" targetId="side-projects">SIDE PROJECTS <span>↓</span></SectionScrollButton>
             </div>
             <p className="projects-result-count" role="status" aria-live="polite">{filteredProjects.length} PROJECT{filteredProjects.length === 1 ? '' : 'S'}</p>
@@ -106,31 +141,10 @@ export default function Projects() {
 
       <section className="section side-projects projects-side-section" id="side-projects" aria-labelledby="side-projects-title">
         <div className="container">
-          <SectionHeading id="side-projects-title" eyebrow="03 / SIDE BUILDS" title="SIDE PROJECTS & EXPERIMENTS" description="새로운 기술과 서비스 구조를 작게 구현하고, 인증·데이터 저장·자동화·배포까지 실험한 프로젝트입니다." />
-          <div className="side-project-grid projects-side-grid">{pagedSideProjects.map((project) => <SideProjectCard project={project} variant="listing" key={project.slug} />)}</div>
-          {sideTotalPages > 1 && (
-            <div className="pagination">
-              <button type="button" onClick={() => setSidePage((page) => Math.max(0, page - 1))} disabled={sidePage === 0}>← 이전</button>
-              <div className="pagination-pages">
-                {Array.from({ length: sideTotalPages }, (_, index) => <button type="button" key={index} className={index === sidePage ? 'active' : ''} aria-current={index === sidePage ? 'page' : undefined} onClick={() => setSidePage(index)} aria-label={`${index + 1}페이지`}>{index + 1}</button>)}
-              </div>
-              <button type="button" onClick={() => setSidePage((page) => Math.min(sideTotalPages - 1, page + 1))} disabled={sidePage === sideTotalPages - 1}>다음 →</button>
-            </div>
-          )}
+          <SectionHeading id="side-projects-title" eyebrow="05 / SIDE BUILDS" title="SIDE PROJECTS & EXPERIMENTS" description="새로운 기술과 서비스 구조를 작게 구현하고, 인증·데이터 저장·자동화·배포까지 실험한 프로젝트입니다." />
+          <div className="side-project-grid projects-side-grid">{orderedSideProjects.map((project) => <SideProjectCard project={project} variant="listing" key={project.slug} />)}</div>
         </div>
       </section>
-
-      {(inProgressProjects.length > 0 || inProgressSideProjects.length > 0) && (
-        <section className="section in-progress-section projects-progress-section" id="in-progress" aria-labelledby="in-progress-title">
-          <div className="container">
-            <SectionHeading id="in-progress-title" eyebrow="04 / IN PROGRESS" title="현재 진행 중인 프로젝트" description="완료된 기능과 예정 작업을 구분하고, 현재 담당 범위와 다음 단계만 표시합니다." />
-            <div className="projects-progress-grid">
-              {inProgressProjects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}
-              {inProgressSideProjects.map((project) => <SideProjectCard project={project} variant="listing" key={project.slug} />)}
-            </div>
-          </div>
-        </section>
-      )}
 
       <section className="section projects-contact-section">
         <div className="container">
