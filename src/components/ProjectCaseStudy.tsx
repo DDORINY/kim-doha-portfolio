@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { projectListingMeta } from '../data/projectListing'
+import { projectInterviewEvidence } from '../data/interviewEvidence'
 import type { Project } from '../data/projects'
 import ImageWithFallback from './ImageWithFallback'
 import ProjectFlow from './ProjectFlow'
@@ -17,6 +18,7 @@ export default function ProjectCaseStudy({ project, index, featured = false }: {
   const preview = getPreview(project)
   const architectureStatus = listing.currentStatus?.includes('ARCHITECTURE')
   const statusLabel = architectureStatus ? 'ARCHITECTURE' : listing.maturity === 'in-progress' ? 'IN PROGRESS' : 'COMPLETED'
+  const interviewEvidence = projectInterviewEvidence[project.slug]
 
   return (
     <Reveal
@@ -49,6 +51,7 @@ export default function ProjectCaseStudy({ project, index, featured = false }: {
             <div><dt>EVIDENCE</dt><dd className="case-study-evidence">{listing.evidence.map((item) => <span key={item}>{item}</span>)}</dd></div>
           </dl>
         ) : <p className="case-study-selected-summary">{listing.what}</p>}
+        {interviewEvidence && <div className="case-study-decision"><span>KEY DECISION</span><strong>{interviewEvidence.keyDecision}</strong></div>}
         <div className="case-study-tech">
           <span className="meta-label">CORE TECH</span>
           <div className="chip-row">{(project.techHighlights ?? project.techStack).slice(0, 4).map((tech) => <TechChip label={tech} key={tech} />)}</div>

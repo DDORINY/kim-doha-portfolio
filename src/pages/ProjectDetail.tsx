@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom'
 import ImageWithFallback from '../components/ImageWithFallback'
 import ProjectAreaPanel from '../components/project-detail/ProjectAreaPanel'
 import ProjectAreaTabs from '../components/project-detail/ProjectAreaTabs'
+import ProjectEngineeringEvidence from '../components/project-detail/ProjectEngineeringEvidence'
 import ProjectDetailNav from '../components/project-detail/ProjectDetailNav'
 import ProjectPager from '../components/project-detail/ProjectPager'
 import ProjectResourceLink from '../components/project-detail/ProjectResourceLink'
@@ -14,10 +15,12 @@ import {
   getProjectEvidence,
   getProjectHeroImage,
   getProjectStatus,
+  engineeringDetailSections,
   mainDetailSections,
   splitRetrospective,
 } from '../data/projectDetail'
 import { projectListingMeta } from '../data/projectListing'
+import { projectInterviewEvidence } from '../data/interviewEvidence'
 import { getProject, type ProjectAreaKey } from '../data/projects'
 
 const projectAreaOrder: ProjectAreaKey[] = ['frontend', 'backend', 'ai', 'database', 'infrastructure']
@@ -50,6 +53,7 @@ export default function ProjectDetail() {
     ...(project.github.url && !project.github.placeholder ? [project.github] : []),
   ]
   const adjacent = getAdjacentProjects(project.slug)
+  const interviewEvidence = projectInterviewEvidence[project.slug]
 
   const handleAreaChange = (id: ProjectAreaKey) => {
     setActiveAreaId(id)
@@ -73,6 +77,8 @@ export default function ProjectDetail() {
                 <div><dt>PERIOD</dt><dd>{project.period}</dd></div>
                 {project.teamNote && <div><dt>TEAM / SCOPE</dt><dd>{project.teamNote}</dd></div>}
                 <div><dt>MY ROLE</dt><dd>{listing.role}</dd></div>
+                {interviewEvidence && <div><dt>KEY DECISION</dt><dd>{interviewEvidence.keyDecision}</dd></div>}
+                {interviewEvidence && <div><dt>VERIFICATION</dt><dd>{interviewEvidence.verificationSummary}</dd></div>}
               </dl>
               <div className="detail-actions">
                 {project.github.url && !project.github.placeholder && <ProjectResourceLink {...project.github} />}
@@ -88,7 +94,7 @@ export default function ProjectDetail() {
       </header>
 
       <div className="container detail-layout">
-        <ProjectDetailNav sections={mainDetailSections} />
+        <ProjectDetailNav sections={interviewEvidence ? engineeringDetailSections : mainDetailSections} />
         <div className="detail-content">
           <Reveal as="section" id="overview" className="detail-section detail-overview-section">
             <span className="section-number">02 / OVERVIEW</span><h2>프로젝트 개요</h2>
@@ -128,11 +134,13 @@ export default function ProjectDetail() {
             {evidenceSections.map((section) => <div className="detail-check-block" key={section.id}><h3>{section.heading}</h3><ul className="check-list">{section.items.map((item) => <li key={item}>{item}</li>)}</ul></div>)}
           </Reveal>
 
-          <Reveal as="section" id="problem-solving" className="detail-section">
+          {interviewEvidence && <ProjectEngineeringEvidence evidence={interviewEvidence} />}
+
+          {!interviewEvidence && <Reveal as="section" id="problem-solving" className="detail-section">
             <span className="section-number">06 / PROBLEM SOLVING</span><h2>문제 해결 경험</h2>
             <div className="trouble-list">{project.troubleshooting.slice(0, 4).map((item) => <article className="trouble-card" key={item.title}><h3>{item.title}</h3><dl><div><dt>문제</dt><dd>{item.situation}</dd></div><div><dt>원인과 해결</dt><dd>{item.solution}</dd></div><div><dt>결과</dt><dd>{item.result}</dd></div></dl></article>)}</div>
             {project.troubleshooting.length > 4 && <details className="detail-more"><summary>문제 해결 사례 {project.troubleshooting.length - 4}개 더 보기</summary><div className="trouble-list">{project.troubleshooting.slice(4).map((item) => <article className="trouble-card" key={item.title}><h3>{item.title}</h3><dl><div><dt>문제</dt><dd>{item.situation}</dd></div><div><dt>원인과 해결</dt><dd>{item.solution}</dd></div><div><dt>결과</dt><dd>{item.result}</dd></div></dl></article>)}</div></details>}
-          </Reveal>
+          </Reveal>}
 
           <Reveal as="section" id="resources" className="detail-section">
             <span className="section-number">07 / SCREENS & RESOURCES</span><h2>화면과 프로젝트 자료</h2>

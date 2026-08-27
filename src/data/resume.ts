@@ -1,7 +1,7 @@
 import { profile } from './profile'
 import { projects } from './projects'
 
-export const representativeResumeProjects = ['staccato', '404rnf', 'erp'].map((slug) => {
+export const representativeResumeProjects = ['hawk-ai', 'dohalm', 'staccato'].map((slug) => {
   const project = projects.find((item) => item.slug === slug)
   if (!project) throw new Error(`Resume project not found: ${slug}`)
   return project
@@ -74,9 +74,9 @@ export const resumeSkillGroups = [
   { label: 'FRONTEND / INFRA', description: '운영 화면 구현과 Linux 기반 서비스 배포', skills: selectSkills(['React', 'Next.js', 'TypeScript', 'Docker', 'Linux', 'Nginx', 'AWS EC2']) },
 ] as const
 
-const staccato = representativeResumeProjects.find((project) => project.slug === 'staccato')!
-const rnf = representativeResumeProjects.find((project) => project.slug === '404rnf')!
-const erp = representativeResumeProjects.find((project) => project.slug === 'erp')!
+const staccato = projects.find((project) => project.slug === 'staccato')!
+const rnf = projects.find((project) => project.slug === '404rnf')!
+const erp = projects.find((project) => project.slug === 'erp')!
 
 export const serviceExperience = [
   {

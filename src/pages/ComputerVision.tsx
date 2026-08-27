@@ -5,6 +5,7 @@ import SectionHeading from '../components/SectionHeading'
 import SectionScrollButton from '../components/SectionScrollButton'
 import { TechChip } from '../components/TechIcon'
 import { projects, type Project } from '../data/projects'
+import { projectInterviewEvidence } from '../data/interviewEvidence'
 
 const getProject = (slug: Project['slug']) => {
   const project = projects.find((item) => item.slug === slug)
@@ -12,6 +13,7 @@ const getProject = (slug: Project['slug']) => {
   return project
 }
 const staccato = getProject('staccato')
+const staccatoEvidence = projectInterviewEvidence.staccato
 const roadSafety = getProject('404rnf')
 const statusLabel = (project: Project) => project.status === 'in-progress' ? 'IN PROGRESS' : 'COMPLETED'
 
@@ -46,6 +48,8 @@ export default function ComputerVision() {
         </div>
         <Reveal className="container cv2-metric-bar"><div><strong>02</strong><span>CV PROJECTS</span></div><div><strong>20K</strong><span>DATASET</span></div><div><strong>0.9290</strong><span>mAP50</span></div><div><strong>E2E</strong><span>SERVICE PIPELINE</span></div></Reveal>
       </section>
+
+      {staccatoEvidence && <section className="section cv2-decision-section" aria-label="STACCATO engineering decisions"><div className="container"><Reveal className="cv2-decision-strip"><span>ENGINEERING DECISIONS</span><div>{staccatoEvidence.decisions.map((decision) => <article key={decision.title}><b>{decision.title}</b><p>{decision.decision}</p></article>)}</div></Reveal></div></section>}
 
       <section className="section cv2-pipeline-section" id="vision-pipeline" aria-labelledby="cv-pipeline-title"><div className="container"><SectionHeading id="cv-pipeline-title" eyebrow="01 / MODEL TO SERVICE" title="END-TO-END VISION PIPELINE" description="탐지 결과를 후처리와 이벤트 로직을 거쳐 실제 운영 화면까지 전달합니다." /><Reveal className="cv2-pipeline" role="list">{servicePipeline.map(([code, title, description], index) => <div className="cv2-pipeline-item" role="listitem" key={code}><div><span>{code}</span><strong>{title}</strong><small>{description}</small></div>{index < servicePipeline.length - 1 && <i aria-hidden="true">→</i>}</div>)}</Reveal><Reveal className="cv2-postprocess"><span>POST PROCESSING</span><div>{['Bounding Box', 'Tracking', 'Movement Threshold', 'ROI Rules', 'Event Generation'].map((item) => <b key={item}>{item}</b>)}</div></Reveal></div></section>
 

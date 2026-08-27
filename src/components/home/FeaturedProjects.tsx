@@ -25,7 +25,7 @@ export default function FeaturedProjects() {
               <p className="home-project-summary">Qwen + LoRA 기반 게시글 생성 모델을 FastAPI AI Serving, Backend, 실제 게시판 UI까지 연결한 LLM 서비스 통합 프로젝트</p>
               <dl className="home-hawk-facts">
                 <div><dt>MY CONTRIBUTION</dt><dd>Board Service · Backend Integration · LLM Serving Integration</dd></div>
-                <div><dt>EVIDENCE</dt><dd>{projectListingMeta[hawkAi.slug].evidence.map((item) => <span key={item}>{item}</span>)}</dd></div>
+                <div><dt>ENGINEERING EVIDENCE</dt><dd>{['Structured Output Validation', 'Backend Gateway', 'FastAPI AI Serving'].map((item) => <span key={item}>{item}</span>)}</dd></div>
               </dl>
               <div className="chip-row">{(hawkAi.techHighlights ?? hawkAi.techStack).slice(0, 5).map((tech) => <TechChip label={tech} key={tech} />)}</div>
               <div className="home-project-actions"><Link className="button primary" to={`/projects/${hawkAi.slug}`}>VIEW CASE STUDY</Link>{hawkAi.deploy.url && <a className="button secondary" href={hawkAi.deploy.url} target="_blank" rel="noreferrer">LIVE SERVICE</a>}</div>

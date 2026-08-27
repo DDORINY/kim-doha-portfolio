@@ -15,6 +15,21 @@ export const mainDetailSections = [
   { id: 'retrospective', label: 'Retrospective' },
 ] as const
 
+export const engineeringDetailSections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'features', label: 'Features' },
+  { id: 'architecture', label: 'Architecture' },
+  { id: 'evidence', label: 'Evidence' },
+  { id: 'decisions', label: 'Decisions' },
+  { id: 'scope', label: 'Scope' },
+  { id: 'troubleshooting', label: 'Troubleshooting' },
+  { id: 'verification', label: 'Verification' },
+  { id: 'code-evidence', label: 'Code Evidence' },
+  { id: 'discussion', label: 'Discussion' },
+  { id: 'resources', label: 'Resources' },
+  { id: 'retrospective', label: 'Retrospective' },
+] as const
+
 export const sideDetailSections = [
   { id: 'overview', label: 'Overview' },
   { id: 'features', label: 'Features' },
