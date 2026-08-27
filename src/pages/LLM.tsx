@@ -22,7 +22,7 @@ import {
 } from '../data/llm'
 
 const hawkAi = projects.find((project) => project.slug === 'hawk-ai')
-const dohaLm = projects.find((project) => project.slug === 'dohalm')
+const dohaStudio = projects.find((project) => project.slug === 'doha-studio')
 const heroPipeline = [
   { label: 'TRAIN', detail: 'Qwen · LoRA / QLoRA', evidence: 'Dataset · Adapter' },
   { label: 'EVALUATE', detail: 'Validation', evidence: 'Evaluation Evidence' },
@@ -40,11 +40,11 @@ const codeProjectComparisons = [
   },
   {
     code: 'B / MODEL & RUNTIME',
-    name: 'DohaLM',
+    name: 'DOHA STUDIO / DohaLM',
     focus: '데이터 승인부터 학습·평가·Runtime까지 Provider로 분리',
     flow: ['Dataset', 'Training', 'Evaluation', 'Runtime API'],
     evidence: ['Dataset Governance', 'Training Pipeline', 'REST / SSE'],
-    path: '/projects/dohalm',
+    path: '/projects/doha-studio',
   },
 ] as const
 
@@ -77,16 +77,16 @@ export default function LLM() {
             <p>Qwen 기반 Fine-Tuning과 LoRA/QLoRA, FastAPI Runtime, Backend와 실제 제품 기능 연결까지 경험했습니다.</p>
             <dl className="llm-hero-scope"><div><dt>MODEL</dt><dd>Qwen · LoRA / QLoRA</dd></div><div><dt>RUNTIME</dt><dd>FastAPI · REST / SSE</dd></div><div><dt>PRODUCT</dt><dd>Backend · Structured Output · UI</dd></div></dl>
             <div className="llm-portfolio-tags">{['Qwen', 'LoRA / QLoRA', 'FastAPI', 'Structured Output', 'Service Integration'].map((item) => <span key={item}>{item}</span>)}</div>
-            <div className="llm-portfolio-actions"><Link className="button primary" to="/projects/hawk-ai">VIEW HAWK-AI</Link><Link className="button secondary" to="/projects/dohalm">VIEW DohaLM</Link></div>
+            <div className="llm-portfolio-actions"><Link className="button primary" to="/projects/hawk-ai">VIEW HAWK-AI</Link><Link className="button secondary" to="/projects/doha-studio">VIEW DOHA STUDIO</Link></div>
           </Reveal>
           <Reveal className="llm-hero-pipeline" delay={80} aria-label="LLM engineering workflow">
             <div className="llm-hero-pipeline-head"><span>TECHNICAL FLOW</span><strong>TRAINING TO PRODUCT</strong></div>
             <ol>{heroPipeline.map((stage, index) => <li key={stage.label}><span>0{index + 1}</span><div><strong>{stage.label}</strong><small><b>{stage.detail}</b><em>{stage.evidence}</em></small></div>{index < heroPipeline.length - 1 && <i aria-hidden="true">↓</i>}</li>)}</ol>
           </Reveal>
         </div>
-        <Reveal className="container llm-role-band" aria-label="HAWK-AI와 DohaLM 역할 비교">
+        <Reveal className="container llm-role-band" aria-label="HAWK-AI와 DOHA STUDIO 역할 비교">
           <div><span>TEAM PROJECT / HAWK-AI</span><strong>LLM을 실제 서비스 기능으로 연결</strong></div>
-          <div><span>PERSONAL PROJECT / DohaLM</span><strong>모델·학습·Runtime 자체를 개발</strong></div>
+          <div><span>PERSONAL PROJECT / DOHA STUDIO</span><strong>DohaLM 모델·학습·Runtime을 제품 생태계 내부 계층으로 개발</strong></div>
         </Reveal>
       </section>
 
@@ -127,14 +127,14 @@ export default function LLM() {
         </div>
       </section>
 
-      {dohaLm && (
+      {dohaStudio && (
         <section className="section llm-dohalm-section" aria-labelledby="llm-dohalm-title">
           <div className="container">
-            <SectionHeading id="llm-dohalm-title" eyebrow="03 / MODEL & RUNTIME ENGINEERING" title="DohaLM" description="재사용 가능한 LLM Provider를 목표로 Dataset Governance, Foundation Model, Fine-Tuning, Evaluation, Runtime API를 분리해 개발하는 개인 프로젝트입니다." />
-            <Reveal className="llm-dohalm-meta"><span>PERSONAL PROJECT</span><strong>{dohaLm.period.replace(' ~ ', ' — ').replace('진행 중', 'PRESENT')}</strong><StatusBadge status="in-progress" /><a href={repositoryUrl} target="_blank" rel="noreferrer">GITHUB <span>↗</span></a></Reveal>
+            <SectionHeading id="llm-dohalm-title" eyebrow="03 / DOHA STUDIO · MODEL & RUNTIME LAYER" title="DOHA STUDIO / DohaLM" description="DOHA STUDIO의 LLM Provider 계층으로 Dataset Governance, Foundation Model, Fine-Tuning, Evaluation과 Runtime API를 분리해 개발하고 있습니다." />
+            <Reveal className="llm-dohalm-meta"><span>PERSONAL AI PRODUCT</span><strong>{dohaStudio.period.replace(' ~ ', ' — ')}</strong><StatusBadge status="in-progress" /><Link to="/projects/doha-studio">VIEW DOHA STUDIO <span>→</span></Link><a href={repositoryUrl} target="_blank" rel="noreferrer">DOHALM REPO <span>↗</span></a></Reveal>
             <TechnicalFlow items={dohaLmArchitecture} label="DohaLM model and runtime architecture" />
             <div className="llm-phase-grid">{dohaLmPhases.map((phase, index) => <Reveal as="article" className="llm-phase-card" delay={index * 60} key={phase.phase}><div><span>{phase.phase}</span><StatusBadge status={phase.status} /></div><h3>{phase.title}</h3><ul>{phase.items.map((item) => <li key={item}>{item}</li>)}</ul></Reveal>)}</div>
-            <Reveal className="llm-decision-strip"><span>ENGINEERING DECISIONS</span><div>{projectInterviewEvidence.dohalm?.decisions.map((item) => <b key={item.title}>{item.title}</b>)}</div></Reveal>
+            <Reveal className="llm-decision-strip"><span>ENGINEERING DECISIONS</span><div>{projectInterviewEvidence['doha-studio']?.decisions.map((item) => <b key={item.title}>{item.title}</b>)}</div></Reveal>
           </div>
         </section>
       )}

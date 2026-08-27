@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Contact from './pages/Contact'
 import AILearning from './pages/AILearning'
@@ -17,6 +17,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
+        {['dohalm', 'dohamusic', 'dohaaudio', 'dohavocal'].map((slug) => <Route path={`/projects/${slug}`} element={<Navigate replace to="/projects/doha-studio" />} key={slug} />)}
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/side-projects/:slug" element={<SideProjectDetail />} />
         <Route path="/computer-vision" element={<ComputerVision />} />

@@ -9,11 +9,10 @@ import SectionHeading from '../SectionHeading'
 import { TechChip } from '../TechIcon'
 
 const featuredProjects = featuredProjectSlugs.map((slug) => projects.find((project) => project.slug === slug)).filter((project) => project !== undefined)
-const [hawkAi, ...studioProjects] = featuredProjects
+const [hawkAi, ...selectedProjects] = featuredProjects
 
 const projectCategory = (slug: string) => {
-  if (slug === 'dohalm') return 'MODEL & RUNTIME'
-  if (slug === 'dohamusic') return 'AI PRODUCT ARCHITECTURE'
+  if (slug === 'doha-studio') return 'PERSONAL AI PRODUCT'
   return 'COMPUTER VISION SERVICE'
 }
 
@@ -45,7 +44,7 @@ export default function FeaturedProjects() {
           </Reveal>
         )}
         <div className="home-focused-projects">
-          {studioProjects.map((project, index) => (
+          {selectedProjects.map((project, index) => (
             <Reveal as="article" className="home-focused-project" delay={index * 70} key={project.slug}>
               <div className="home-project-topline"><span>0{index + 2} / {projectCategory(project.slug)}</span><b>{projectListingMeta[project.slug].maturity === 'completed' ? 'COMPLETED' : 'IN PROGRESS'}</b></div>
               <h3>{project.name}</h3>

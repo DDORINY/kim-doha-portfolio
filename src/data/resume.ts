@@ -1,7 +1,7 @@
 import { profile } from './profile'
 import { projects } from './projects'
 
-export const representativeResumeProjects = ['hawk-ai', 'dohalm', 'staccato'].map((slug) => {
+export const representativeResumeProjects = ['hawk-ai', 'doha-studio', 'staccato'].map((slug) => {
   const project = projects.find((item) => item.slug === slug)
   if (!project) throw new Error(`Resume project not found: ${slug}`)
   return project
@@ -77,11 +77,11 @@ export const resumeSkillGroups = [
 
 export const serviceExperience = [
   {
-    code: '01', title: 'Model / Adapter', scope: 'HAWK-AI · DOHALM',
+    code: '01', title: 'Model / Adapter', scope: 'HAWK-AI · DOHA STUDIO / DOHALM',
     environment: ['Qwen', 'LoRA / QLoRA', 'Transformers', 'PEFT'], contribution: 'HAWK-AI의 게시글 생성용 Qwen LoRA와 DohaLM의 QLoRA 학습·평가 및 Adapter artifact 흐름을 구현했습니다.',
   },
   {
-    code: '02', title: 'AI Serving', scope: 'HAWK-AI · DOHALM',
+    code: '02', title: 'AI Serving', scope: 'HAWK-AI · DOHA STUDIO / DOHALM',
     environment: ['FastAPI Runtime', 'REST / SSE', 'Structured Output'], contribution: 'FastAPI 추론 Runtime, Pydantic 구조화 응답과 DohaLM REST·SSE API를 구성하고 계약 테스트로 검증했습니다.',
   },
   {
@@ -89,7 +89,7 @@ export const serviceExperience = [
     environment: ['AI Client', 'Validation', 'Timeout Handling'], contribution: 'Backend AI Client에서 추론 요청, timeout·응답 검증과 허용된 사용자 action을 도메인 서비스에 연결했습니다.',
   },
   {
-    code: '04', title: 'Data / Artifact', scope: 'DOHALM · SERVICE DATA',
+    code: '04', title: 'Data / Artifact', scope: 'DOHA STUDIO / DOHALM · SERVICE DATA',
     environment: ['JSONL', 'Dataset Validation', 'Manifest', 'MySQL'], contribution: 'Dataset 품질 검증과 processing·evaluation manifest, Adapter lifecycle을 관리하고 서비스 데이터를 MySQL에 연결했습니다.',
   },
   {

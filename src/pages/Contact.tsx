@@ -7,13 +7,13 @@ import { profile } from '../data/profile'
 
 const workReasons = [
   { index: '01', title: 'AI → SERVICE', flow: ['Model', 'API', 'DB', 'Product'], description: '모델 호출에서 끝내지 않고 Backend API, DB, 사용자 기능까지 연결합니다.', evidence: 'HAWK-AI · STACCATO' },
-  { index: '02', title: 'MODEL & RUNTIME', flow: ['LLM', 'CV', 'Training', 'Runtime'], description: 'LLM Fine-Tuning·Runtime과 Computer Vision 모델 학습 경험을 갖고 있습니다.', evidence: 'DohaLM · STACCATO' },
+  { index: '02', title: 'MODEL & RUNTIME', flow: ['LLM', 'CV', 'Training', 'Runtime'], description: 'LLM Fine-Tuning·Runtime과 Computer Vision 모델 학습 경험을 갖고 있습니다.', evidence: 'DOHA STUDIO / DohaLM · STACCATO' },
   { index: '03', title: 'PRODUCT THINKING', flow: ['Operations', 'User Flow', 'AI Service'], description: '운영 경험을 바탕으로 기술 구현과 실제 사용자 흐름, 업무 프로세스를 함께 봅니다.', evidence: '5Y 8M OPERATIONS EXPERIENCE' },
 ]
 
 const selectedWork = [
   { name: 'HAWK-AI', label: 'LLM SERVICE INTEGRATION', slug: 'hawk-ai' },
-  { name: 'DohaLM', label: 'MODEL & RUNTIME', slug: 'dohalm' },
+  { name: 'DOHA STUDIO', label: 'AI PRODUCT / MODEL & RUNTIME', slug: 'doha-studio' },
   { name: 'STACCATO', label: 'CV → SERVICE', slug: 'staccato' },
 ]
 
