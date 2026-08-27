@@ -5,6 +5,12 @@ export type ExtraSectionAnchor = 'overview' | 'background' | 'role' | 'features'
 export type ExtraSection = { id: string; insertAfter: ExtraSectionAnchor; label: string; heading: string; items: string[] }
 export type ProjectCategory = 'AI / Computer Vision' | 'Full-stack' | 'Infra / Deployment'
 export type ArchitectureNode = { label: string; sub?: string }
+export type ProjectArchitectureDiagram = {
+  chart: string
+  summary: string
+  keyFlow: string
+  notes: { label: string; text: string }[]
+}
 export type ProjectAreaKey = 'frontend' | 'backend' | 'ai' | 'database' | 'infrastructure'
 export type ProjectAreaEvidence = { label: string; value: string }
 export type ProjectAreaTroubleshooting = { title: string; problem: string; solution: string; result: string }
@@ -51,6 +57,7 @@ export type Project = {
   proofCompetencies?: string[]
   proofEvidence?: string[]
   architectureFlow?: ArchitectureNode[]
+  architectureDiagram?: ProjectArchitectureDiagram
   modelExperiments?: ModelExperimentRow[]
   modelEvidenceNote?: string
   datasetSummary?: { title: string; items: string[] }
@@ -90,6 +97,29 @@ const legacyProjects: Project[] = [
       { label: 'MySQL', description: '탐지·이벤트 데이터 저장' },
       { label: 'Frontend', description: '관제 화면·알림·상세 조회' },
     ],
+    architectureDiagram: {
+      chart: `flowchart TB
+  subgraph AI["AI VM"]
+    CCTV["CCTV Stream"] --> MODEL["YOLO11s"]
+    MODEL --> POST["BBOX + Event Logic"]
+  end
+  subgraph SERVICE["FLASK / DB"]
+    POST --> API["Flask API"]
+    API --> DB[("MySQL<br/>Detection / Event")]
+    API --> SOCKET["Socket.IO<br/>Realtime Event"]
+  end
+  subgraph PRODUCT["CONTROL UI"]
+    SOCKET --> UI["Control Dashboard"]
+    DB --> UI
+  end`,
+      summary: 'AI 추론부터 이벤트 저장과 실시간 관제 화면까지 4개 VM의 서비스 경계를 연결한 구조입니다.',
+      keyFlow: 'CCTV frame → YOLO11s detection → BBOX·event logic → Flask·MySQL → Socket.IO control UI',
+      notes: [
+        { label: 'MODEL & POSTPROCESS', text: 'YOLO11s 탐지 결과를 BBOX metadata와 정차 이벤트 판단으로 변환합니다.' },
+        { label: 'PERSISTED CONTRACT', text: 'Flask 서비스가 탐지·이벤트 데이터를 MySQL에 저장해 조회 흐름을 유지합니다.' },
+        { label: 'REALTIME UI', text: 'Socket.IO 이벤트와 저장 데이터를 관제 대시보드의 알림·상세 조회로 연결합니다.' },
+      ],
+    },
     troubleshooting: [],
     screenshots: [{ src: '/images/staccato-01.png', alt: 'STACCATO', caption: 'STACCATO 서비스 화면' }],
     documents: [{ label: '발표자료', url: '/docs/STACCATO-presentation.pdf' }],
@@ -218,6 +248,28 @@ const newProjects: Project[] = [
       { label: 'LangGraph', description: '챗봇 intent 분기와 Navigation Action 생성' },
       { label: 'Structured Response', description: 'title·summary·content 또는 intent·action 반환' },
     ],
+    architectureDiagram: {
+      chart: `flowchart TB
+  subgraph PRODUCT["PRODUCT SERVICE"]
+    FE["Next.js Frontend<br/>Board / Chat UI"] --> BE["Backend<br/>Domain + AI Client"]
+    BE --> DB[("MySQL")]
+  end
+  subgraph AI["AI SERVING"]
+    AIS["FastAPI AI Serving<br/>/board · /chat"] --> LLM["Qwen + LoRA<br/>Board Generation"]
+    AIS --> GRAPH["LangGraph<br/>Intent / Action"]
+    LLM --> STRUCT["Pydantic<br/>Structured Output"]
+    GRAPH --> STRUCT
+  end
+  BE --> AIS
+  STRUCT --> BE`,
+      summary: '제품 서비스와 AI Serving을 분리하고 Backend AI client가 두 계층의 응답 계약을 중재합니다.',
+      keyFlow: 'Board·Chat UI → Backend context → FastAPI → Qwen+LoRA or LangGraph → validated response → product UI',
+      notes: [
+        { label: 'SERVICE BOUNDARY', text: 'Frontend는 모델을 직접 호출하지 않고 Backend의 권한·업무 문맥을 거쳐 AI Serving에 접근합니다.' },
+        { label: 'VALIDATION', text: '게시글과 챗봇 결과는 Pydantic 기반 구조화 응답으로 검증한 뒤 제품 계층에 반환합니다.' },
+        { label: 'PRODUCT INTEGRATION', text: '생성 결과와 Navigation Action을 게시판 폼과 챗봇 UI의 실제 동작으로 연결합니다.' },
+      ],
+    },
     troubleshooting: [
       { title: 'LLM 출력을 게시판 폼에 안정적으로 연결', situation: '자유 형식 LLM 응답은 제목·요약·본문을 안정적으로 분리하기 어렵고 서비스 입력값을 임의로 바꿀 위험이 있었습니다.', solution: 'JSON 복구와 PydanticOutputParser를 사용하고 grounded 사실 보존 후처리를 적용해 구조화된 BoardDraft만 서비스에 전달하도록 구성했습니다.', result: 'Frontend에서 title·summary·content를 예측 가능한 계약으로 사용할 수 있게 했습니다.' },
       { title: '챗봇의 화면 이동을 안전하게 제한', situation: 'LLM이 임의 URL을 반환하면 존재하지 않거나 허용하지 않은 화면으로 이동할 수 있었습니다.', solution: 'LangGraph의 NAVIGATION 분기에서 실제 Frontend route allowlist만 사용하도록 하고 action.type/path/href를 구조화했습니다.', result: '자연어 요청을 서비스 화면 이동으로 연결하면서도 이동 범위를 통제했습니다.' },
@@ -260,6 +312,34 @@ const newProjects: Project[] = [
     features: ['Music→Stem→Voice→Mixer→WAV Pipeline', '가사 생성·검증·Revision 구조', 'Guided Voice Enrollment', 'Job progress·cancel·retry', 'History·Project·Result 관리', 'BPM·LUFS·후렴 후보 Audio Analysis'],
     techStack: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic', 'React', 'TypeScript', 'FFmpeg', 'Demucs', 'Seed-VC', 'ACE-Step', 'SQLite'],
     systemFlow: [{ label: 'Studio', description: '프롬프트·가사·생성 옵션 입력' }, { label: 'Workspace', description: 'Asset·Job·사용자 선택 상태 관리' }, { label: 'Provider Jobs', description: 'Music·Stem·Voice 작업 실행' }, { label: 'Mixer', description: '보컬·반주 합성 및 headroom 처리' }, { label: 'Result', description: 'WAV·분석 결과·History 관리' }],
+    architectureDiagram: {
+      chart: `flowchart TB
+  subgraph PRODUCT["LOCAL STUDIO · IMPLEMENTED"]
+    UI["Responsive Studio UI"] --> API["FastAPI Backend"]
+    API --> WS["Workspace / Project"]
+    WS --> JOB["Job / Pipeline Orchestrator"]
+    JOB --> CURRENT["Current Provider Adapters<br/>Mock · ACE-Step · Demucs · Seed-VC"]
+    CURRENT --> MIX["Default Mixer"]
+    MIX --> RESULT["Result · History · WAV"]
+  end
+  subgraph PLANNED["EXTERNAL PROVIDERS · PLANNED"]
+    LM["DohaLM"]
+    AUDIO["DohaAudio"]
+    VOCAL["DohaVocal"]
+  end
+  JOB -. "planned contract" .-> LM
+  JOB -. "planned runtime" .-> AUDIO
+  JOB -. "planned runtime" .-> VOCAL
+  classDef planned stroke-dasharray: 6 4,fill:#ffffff00
+  class LM,AUDIO,VOCAL planned`,
+      summary: '현재 동작하는 로컬 Studio 파이프라인과 향후 연결할 외부 Provider 경계를 구분한 구조입니다.',
+      keyFlow: 'Studio input → Workspace → Job orchestration → current adapters → Mixer → versioned result',
+      notes: [
+        { label: 'IMPLEMENTED PRODUCT', text: 'FastAPI와 Workspace·Job·Mixer·Result UI를 통해 로컬 제작 흐름이 현재 동작합니다.' },
+        { label: 'PROVIDER ABSTRACTION', text: 'ACE-Step·Demucs·Seed-VC 등을 교체 가능한 Adapter 계약 뒤에 배치했습니다.' },
+        { label: 'PLANNED BOUNDARY', text: 'DohaLM·DohaAudio·DohaVocal은 아직 외부 Provider 연결 계획이며 점선으로 분리했습니다.' },
+      ],
+    },
     troubleshooting: [],
     screenshots: [],
     documents: [],
@@ -292,6 +372,29 @@ const newProjects: Project[] = [
     features: ['DohaLM-Tiny Foundation Model', 'Dataset Governance', 'Training/Evaluation Pipeline', 'Qwen QLoRA Adapter Runtime', 'REST/Streaming API', 'Model Manifest·Versioning'],
     techStack: ['Python', 'PyTorch', 'Transformers', 'PEFT', 'QLoRA', 'FastAPI', 'Pydantic', 'PostgreSQL'],
     systemFlow: [{ label: 'Dataset', description: '검토·승인·publication governance' }, { label: 'Training', description: 'Foundation 또는 Adapter 학습' }, { label: 'Evaluation', description: '승격 gate와 결과 기록' }, { label: 'Manifest', description: '모델 identity·version 관리' }, { label: 'Runtime', description: 'REST/SSE 추론 제공' }],
+    architectureDiagram: {
+      chart: `flowchart TB
+  subgraph DATA["DATA GOVERNANCE"]
+    RAW["Dataset Sources"] --> GOV["Review · Approval<br/>Publication"]
+  end
+  subgraph MODEL["TRAINING & EVALUATION"]
+    GOV --> TRAIN["Foundation / QLoRA Training"]
+    TRAIN --> EVAL["Evaluation Gate"]
+    EVAL --> ART["Model / Adapter Artifact"]
+    ART --> MAN["Manifest · Version"]
+  end
+  subgraph SERVE["INFERENCE SERVICE"]
+    MAN --> RUN["Provider Runtime"]
+    RUN --> API["FastAPI<br/>REST / SSE"]
+  end`,
+      summary: '데이터 승인부터 학습·평가·버전 관리·추론 API까지 모델 생명주기를 하나의 승격 흐름으로 연결합니다.',
+      keyFlow: 'Dataset review → training → evaluation gate → versioned artifact manifest → runtime → REST/SSE',
+      notes: [
+        { label: 'DATA GOVERNANCE', text: '검토·승인·publication 단계를 통과한 데이터만 학습 입력으로 승격합니다.' },
+        { label: 'PROMOTION GATE', text: 'Foundation·QLoRA 결과는 평가와 manifest 검증을 거쳐 재사용 가능한 artifact가 됩니다.' },
+        { label: 'RUNTIME CONTRACT', text: '동일한 model identity와 version을 Provider Runtime과 FastAPI REST·SSE에서 사용합니다.' },
+      ],
+    },
     troubleshooting: [],
     screenshots: [],
     documents: [],
