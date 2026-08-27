@@ -5,6 +5,7 @@ type Decision = { title: string; problem: string; decision: string; why: string;
 type Verification = { label: string; detail: string; status: EvidenceStatus }
 type CodeEvidence = { label: string; description: string; url: string }
 type Troubleshooting = { title: string; problem: string; decision: string; verification: string; result: string }
+export type DiscussionPoint = { question: string; answer: string; tradeoff?: string; next?: string }
 export type InterviewEvidence = {
   keyDecision: string
   verificationSummary: string
@@ -13,7 +14,7 @@ export type InterviewEvidence = {
   verification: Verification[]
   codeEvidence: CodeEvidence[]
   scope: { mine: string[]; team?: string[] }
-  discussionPoints: string[]
+  discussionPoints: DiscussionPoint[]
 }
 
 const blob = (repo: string, branch: string, path: string) => `https://github.com/${repo}/blob/${branch}/${path}`
@@ -45,7 +46,23 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       { label: 'Board UI', description: 'Frontend 게시판 AI 초안 정규화', url: blob('hawk-ai-project/frontend', 'main', 'src/components/board/sanitizeBoardDraft.js') },
     ],
     scope: { mine: ['게시판 서비스', 'Frontend ↔ Backend 연동', 'Backend ↔ AI Serving 연동', 'LLM 게시글·Chat UI 통합', '구조화 응답과 오류 경로 점검'], team: ['현장 점검 domain', '해안 폐기물 탐지', '공통 인증·인프라', '모바일 서비스'] },
-    discussionPoints: ['Why did you separate AI Serving from Backend?', 'How did you prevent invalid LLM output from becoming board data?', 'What failure handling would you add before production scale?'],
+    discussionPoints: [
+      {
+        question: '왜 AI Serving과 Backend를 분리했나요?',
+        answer: 'HAWK-AI에서는 Qwen + LoRA 추론 Runtime과 게시판 도메인 로직의 변경 주기가 달랐습니다. 모델 추론은 FastAPI AI Serving이, 권한·서비스 문맥·요청 검증은 Backend가 담당하게 해 모델 변경이 게시판 로직에 직접 번지는 범위를 줄였습니다.',
+        tradeoff: '서비스 간 네트워크 호출과 timeout·upstream 장애를 Backend 오류로 변환하는 책임이 추가됐습니다.',
+      },
+      {
+        question: 'LLM 응답을 왜 그대로 사용하지 않고 검증했나요?',
+        answer: 'LLM이 title·summary·content를 항상 정상 JSON으로 반환한다고 보장할 수 없었습니다. AI Serving의 JSON recovery·Pydantic parser와 Backend 응답 검증을 거쳐 필수 문자열을 갖춘 BoardDraft만 게시판 UI에 전달했습니다.',
+        tradeoff: '응답 형식이 안정되는 대신 schema를 바꿀 때 AI Serving과 Backend 계약을 함께 관리해야 합니다.',
+      },
+      {
+        question: '실제 운영 환경으로 확장한다면 무엇을 추가하고 싶나요?',
+        answer: '현재는 명시적 timeout, 연결·응답 오류 분리와 board/chat 계약 검증까지 구현했습니다. 운영 규모가 커진다면 요청별 inference latency·실패율을 관측하고 모델 version별 응답을 추적할 수 있어야 합니다.',
+        next: '향후 retry 정책, inference metric, 모델 version 관리와 AI Serving 장애 격리를 운영 조건에 맞춰 추가로 검토하겠습니다.',
+      },
+    ],
   },
   dohalm: {
     keyDecision: 'Dataset governance와 training execution을 승인·publication 계약으로 분리',
@@ -75,7 +92,23 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       { label: 'Adapter Runtime', description: 'DohaLM adapter runtime 서비스 계약', url: blob('DohaStudio/DohaLM', 'develop', 'docs/service/dohalm-adapter-runtime.md') },
     ],
     scope: { mine: ['Dataset governance', 'Foundation model 구조', 'Training·evaluation pipeline', 'Manifest·runtime contract', 'REST/SSE MVP'], team: undefined },
-    discussionPoints: ['Why did you introduce Dataset Governance?', 'Why separate base model, adapter, and runtime artifacts?', 'How would you approve and release a trained model version?'],
+    discussionPoints: [
+      {
+        question: '왜 Dataset Governance를 별도 단계로 설계했나요?',
+        answer: '학습 파일이 존재하는 것만으로는 데이터의 검토 여부와 사용 권리를 증명할 수 없습니다. DohaLM은 Review·Approval·Rights·Publication 상태를 분리하고, publication된 dataset version만 training input으로 소비하도록 경계를 만들었습니다.',
+        tradeoff: '학습 전 승인 gate와 dataset metadata를 계속 관리해야 하는 비용이 생깁니다.',
+      },
+      {
+        question: '왜 Base Model과 Adapter를 별도 Artifact로 관리하나요?',
+        answer: 'Qwen Base와 LoRA·QLoRA Adapter는 변경·배포 단위가 다릅니다. 각각의 Artifact Identity를 Manifest에 기록하고 Runtime이 조합을 검증하게 해, 같은 Base에서 Adapter를 교체하면서도 어떤 조합으로 추론했는지 추적할 수 있게 했습니다.',
+        tradeoff: '단일 모델 파일보다 manifest와 호환성 검증 항목이 늘어납니다.',
+      },
+      {
+        question: '학습된 모델을 서비스에 배포할 때 무엇을 검증해야 하나요?',
+        answer: '현재는 dataset publication, evaluation artifact, model·adapter manifest와 Runtime contract를 승격 근거로 확인합니다. REST·SSE MVP도 동일 identity를 사용하지만, 승인된 production artifact release는 아직 정비 중입니다.',
+        next: '향후에는 배포 전 품질 threshold, Base·Adapter 호환성, rollback 가능한 version과 운영 부하 검증을 release gate에 포함하겠습니다.',
+      },
+    ],
   },
   staccato: {
     keyDecision: '표시 stream FPS와 inference FPS를 분리하고 BBOX frame metadata를 계약에 포함',
@@ -103,7 +136,24 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       { label: 'Incident Event Service', description: 'DB persistence 이후 Socket.IO event 전달', url: blob('staccato-ai-highway-control/staccato-ai-highway-control', 'main', 'flask-vm/app/modules/incident_event/service.py') },
     ],
     scope: { mine: ['Keras·YOLO·RT-DETR 실험', '모델 비교와 선정 참여', 'Frontend MVP', 'Flask API 일부', 'BBOX metadata 연동', '4 VM 통합·QA'], team: ['전체 Backend domain', 'DB 운영 환경', '관제 서비스 공동 구현'] },
-    discussionPoints: ['Why did you separate stream FPS and inference FPS?', 'How did you preserve bbox coordinate consistency?', 'Why persist an event before realtime emit?'],
+    discussionPoints: [
+      {
+        question: '왜 Stream FPS와 Inference FPS를 분리했나요?',
+        answer: '관제 화면의 stream frame마다 추론하면 AI VM 부하와 지연이 커졌습니다. CameraWorker에서 표시 주기인 target_fps와 분석 주기인 analysis_fps를 독립 설정해 화면 연속성과 탐지 처리량을 따로 조절했습니다.',
+        tradeoff: 'analysis_fps를 낮추면 자원 사용은 줄지만 짧은 이벤트를 늦게 탐지할 수 있어 운영 조건별 조정이 필요합니다.',
+      },
+      {
+        question: '왜 BBOX와 함께 원본 Frame 크기를 전달했나요?',
+        answer: 'xyxy 좌표만으로는 Frontend가 AI 원본 frame과 현재 표시 영역의 비율을 알 수 없습니다. bbox와 frame_width·frame_height를 함께 전달하고 UI에서 렌더 크기에 맞게 좌표를 변환해 서로 다른 화면에서도 overlay 위치를 유지했습니다.',
+        tradeoff: '탐지 계약에 frame metadata가 추가되고 송신·수신 양쪽이 같은 좌표 기준을 지켜야 합니다.',
+      },
+      {
+        question: '왜 DB 저장 후 실시간 이벤트를 전송했나요?',
+        answer: 'Socket.IO 이벤트를 먼저 보내면 사용자가 알림을 눌렀을 때 아직 DB에 없는 Incident를 조회할 수 있습니다. DetectionLog·Incident·RealtimeEvent를 commit한 뒤 emit해 실시간 UI와 영속 데이터의 순서를 맞췄습니다.',
+        tradeoff: 'DB transaction 시간이 실시간 알림 latency에 포함됩니다.',
+        next: '처리량이 커지면 outbox처럼 저장과 전송의 재시도를 보장하는 구조를 향후 검토할 수 있습니다.',
+      },
+    ],
   },
   dohamusic: {
     keyDecision: '긴 AI 작업을 Workspace·Job·Artifact로 분리하고 Provider contract 뒤에 격리',
@@ -132,6 +182,22 @@ export const projectInterviewEvidence: Partial<Record<Project['slug'], Interview
       { label: 'Pipeline Tests', description: 'Pipeline API와 상태 계약 검증', url: blob('DohaStudio/DohaMusic', 'main', 'backend/tests/test_pipeline_api.py') },
     ],
     scope: { mine: ['제품 architecture', 'FastAPI Backend', 'Pipeline orchestration', 'Provider abstraction', 'Workspace·Artifact domain', 'Studio·Result UI'] },
-    discussionPoints: ['Why model AI work as asynchronous jobs?', 'How does the provider boundary reduce product coupling?', 'How do workspace and artifact identities support reproducibility?'],
+    discussionPoints: [
+      {
+        question: '왜 AI 작업을 동기 API 하나로 처리하지 않았나요?',
+        answer: 'Music·Stem·Voice 단계는 실행 시간이 길고 일부 단계만 실패할 수 있습니다. Pipeline Job과 worker를 분리하고 단계별 상태·cancel·retry를 저장해 요청 연결이 끝나도 진행 상황과 재시도 지점을 유지하도록 구성했습니다.',
+        tradeoff: '동기 API보다 상태 전이, 중간 Artifact 정리와 worker 오류 처리가 복잡해집니다.',
+      },
+      {
+        question: '왜 AI Provider를 Product와 분리했나요?',
+        answer: '제품 Workflow와 ACE-Step·Demucs·Seed-VC Runtime은 변경 주기와 실행 환경이 다릅니다. Provider interface와 factory 뒤에 모델을 두어 실제 Adapter와 Mock을 같은 계약으로 교체하고 Studio 개발을 Runtime 준비와 분리했습니다.',
+        next: 'DohaLM·DohaAudio·DohaVocal은 현재 외부 Provider 연동을 고도화 중이며, 완성된 연결로 표시하지 않습니다.',
+      },
+      {
+        question: '왜 Workspace · Job · Artifact를 분리했나요?',
+        answer: 'Workspace는 사용자의 제작 문맥과 선택 상태, Job은 실행과 상태 전이, Artifact는 생성 파일과 lineage를 담당합니다. 파일 path 하나로 축약하지 않아 어떤 작업이 어떤 입력으로 결과를 만들었는지 추적하고 Result·Export를 재현할 수 있습니다.',
+        tradeoff: '각 entity의 수명 주기와 삭제·재시도 시 참조 정합성을 별도로 관리해야 합니다.',
+      },
+    ],
   },
 }

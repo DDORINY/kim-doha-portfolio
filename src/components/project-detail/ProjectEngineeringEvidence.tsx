@@ -25,8 +25,19 @@ export default function ProjectEngineeringEvidence({ evidence }: { evidence: Int
         <div className="engineering-code-grid">{evidence.codeEvidence.map((item) => <a href={item.url} target="_blank" rel="noreferrer" key={item.url}><span>CODE EVIDENCE</span><h3>{item.label}</h3><p>{item.description}</p><b>VIEW CODE ↗</b></a>)}</div>
       </Reveal>
       <Reveal as="section" id="discussion" className="detail-section engineering-discussion-section">
-        <span className="section-number">10 / ENGINEERING DISCUSSION</span><h2>Discussion Points</h2>
-        <div>{evidence.discussionPoints.map((item, index) => <article key={item}><span>0{index + 1}</span><h3>{item}</h3></article>)}</div>
+        <span className="section-number">10 / ENGINEERING DISCUSSION</span><h2>설계 회고</h2>
+        <p className="engineering-discussion-intro">구현 과정에서 내린 기술적 판단의 이유와 선택의 한계, 향후 개선 방향을 정리했습니다.</p>
+        <div className="engineering-discussion-list">{evidence.discussionPoints.map((item, index) => <article key={item.question}>
+          <span className="engineering-discussion-index">{String(index + 1).padStart(2, '0')}</span>
+          <div className="engineering-discussion-content">
+            <div className="engineering-discussion-question"><small>QUESTION</small><h3>{item.question}</h3></div>
+            <dl>
+              <div><dt>ANSWER</dt><dd>{item.answer}</dd></div>
+              {item.tradeoff && <div><dt>TRADE-OFF</dt><dd>{item.tradeoff}</dd></div>}
+              {item.next && <div><dt>NEXT</dt><dd>{item.next}</dd></div>}
+            </dl>
+          </div>
+        </article>)}</div>
       </Reveal>
     </>
   )
