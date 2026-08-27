@@ -216,7 +216,7 @@ const newProjects: Project[] = [
     ],
     screenshots: [
       {
-        src: '/images/HAWK-ai.png',
+        src: '/images/HAWK-ai.png?v=2',
         alt: 'HAWK-AI 해안 폐기물 AI 점검 서비스 홈 화면',
         caption: '해안 폐기물 탐지 결과와 현장 점검 흐름을 제공하는 HAWK-AI 서비스 홈',
         category: 'SERVICE',

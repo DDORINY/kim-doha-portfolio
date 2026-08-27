@@ -29,9 +29,9 @@ export default function FeaturedProjects() {
             <div className="featured-browser">
               <div className="featured-browser-bar" aria-hidden="true">
                 <span /><span /><span />
-                <small><i /> staccato.ai / dashboard</small>
+                <small><i /> {showcaseProject.name.toLowerCase()} / live service</small>
               </div>
-              {showcaseScreenshot && <ImageWithFallback src={showcaseScreenshot.src} alt={showcaseScreenshot.alt} loading="lazy" fallbackLabel="STACCATO 프로젝트 화면" />}
+              {showcaseScreenshot && <ImageWithFallback src={showcaseScreenshot.src} alt={showcaseScreenshot.alt} loading="eager" fallbackLabel={`${showcaseProject.name} 프로젝트 화면`} />}
             </div>
             <div className="featured-showcase-copy">
               <span className="section-number">FEATURED / 01</span>
