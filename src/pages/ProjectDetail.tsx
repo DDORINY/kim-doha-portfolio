@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import ImageWithFallback from '../components/ImageWithFallback'
+import MermaidDiagram from '../components/MermaidDiagram'
 import ProjectAreaPanel from '../components/project-detail/ProjectAreaPanel'
 import ProjectAreaTabs from '../components/project-detail/ProjectAreaTabs'
 import ProjectEngineeringEvidence from '../components/project-detail/ProjectEngineeringEvidence'
@@ -119,8 +120,21 @@ export default function ProjectDetail() {
           <Reveal as="section" id="architecture" className="detail-section detail-architecture-section">
             <span className="section-number">04 / TECHNICAL ARCHITECTURE</span><h2>기술 구조와 구현</h2>
             <div className="detail-stack-summary"><span>CORE STACK</span><div className="large-chip-row">{project.techStack.slice(0, 12).map((tech) => <TechChip label={tech} key={tech} />)}</div>{project.techStack.length > 12 && <details><summary>전체 기술 스택 보기</summary><div className="large-chip-row">{project.techStack.slice(12).map((tech) => <TechChip label={tech} key={tech} />)}</div></details>}</div>
-            <div className="detail-architecture-block"><h3>시스템 아키텍처</h3><div className="architecture-diagram">{architecture.map((node, index) => <div className="architecture-node" key={`${node.label}-${index}`}><div className="architecture-box"><strong>{node.label}</strong>{node.sub && <span>{node.sub}</span>}</div>{index < architecture.length - 1 && <span className="architecture-arrow" aria-hidden="true">→</span>}</div>)}</div></div>
-            {project.aiPipeline?.length ? <div className="detail-architecture-block"><h3>AI 탐지 파이프라인</h3><div className="architecture-diagram">{project.aiPipeline.map((node, index) => <div className="architecture-node" key={node.label}><div className="architecture-box"><strong>{node.label}</strong>{node.sub && <span>{node.sub}</span>}</div>{index < project.aiPipeline!.length - 1 && <span className="architecture-arrow" aria-hidden="true">→</span>}</div>)}</div>{project.aiPipelineNote && <p className="security-note">{project.aiPipelineNote}</p>}</div> : null}
+            {project.architectureDiagram ? (
+              <div className="detail-architecture-block detail-mermaid-block">
+                <MermaidDiagram
+                  chart={project.architectureDiagram.chart}
+                  title={`${project.name} SYSTEM ARCHITECTURE`}
+                  description={project.architectureDiagram.summary}
+                  fallback={architecture}
+                />
+                <div className="architecture-key-flow"><span>KEY FLOW</span><strong>{project.architectureDiagram.keyFlow}</strong></div>
+                <div className="architecture-notes">{project.architectureDiagram.notes.map((note) => <article key={note.label}><span>{note.label}</span><p>{note.text}</p></article>)}</div>
+              </div>
+            ) : (
+              <div className="detail-architecture-block"><h3>시스템 아키텍처</h3><div className="architecture-diagram">{architecture.map((node, index) => <div className="architecture-node" key={`${node.label}-${index}`}><div className="architecture-box"><strong>{node.label}</strong>{node.sub && <span>{node.sub}</span>}</div>{index < architecture.length - 1 && <span className="architecture-arrow" aria-hidden="true">→</span>}</div>)}</div></div>
+            )}
+            {!project.architectureDiagram && project.aiPipeline?.length ? <div className="detail-architecture-block"><h3>AI 탐지 파이프라인</h3><div className="architecture-diagram">{project.aiPipeline.map((node, index) => <div className="architecture-node" key={node.label}><div className="architecture-box"><strong>{node.label}</strong>{node.sub && <span>{node.sub}</span>}</div>{index < project.aiPipeline!.length - 1 && <span className="architecture-arrow" aria-hidden="true">→</span>}</div>)}</div>{project.aiPipelineNote && <p className="security-note">{project.aiPipelineNote}</p>}</div> : null}
             {activeArea && <div className="detail-area-block"><h3>기술 영역별 구현</h3><ProjectAreaTabs areas={projectAreas} activeId={activeArea.id} onChange={handleAreaChange} /><ProjectAreaPanel area={activeArea} key={activeArea.id} /></div>}
           </Reveal>
 
