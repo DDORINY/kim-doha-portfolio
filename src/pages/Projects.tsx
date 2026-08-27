@@ -28,6 +28,12 @@ const selectedProjects = (['dohalm', 'dohamusic', 'staccato'] as Project['slug']
 const dohaStudioProjects = (['dohamusic', 'dohalm', 'dohaaudio', 'dohavocal'] as Project['slug'][]).map(getProjectBySlug).filter(isDefined)
 const orderedSideProjects = sideProjectOrder.map((slug) => sideProjects.find((project) => project.slug === slug)).filter(isDefined)
 const aiServiceSlugs = new Set<Project['slug']>(['hawk-ai', 'dohalm', 'dohamusic', 'dohaaudio', 'dohavocal'])
+const portfolioMap = [
+  { label: 'CURRENT FOCUS', value: 'LLM · AI SERVICE' },
+  { label: 'FEATURED', value: 'HAWK-AI' },
+  { label: 'PERSONAL R&D', value: 'DohaLM · DohaMusic' },
+  { label: 'CV EXPERIENCE', value: 'STACCATO' },
+]
 
 function filterProjects(filter: ProjectFilter) {
   if (filter === 'all') return projects
@@ -46,15 +52,6 @@ function getStudioStatus(project: Project) {
 export default function Projects() {
   const [filter, setFilter] = useState<ProjectFilter>('all')
   const filteredProjects = useMemo(() => filterProjects(filter), [filter])
-  const completedCount = projects.filter((project) => project.status !== 'in-progress').length
-  const inProgressCount = projects.length - completedCount
-  const liveServices = projects.filter((project) => project.deploy.url && !project.deploy.placeholder).length + orderedSideProjects.filter((project) => project.url).length
-  const summaryMetrics = [
-    { label: 'MAIN PROJECTS', value: projects.length },
-    { label: 'COMPLETED', value: completedCount },
-    { label: 'LIVE SERVICES', value: liveServices },
-    { label: 'IN PROGRESS', value: inProgressCount },
-  ]
 
   return (
     <div className="projects-page">
@@ -62,16 +59,16 @@ export default function Projects() {
         <div className="container projects-hero-grid">
           <Reveal className="projects-hero-copy">
             <span className="eyebrow">PROJECTS</span>
-            <h1 id="projects-page-title">AI 모델을 학습하고,<br />Backend와 사용자 서비스까지 연결한 프로젝트</h1>
-            <p>모델 실험부터 API, 데이터베이스, 사용자 화면과 배포 환경까지 이어지는 구현 기록입니다.</p>
+            <h1 id="projects-page-title">AI 모델에서<br />실제 서비스까지.</h1>
+            <p>LLM · Computer Vision 모델부터 Python Backend, Database, 사용자 기능까지 연결한 프로젝트를 정리했습니다.</p>
             <div className="projects-hero-keywords" aria-label="프로젝트 기술 영역">
               {['LLM', 'AI SERVICE', 'BACKEND', 'COMPUTER VISION'].map((keyword) => <span key={keyword}>{keyword}</span>)}
             </div>
-            <SectionScrollButton className="projects-hero-link" targetId="featured-project">VIEW PROJECTS <span>↓</span></SectionScrollButton>
+            <SectionScrollButton className="projects-hero-link" targetId="featured-project">EXPLORE PROJECTS <span>↓</span></SectionScrollButton>
           </Reveal>
-          <Reveal className="projects-summary-panel" delay={100} aria-label="프로젝트 현황">
-            <div className="projects-summary-head"><span>PROJECT INDEX</span><small>LIVE DATA</small></div>
-            <dl>{summaryMetrics.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{String(metric.value).padStart(2, '0')}</dd></div>)}</dl>
+          <Reveal className="projects-summary-panel" delay={100} aria-label="현재 포트폴리오 구성">
+            <div className="projects-summary-head"><span>PORTFOLIO MAP</span><small>{String(projects.length).padStart(2, '0')} PROJECTS</small></div>
+            <dl>{portfolioMap.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>
           </Reveal>
         </div>
       </section>
