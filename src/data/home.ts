@@ -3,9 +3,9 @@ import type { Project } from './projects'
 export const heroTechKeywords = [
   'Python',
   'FastAPI',
-  'Flask',
-  'Computer Vision',
   'LLM',
+  'Qwen / LoRA',
+  'AI Service',
   'MySQL',
   'Docker',
   'Linux',
@@ -13,24 +13,24 @@ export const heroTechKeywords = [
 
 export const coreCompetencies = [
   {
-    title: 'AI Service Integration',
-    description: 'AI 모델과 외부 AI API를 웹 서비스 기능으로 연결하고 사용자가 이용할 수 있는 형태로 구현합니다.',
+    title: 'LLM Service Integration',
+    description: 'Qwen·LoRA 기반 LLM 추론을 FastAPI, Backend API, 서비스 UI까지 연결하고 구조화 출력과 fallback 흐름을 구현합니다.',
   },
   {
-    title: 'Computer Vision',
-    description: 'YOLO, RT-DETR, OpenCV를 활용한 객체탐지 모델 학습, 성능 비교 및 실시간 영상 분석 경험이 있습니다.',
+    title: 'LLM Training Pipeline',
+    description: 'Dataset governance부터 학습·평가, Adapter·Model Manifest, REST/SSE Runtime까지 LLM 생명주기를 직접 설계하고 있습니다.',
   },
   {
-    title: 'Backend Development',
-    description: 'FastAPI와 Flask 기반 REST API, 인증, 데이터 처리, AI 추론 서버 연동 기능을 구현합니다.',
+    title: 'AI Service Backend',
+    description: 'FastAPI와 Flask 기반 REST API, Job Orchestration, 데이터 처리, AI Provider 연동 기능을 구현합니다.',
   },
   {
-    title: 'Deployment & Infrastructure',
-    description: 'Docker, Linux, Nginx 환경에서 서비스를 구성하고 프론트엔드, 백엔드, AI, 데이터베이스를 연결합니다.',
+    title: 'Computer Vision & Infrastructure',
+    description: 'YOLO·RT-DETR 객체탐지와 Docker·Linux·Nginx 환경의 AI 서비스 통합 경험이 있습니다.',
   },
 ]
 
-export const featuredProjectSlugs: Project['slug'][] = ['staccato', 'erp', '404rnf']
+export const featuredProjectSlugs: Project['slug'][] = ['hawk-ai', 'dohalm', 'dohamusic', 'staccato']
 
 export const aiExpertiseAreas = [
   {
@@ -41,9 +41,9 @@ export const aiExpertiseAreas = [
     path: '/computer-vision',
   },
   {
-    title: 'LLM & AI AGENT',
-    description: 'LLM API를 활용한 문서 분석, 정보 추출, 업무 자동화 및 AI 에이전트 서비스를 개발합니다.',
-    keywords: ['LLM API', 'Prompt Engineering', 'Structured Output', 'AI Agent', 'Document Analysis', 'Automation'],
+    title: 'LLM & AI SERVICE',
+    description: 'Qwen·LoRA 학습과 Dataset Governance, FastAPI Runtime, LangChain·LangGraph 기반 서비스 연동을 구현하고 있습니다.',
+    keywords: ['Qwen', 'LoRA / QLoRA', 'FastAPI', 'LangChain', 'LangGraph', 'Structured Output'],
     linkLabel: 'EXPLORE LLM & AI',
     path: '/llm',
   },
@@ -63,6 +63,6 @@ export const careerJourney = [
   {
     step: '03',
     title: 'AI Service Development',
-    description: 'Computer Vision, Python API, 데이터베이스와 사용자 화면을 연결하며 AI 기능을 실제 서비스로 구현하는 프로젝트를 수행하고 있습니다.',
+    description: 'Computer Vision에서 LLM까지 모델·학습·추론 API·Backend·사용자 화면을 연결하는 AI 서비스를 개발하고 있습니다.',
   },
 ]
