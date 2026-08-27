@@ -157,13 +157,13 @@ export default function ProjectDetail() {
           </Reveal>}
 
           <Reveal as="section" id="resources" className="detail-section">
-            <span className="section-number">07 / SCREENS & RESOURCES</span><h2>화면과 프로젝트 자료</h2>
+            <span className="section-number">{interviewEvidence ? '11' : '07'} / SCREENS & RESOURCES</span><h2>화면과 프로젝트 자료</h2>
             {screenshots.length > 0 && <div className="detail-screens-block"><h3>구현 화면</h3><div className="screenshots">{screenshots.map((image) => <figure key={image.src}><ImageWithFallback src={image.src} alt={image.alt} loading="lazy" fallbackLabel={project.name} /><figcaption>{image.category && <span>{image.category}</span>}{image.caption}</figcaption></figure>)}</div></div>}
             {resources.length > 0 && <div className="detail-resources-block"><h3>프로젝트 자료</h3><div className="resource-grid">{resources.map((resource) => <ProjectResourceLink label={resource.label} url={resource.url} key={`${resource.label}-${resource.url}`} />)}</div></div>}
           </Reveal>
 
           <Reveal as="section" id="retrospective" className="detail-section detail-retrospective-section">
-            <span className="section-number">08 / RETROSPECTIVE</span><h2>회고</h2>
+            <span className="section-number">{interviewEvidence ? '12' : '08'} / RETROSPECTIVE</span><h2>회고</h2>
             <div className="retrospective-grid">{retrospective.map((item) => <article key={item.label}><span>{item.label}</span><p>{item.value}</p></article>)}</div>
           </Reveal>
 

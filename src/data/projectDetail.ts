@@ -25,7 +25,7 @@ export const engineeringDetailSections = [
   { id: 'troubleshooting', label: 'Troubleshooting' },
   { id: 'verification', label: 'Verification' },
   { id: 'code-evidence', label: 'Code Evidence' },
-  { id: 'discussion', label: 'Discussion' },
+  { id: 'discussion', label: '설계 회고' },
   { id: 'resources', label: 'Resources' },
   { id: 'retrospective', label: 'Retrospective' },
 ] as const
