@@ -241,16 +241,14 @@ export default function ComputerVision() {
 
       <section className="section cv2-evidence-section" aria-labelledby="cv-model-title">
         <div className="container">
-          <SectionHeading id="cv-model-title" eyebrow="04 / MODEL EVIDENCE" title="FINAL MODEL & COMPARISON" description="동일 최종 비교 조건으로 검증된 STACCATO 모델 성능만 표시합니다." />
-          <div className="cv2-evidence-layout">
+          <div className="cv2-evidence-heading">
+            <span className="eyebrow">04 / MODEL EVIDENCE</span>
+            <h2 id="cv-model-title">FINAL MODEL &amp; COMPARISON</h2>
+            <p>동일 최종 비교 조건으로 검증한 STACCATO 모델 성능과 학습 근거입니다.</p>
+          </div>
+          <div className="cv2-model-evidence-stack">
             <Reveal className="cv2-final-model">
-              <span>FINAL MODEL</span>
-              <h3>
-                YOLO11s
-                <br />
-                CVAT BALANCED
-              </h3>
-              <p>20,000 images · car / truck / bus · 3 classes</p>
+              <div className="cv2-final-model-head"><div><span>FINAL MODEL</span><h3>YOLO11s <b>CVAT BALANCED</b></h3></div><p>20,000 IMAGES <span>·</span> 3 CLASSES</p></div>
               <dl>
                 <div>
                   <dt>PRECISION</dt>
@@ -269,9 +267,13 @@ export default function ComputerVision() {
                   <dd>0.9290</dd>
                 </div>
               </dl>
+              {staccato.modelEvidenceNote && <div className="cv2-why-selected"><span>WHY SELECTED</span><p>{staccato.modelEvidenceNote}</p></div>}
             </Reveal>
-            <Reveal className="cv2-table-wrap" tabIndex={0}>
+            {finalModels.length > 0 && <Reveal className="cv2-model-comparison">
+              <span>MODEL COMPARISON</span>
+              <div className="cv2-table-wrap" tabIndex={0} aria-label="STACCATO 모델 성능 비교표, 가로로 스크롤 가능">
               <table>
+                <caption className="sr-only">STACCATO 동일 최종 비교 조건 모델 성능</caption>
                 <thead>
                   <tr>
                     <th>MODEL</th>
@@ -297,13 +299,14 @@ export default function ComputerVision() {
                   ))}
                 </tbody>
               </table>
-              <p>{staccato.modelEvidenceNote}</p>
-            </Reveal>
+              </div>
+            </Reveal>}
           </div>
+          <div className="cv2-evidence-gallery-head"><span>TRAINING EVIDENCE</span><p>모델별 실제 탐지 결과와 학습 곡선을 원본 비율에 맞춰 표시합니다.</p></div>
           <div className="cv2-evidence-gallery">
             {evidenceImages.map(([src, alt, label], index) => (
-              <Reveal as="figure" delay={index * 50} key={src}>
-                <ImageWithFallback src={src} alt={alt} loading="lazy" />
+              <Reveal as="figure" className={index === 0 ? 'is-detection' : 'is-training-graph'} delay={index * 50} key={src}>
+                <div className="cv2-evidence-image"><ImageWithFallback src={src} alt={alt} loading="lazy" /></div>
                 <figcaption>{label}</figcaption>
               </Reveal>
             ))}
