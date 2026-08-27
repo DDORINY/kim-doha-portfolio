@@ -24,10 +24,28 @@ import {
 const hawkAi = projects.find((project) => project.slug === 'hawk-ai')
 const dohaLm = projects.find((project) => project.slug === 'dohalm')
 const heroPipeline = [
-  { label: 'TRAIN', detail: 'Qwen · LoRA / QLoRA' },
-  { label: 'EVALUATE', detail: 'Validation · Evidence' },
-  { label: 'SERVE', detail: 'Runtime · FastAPI' },
-  { label: 'INTEGRATE', detail: 'Backend · Product UI' },
+  { label: 'TRAIN', detail: 'Qwen · LoRA / QLoRA', evidence: 'Dataset · Adapter' },
+  { label: 'EVALUATE', detail: 'Validation', evidence: 'Evaluation Evidence' },
+  { label: 'SERVE', detail: 'FastAPI Runtime', evidence: 'REST · SSE' },
+  { label: 'INTEGRATE', detail: 'Backend · Structured Output', evidence: 'Board · Chat Product UI' },
+] as const
+const codeProjectComparisons = [
+  {
+    code: 'A / SERVICE INTEGRATION',
+    name: 'HAWK-AI',
+    focus: 'Qwen + LoRA 결과를 게시판과 챗봇 기능으로 연결',
+    flow: ['Frontend', 'Backend AI Client', 'FastAPI Serving', 'Qwen + LoRA'],
+    evidence: ['Board Service', 'Structured Output', 'Chat Graph'],
+    path: '/projects/hawk-ai',
+  },
+  {
+    code: 'B / MODEL & RUNTIME',
+    name: 'DohaLM',
+    focus: '데이터 승인부터 학습·평가·Runtime까지 Provider로 분리',
+    flow: ['Dataset', 'Training', 'Evaluation', 'Runtime API'],
+    evidence: ['Dataset Governance', 'Training Pipeline', 'REST / SSE'],
+    path: '/projects/dohalm',
+  },
 ] as const
 
 function StatusBadge({ status }: { status: DevelopmentStatus }) {
@@ -56,13 +74,14 @@ export default function LLM() {
             <span className="eyebrow">LLM ENGINEERING</span>
             <h1 id="llm-page-title">LLM<br /><span>ENGINEERING</span></h1>
             <h2>From training<br />to product integration.</h2>
-            <p>Qwen 기반 Fine-Tuning과 LoRA/QLoRA, 추론 Runtime, FastAPI API, 실제 서비스 연동까지 이어지는 LLM 개발 경험을 정리했습니다.</p>
+            <p>Qwen 기반 Fine-Tuning과 LoRA/QLoRA, FastAPI Runtime, Backend와 실제 제품 기능 연결까지 경험했습니다.</p>
+            <dl className="llm-hero-scope"><div><dt>MODEL</dt><dd>Qwen · LoRA / QLoRA</dd></div><div><dt>RUNTIME</dt><dd>FastAPI · REST / SSE</dd></div><div><dt>PRODUCT</dt><dd>Backend · Structured Output · UI</dd></div></dl>
             <div className="llm-portfolio-tags">{['Qwen', 'LoRA / QLoRA', 'FastAPI', 'Structured Output', 'Service Integration'].map((item) => <span key={item}>{item}</span>)}</div>
             <div className="llm-portfolio-actions"><Link className="button primary" to="/projects/hawk-ai">VIEW HAWK-AI</Link><Link className="button secondary" to="/projects/dohalm">VIEW DohaLM</Link></div>
           </Reveal>
           <Reveal className="llm-hero-pipeline" delay={80} aria-label="LLM engineering workflow">
             <div className="llm-hero-pipeline-head"><span>TECHNICAL FLOW</span><strong>TRAINING TO PRODUCT</strong></div>
-            <ol>{heroPipeline.map((stage, index) => <li key={stage.label}><span>0{index + 1}</span><div><strong>{stage.label}</strong><small>{stage.detail}</small></div>{index < heroPipeline.length - 1 && <i aria-hidden="true">↓</i>}</li>)}</ol>
+            <ol>{heroPipeline.map((stage, index) => <li key={stage.label}><span>0{index + 1}</span><div><strong>{stage.label}</strong><small><b>{stage.detail}</b><em>{stage.evidence}</em></small></div>{index < heroPipeline.length - 1 && <i aria-hidden="true">↓</i>}</li>)}</ol>
           </Reveal>
         </div>
         <Reveal className="container llm-role-band" aria-label="HAWK-AI와 DohaLM 역할 비교">
@@ -151,7 +170,11 @@ export default function LLM() {
       </section>
 
       <section className="section llm-portfolio-cta" aria-labelledby="llm-cta-title">
-        <div className="container"><Reveal className="llm-cta-panel"><div><span className="eyebrow">07 / CODE & PROJECTS</span><h2 id="llm-cta-title">모델에서 제품까지 확인하세요.</h2><p>HAWK-AI는 서비스 통합을, DohaLM은 모델·학습·Runtime 개발을 보여줍니다.</p></div><div><Link className="button primary" to="/projects">VIEW PROJECTS</Link><a className="button secondary" href={repositoryUrl} target="_blank" rel="noreferrer">DohaLM GITHUB <span>↗</span></a></div></Reveal></div>
+        <div className="container">
+          <div className="llm-code-heading"><span className="eyebrow">07 / CODE &amp; PROJECTS</span><h2 id="llm-cta-title">두 프로젝트에서 확인하는 구현 범위</h2><p>서비스 통합과 모델 Runtime을 분리해 실제 코드 근거를 비교합니다.</p></div>
+          <div className="llm-code-project-grid">{codeProjectComparisons.map((project, index) => <Reveal as="article" delay={index * 70} key={project.name}><div className="llm-code-project-head"><span>{project.code}</span><h3>{project.name}</h3><p>{project.focus}</p></div><div className="llm-code-flow">{project.flow.map((item, flowIndex) => <div key={item}><span>0{flowIndex + 1}</span><strong>{item}</strong>{flowIndex < project.flow.length - 1 && <i>→</i>}</div>)}</div><div className="llm-code-evidence"><span>CODE EVIDENCE</span><div>{project.evidence.map((item) => <b key={item}>{item}</b>)}</div></div><Link to={project.path}>VIEW CASE STUDY <span>→</span></Link></Reveal>)}</div>
+          <Reveal className="llm-code-actions"><div><strong>MODEL → RUNTIME → PRODUCT</strong><p>프로젝트 상세에서 역할, 결정, 검증 근거를 이어서 확인할 수 있습니다.</p></div><div><Link className="button primary" to="/projects">VIEW ALL PROJECTS</Link><a className="button secondary" href={repositoryUrl} target="_blank" rel="noreferrer">VIEW GITHUB <span>↗</span></a></div></Reveal>
+        </div>
       </section>
     </div>
   )
